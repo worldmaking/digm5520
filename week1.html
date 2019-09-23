@@ -6,10 +6,7 @@
 
 [Course details](index.html)   
 [Week 1](week1.html)   
-
-<!--
-[Welcome](index.html)
--->
+[Week 2](week2.html) 
 </script>
 <script type="text/markdown" style="display: none" id="bodytext">
 
@@ -81,98 +78,11 @@ Mixed reality (MR) is the merging of real and virtual worlds to produce new envi
 
 ![Galanter Complexity Spectrum](img/galanter_complexity.jpg)
 
-
-<!-- 	
-
-### 10 Questions
-
-McCormack et al. addressed the field by proposing 10 questions for its future. [McCormack, Jon, Oliver Bown, Alan Dorin, Jonathan McCabe, Gordon Monro, and Mitchell Whitelaw. "Ten questions concerning generative computer art." Leonardo 47, no. 2 (2014): 135-141.](http://jonmccormack.info/wp-content/uploads/2012/10/TenQuestionsV3.pdf)
-
-- Can a machine originate anything? *Related to machine intelligence - can a machine generate something new, meaningful, surprising and of value: a poem, an artwork, a useful idea, a solution to a long-standing problem?*
-- What is it like to be a computer that makes art? *If a computer could originate art, what would it be like from the computer's perspective?*
-- Can human aesthetics be formalised?
-- What new kinds of art does the computer enable? *Many generative artworks do not involve digital computers, but what does generative computer art bring that is new?*
-- In what sense is generative art representational, and what is it representing?
-- What is the role of randomness in generative art? *For example, what does the use of randomness say about the place of intentionality in the making of art?*
-- What can computational generative art tell us about creativity? *How could generative art give rise to artefacts and ideas that are new, surprising and valuable?*
-- What characterises good generative art? How can we form a more critical understanding of generative art?
-- What can we learn about art from generative art? *For example, can the art world be considered a complex generative system involving many processes outside the direct control of artists, who are agents of production within a stratified global art market.*
-- What future developments would force us to rethink our answers?
-
-
-Four main components of a generative art system [Dorin, Alan, Jonathan McCabe, Jon McCormack, Gordon Monro, and Mitchell Whitelaw. "A framework for understanding generative art." Digital Creativity 23, no. 3-4 (2012): 239-259.](https://www.researchgate.net/publication/263596638_A_framework_for_understanding_generative_art)
-
-- Entities
-	The subjects on which the artwork's processes act; real or conceptual, simulated, physical, chemical, biological or mechanical.
-	Generally unitary/indivisible, though they have properties and states, and may form hierarchies
-	E.g. agent-based systems (whether monoculture or ecosystemic)
-	Perceived only via a mapping
-
-- Processes
-	May or may not be directly apparent
-	Operate on/by entities, possibly in process hierarchies
-	Describe via:
-	Initial conditions/initialization procedures
-	Possibly termination conditions
-	Continuation methods
-	Micro/macro events
-	Positive & negative feedbacks (cybernetics/regulation)
-	Statistical macrobehaviours/system dynamic tendencies
-
-- Environmental interaction
-	Flows of information between artwork/system and its operating environment
-	In both process of creation and final presentation (if separate)
-	Initial or continual, discrete or continuous, parametric
-	Physical sensors, human interaction, network...
-	Interactions in terms of frequency, range, and significance
-	How system output may influence subsequent input, also in frequency, range, and significance
-	Tweaking, selecting, filtering, rewriting
-
-- Sensory outcomes
-	visual, sonic, musical, literary, sculptural, etc.
-	static: snapshots, accretions, end-states
-	time-based: offline, real-time, interactive
-	multiplicity of results, framing/editing
-	flat: entities/processes are directly visible
-	mapping: transformation into perceptible outcomes, what should be perceived and how it should be mapped
-	natural mappings closely align in structure / entities & process match ontology of outcomes -- but not always possible
-
-**Q**: What is missing from this framework?
-
-#### "Generative art must do more than simply implement formal systems imported from the sciences."
-
-From Dorin et al., "A framework for understanding generative art", 2012.
-
-Generative Art invokes questions of *distributed and non-human creativity.* However, the degree of autonomy in one artwork or another can vary considerably -- along with differing perspectives on the value of an artwork as object, versus its understanding embedded in a social/cultural activity.
-
-	Refer to discussion of role of gen art -- Cramer/Cox/Whitelaw sequence  
-
--->
-
 ## Artificial Nature
 
 (Slideshow)
 
 [Project website](https://artificialnature.net)
-
-
-## Tools & architectures
-
-Through the 10 years of Artificial Nature we have used Processing, Max/MSP/Jitter, Lua, JavaScript, GLSL, C++, OpenFrameworks, Cinder, Unreal Engine, WebGL, and SDKs including Kinect, OpenNI, OpenVR, Oculus, SteamVR, and many many more ... None of them were perfect, every time we are exploring new possibilities. Why?
-
-1. General desire of **liveness**/live-coding: the ability to tweak parameters, replace parts of the system, and even rewrite its algorithms, while it is running. This is because complex systems are hard to predict, and action needs to be taken in context, and inpsipration acted on before the moment is lost.
-
-2. General architecture of MVC (Model, View, Controller), i.e. **separating concerns** of interaction, simulation, and rendering. These systems can get big, and separating into parts helps. 
-
-3. Driver support comes & goes. (Windows has better support than Mac/Linux). SDKs are constantly being updated (e.g. VR). Hardware comes & goes (e.g. many artists are using Kinects, which are no longer even manufactured). We will too. Expect bumpiness. 
-
-4. **Performance** is critical, as we are dealing with real-time, high frame-rates, high resolutions, complex data simulations. Expect to have to rewrite simulations for performance; expect to think about what the CPU and GPU like most. Expect C++ and GLSL etc.
-
-5. Agile development. Make it work, make it right, make it fast. Start with sketches, proofs-of-concept, integrate later. Test early, test often. Work in teams, with sprints and feature-branch workflows. Refactor to reduce, and comment more than code. 
-
-As a result of all this, we'll have to do some software development as we go to create the platform we need. This is research!
-
-We will use [Max](https://cycling74.com) as our entry point, as it has natural liveness, and good general support for many kinds of MR devices, and is fairly easy to extend where we need to. And we probably will need to go beyond Max in developing some parts (using languages including C++, GLSL, and JS). 
 
 
 ## Week 1 Tasks
@@ -183,8 +93,8 @@ We will use [Max](https://cycling74.com) as our entry point, as it has natural l
 
 2. Please read these papers and formulate your thoughts and questions for next week. Two volunteers are needed to lead focused discussions on each of them. That means bringing some in depth insights drawn from the reading, and one or more questions to spark conversation in class about them.
 
-	- [Sutherland, Ivan E. "The ultimate display." Multimedia: From Wagner to virtual reality (1965): 506-508.](http://worrydream.com/refs/Sutherland%20-%20The%20Ultimate%20Display.pdf)
-	- McCormack et al. addressed the field by proposing 10 questions for its future. [McCormack, Jon, Oliver Bown, Alan Dorin, Jonathan McCabe, Gordon Monro, and Mitchell Whitelaw. "Ten questions concerning generative computer art." Leonardo 47, no. 2 (2014): 135-141.](http://jonmccormack.info/wp-content/uploads/2012/10/TenQuestionsV3.pdf)
+	- [Sutherland, Ivan E. "The ultimate display." Multimedia: From Wagner to virtual reality (1965): 506-508.](http://worrydream.com/refs/Sutherland%20-%20The%20Ultimate%20Display.pdf). [Also here](reading/Sutherland - The Ultimate Display.pdf).
+	- McCormack et al. addressed the field by proposing 10 questions for its future. [McCormack, Jon, Oliver Bown, Alan Dorin, Jonathan McCabe, Gordon Monro, and Mitchell Whitelaw. "Ten questions concerning generative computer art." Leonardo 47, no. 2 (2014): 135-141.](http://jonmccormack.info/wp-content/uploads/2012/10/TenQuestionsV3.pdf). [Also here](reading/TenQuestionsConcerningComputerGenerativeArt.pdf).
 
 
 
