@@ -6,10 +6,25 @@
 
 [Course details](index.html)   
 [Week 1](week1.html)   
-[Week 2](week2.html) 
+[Week 2](week2.html)  
+[Week 3](week3.html)   
 </script>
 <script type="text/markdown" style="display: none" id="bodytext">
 
+## Discussion
+
+"The Ultimate Display" & "Ten questions concerning generative computer art"
+
+1. Can a machine originate anything? *Related to machine intelligence - can a machine generate something new, meaningful, surprising and of value: a poem, an artwork, a useful idea, a solution to a long-standing problem?*
+- What is it like to be a computer that makes art? *If a computer could originate art, what would it be like from the computer's perspective?*
+- Can human aesthetics be formalised?
+- What new kinds of art does the computer enable? *Many generative artworks do not involve digital computers, but what does generative computer art bring that is new?*
+- In what sense is generative art representational, and what is it representing?
+- What is the role of randomness in generative art? *For example, what does the use of randomness say about the place of intentionality in the making of art?*
+- What can computational generative art tell us about creativity? *How could generative art give rise to artefacts and ideas that are new, surprising and valuable?*
+- What characterises good generative art? How can we form a more critical understanding of generative art?
+- What can we learn about art from generative art? *For example, can the art world be considered a complex generative system involving many processes outside the direct control of artists, who are agents of production within a stratified global art market.*
+- What future developments would force us to rethink our answers?
 
 ## Tools & architectures
 
@@ -99,14 +114,6 @@ Graphics programming in Max is provided by Jitter objects. 3D Graphics uses Open
 
 [See this great tutorial on how to do more texture processing on the GPU in Jitter](https://cycling74.com/tutorials/best-practices-in-jitter-part-1)
 
-<!--
-Two technical notes in particular:
-
-- Because of the way the GPU does things in parallel, it is expensive to change the current task. It is best to organize things into a small number of hugely parallel tasks if possible.
-- Because the GPU is a separate device from the mainboard of the computer, it is a little slower to upload data to it, and much much slower to download data back to the CPU. 
-	
--->
-
 ## Get the VR Package for Max
 
 To use an Oculus Rift, HTC Vive, or any other SteamVR supported VR headset in Max, you'll need to install the "VR" Max package. This package has been developed in the Alice lab, and [the project source etc. is available on Github here](https://github.com/worldmaking/vr).
@@ -121,89 +128,6 @@ To use an Oculus Rift, HTC Vive, or any other SteamVR supported VR headset in Ma
 *Note: During the semester we might update this package, in which case download again and replace the existing files -- or from git, just `git pull`.*
 
 Once you have it, open the `vr.maxhelp` patcher, and save it somewhere with a new name. This basically functions as a template for VR worlds. It takes care of the world, camera, etc. in such a way that it maps directly to the head-mounted display, and it also handles tracking the hand controllers etc. It also has a `jit.gl.node world` sub-context, which is what we should use for all our objects in the scene. So for example, every `jit.gl.gridshape` should say `jit.gl.gridshape world` or `jit.gl.gridshape @drawto world`.
-
-<!-- 	
-
-
-Four main components of a generative art system [Dorin, Alan, Jonathan McCabe, Jon McCormack, Gordon Monro, and Mitchell Whitelaw. "A framework for understanding generative art." Digital Creativity 23, no. 3-4 (2012): 239-259.](https://www.researchgate.net/publication/263596638_A_framework_for_understanding_generative_art)
-
-- Entities
-	The subjects on which the artwork's processes act; real or conceptual, simulated, physical, chemical, biological or mechanical.
-	Generally unitary/indivisible, though they have properties and states, and may form hierarchies
-	E.g. agent-based systems (whether monoculture or ecosystemic)
-	Perceived only via a mapping
-
-- Processes
-	May or may not be directly apparent
-	Operate on/by entities, possibly in process hierarchies
-	Describe via:
-	Initial conditions/initialization procedures
-	Possibly termination conditions
-	Continuation methods
-	Micro/macro events
-	Positive & negative feedbacks (cybernetics/regulation)
-	Statistical macrobehaviours/system dynamic tendencies
-
-- Environmental interaction
-	Flows of information between artwork/system and its operating environment
-	In both process of creation and final presentation (if separate)
-	Initial or continual, discrete or continuous, parametric
-	Physical sensors, human interaction, network...
-	Interactions in terms of frequency, range, and significance
-	How system output may influence subsequent input, also in frequency, range, and significance
-	Tweaking, selecting, filtering, rewriting
-
-- Sensory outcomes
-	visual, sonic, musical, literary, sculptural, etc.
-	static: snapshots, accretions, end-states
-	time-based: offline, real-time, interactive
-	multiplicity of results, framing/editing
-	flat: entities/processes are directly visible
-	mapping: transformation into perceptible outcomes, what should be perceived and how it should be mapped
-	natural mappings closely align in structure / entities & process match ontology of outcomes -- but not always possible
-
-**Q**: What is missing from this framework?
-
-#### "Generative art must do more than simply implement formal systems imported from the sciences."
-
-From Dorin et al., "A framework for understanding generative art", 2012.
-
-Generative Art invokes questions of *distributed and non-human creativity.* However, the degree of autonomy in one artwork or another can vary considerably -- along with differing perspectives on the value of an artwork as object, versus its understanding embedded in a social/cultural activity.
-
-	Refer to discussion of role of gen art -- Cramer/Cox/Whitelaw sequence  
-
--->
-
-<!--
-
-## Tasks
-
-- Make in Jitter... what?
-
-- Find a really interesting VR project, or a generative/procedural VR project, or both. Add to a google slide deck, with image/link. Make sure you didn't pick something that is already there in someone else's slide. Why is it interesting? How is it generative? How could it be improved?
-
-- Reading: Lanier/Krueger?
-
-- Do 10 Q's again, but this time ask a student each to defend a specific q?
-
-
-### 10 Questions
-
-McCormack et al. addressed the field by proposing 10 questions for its future. [McCormack, Jon, Oliver Bown, Alan Dorin, Jonathan McCabe, Gordon Monro, and Mitchell Whitelaw. "Ten questions concerning generative computer art." Leonardo 47, no. 2 (2014): 135-141.](http://jonmccormack.info/wp-content/uploads/2012/10/TenQuestionsV3.pdf)
-
-1. Can a machine originate anything? *Related to machine intelligence - can a machine generate something new, meaningful, surprising and of value: a poem, an artwork, a useful idea, a solution to a long-standing problem?*
-- What is it like to be a computer that makes art? *If a computer could originate art, what would it be like from the computer's perspective?*
-- Can human aesthetics be formalised?
-- What new kinds of art does the computer enable? *Many generative artworks do not involve digital computers, but what does generative computer art bring that is new?*
-- In what sense is generative art representational, and what is it representing?
-- What is the role of randomness in generative art? *For example, what does the use of randomness say about the place of intentionality in the making of art?*
-- What can computational generative art tell us about creativity? *How could generative art give rise to artefacts and ideas that are new, surprising and valuable?*
-- What characterises good generative art? How can we form a more critical understanding of generative art?
-- What can we learn about art from generative art? *For example, can the art world be considered a complex generative system involving many processes outside the direct control of artists, who are agents of production within a stratified global art market.*
-- What future developments would force us to rethink our answers?
-
-## Pragmatics
--->
 
 ## Tasks
 
