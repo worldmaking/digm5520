@@ -182,6 +182,28 @@ Possible contribution projects:
 
 -->
 
+<!--
+
+Starting with Node 4 Max
+(see patcher notes)
+
+-->
+
+
+<!--
+
+Getting audio <-> jitter
+
+- `jit.peek~` and `jit.poke~` for reading/writing audio signals to/from individual planes (channels) of Jitter matrices
+	- You can choose whether to interpolate between pixels
+
+- `jit.buffer~`: work with audio `buffer~` data as if it were a `jit.matrix`. 
+	- `[jit.buffer~ mysound 500 2]` creates the equivalent of a `[buffer~ mysound 500 2]`, that is a stereo 500ms buffer of audio data called "mysound", that can be used by any MSP audio processing (including in `gen~` via `[buffer mysound]`).
+	- However, it is **also** a 
+
+
+-->
+
 </script>
 
 <link href="css/site.css" media="all" rel="stylesheet" type="text/css" />
