@@ -5,46 +5,80 @@
 #### Fall 2019	
 
 [Course details](index.html)   
-[Week 1](week1.html)   
-[Week 2](week2.html)    
-[Week 3](week3.html)    
-[Week 3](week4.html)    
+[Part 1](part1.html)   
+[Part 2](part2.html)  
+[Part 3](part3.html)   
+[Part 4](part4.html)    
 </script>
 <script type="text/markdown" style="display: none" id="bodytext">
 
 
-## Discussion
+## Discussion & planning
 
-[An Interview with Jaron Lanier, 1989](reading/jaron whole earth review.pdf) and [Responsive Environments, 1977](reading/krueger-ResponsiveEnvironments.pdf).
+- [An Interview with Jaron Lanier, 1989](reading/jaron whole earth review.pdf) 
+- [Responsive Environments, 1977](reading/krueger-ResponsiveEnvironments.pdf)
+	- [Some Krueger videos on Wired](https://www.wired.com/2011/05/augmented-reality-myron-krueger-artificial-reality-lab-1985/)
 
-- [Some Krueger videos on Wired](https://www.wired.com/2011/05/augmented-reality-myron-krueger-artificial-reality-lab-1985/)
+- Sharing your generative geometries / particle systems!
 
+- [Discussion of works based on your slides]([slideshow](https://docs.google.com/presentation/d/1eb0L7pwZYaEOFj_dQb2I-CEB5ABO3ryDL0uGfSwCpTU/edit#slide=id.g645368af72_0_0))
+
+- Discussion of team project roadmap
+
+- Consider roles as parts of an organism
+	- Design	
+		- Concept and context, overall art direction
+		- System architecture design
+		- Interaction design 
+	- Interaction
+		- devices, channels/modalities, ranges, behaviours, critical conditions
+		- filtering & cleaning, analysis
+		- spatial registration of different systems, point cloud processing, etc.
+	- Simulation design 
+		- World-processes, agent-processes, meta-processes; distributed computing)
+		- AI
+		- Networking
+		- Data management (state sharing, data base, data capture/replay)
+		- Analysis (segmentation/gesture recognition, simulation state debugging, self-awareness)
+	- Graphics
+		- Rendering pipelines (e.g. raymarching, PBR/g-buffer shaders, post-fx)
+		- Modeling (environments, objects, agents, avatars, etc.)
+		- Texturing (models, environments, etc.)
+		- Procedural animation (if not via simulation)
+		- Multi-screen rendering (warping for projection system)
+	- Audio
+		- Audio source design (synthesis)
+		- Audio mastering design (mixing, effects)
+		- Spatial audio
+	- Pragmatics
+		- Project management
+		- Hardware rigging
+		- Testing and analysis
+	- Documentation 
+		- Audio-visual: virtual capture, real-world capture, 360?, editing
+		- Written: online presence, article
 
 ## Tasks
 
-- Making
-
-
 - Reading:
 	- [Sommerer, Christa, and Laurent Mignonneau. "Art as a living system: interactive computer artworks." Leonardo 32, no. 3 (1999): 165-173.](reading/sommerer_mignoneau_art_as_living_system.pdf)
+
+	- [Dorin, Alan, Jonathan McCabe, Jon McCormack, Gordon Monro, and Mitchell Whitelaw. "A framework for understanding generative art." Digital Creativity 23, no. 3-4 (2012): 239-259.](https://www.researchgate.net/publication/263596638_A_framework_for_understanding_generative_art). It may be helpful to focus your thought on the section "Four main components of a generative art system".
+
+	
+<!--
 	- [Wei, Sha Xin. "Resistance is fertile: Gesture and agency in the field of responsive media." Configurations 10, no. 3 (2002): 439-472.](reading/wei_resistance_is_fertile.pdf)
 
 
 
-<!--
 
 ## Topics
 
 Intro to VR ? Re-jig with Lanier quotes?
 
-
 Reading: Grau / Metacreation? 
 Davies / Tenhaaf?
 
-
--->
-
-<!--
 
 ## Pragmatics
 	
@@ -53,7 +87,6 @@ Want to get to procedural ASAP.
 - Particle system? Using jit.gen to process particle properties? (or jit.gl.pix to do it?)
 	- will need particles for the Kinect anyway
 	- take IFS example, and port to VR? map controllers onto parameters?
-
 
 - VR interaction
 	- light-painting
@@ -64,9 +97,8 @@ Want to get to procedural ASAP.
 	- make Beat Saber? 
 		- Would mean getting some audio processing in too, some physics, etc.
 
-- Jit.bfg/jit.gen for geometry perhaps. Ask them to make an interesting random shape?
+- Jit.bfg/jit.gen geometry...
 	- maybe to generate landscape?
-	- Needs normals for lighting. Can I explain how to generate normals?
 	- audio-reactive shape?? e.g. a lissajous (e.g. by delay for Y & Z), or a spectral deformation (vasulka-esque), etc.?
 
 - Or maybe getting to know jit.gl.pix to generate some weird textures? 
@@ -85,9 +117,6 @@ Want to get to procedural ASAP.
 		- fractals
 	- object-based
 
--->
-
-<!-- 	
 
 ## Lighting / shading
 
@@ -182,25 +211,37 @@ Possible contribution projects:
 
 -->
 
-<!--
+<!-- 
 
-Starting with Node 4 Max
-(see patcher notes)
+multi-user VR:
+
+- can we use maxhole -- or whatever is the current replacement for that
 
 -->
 
+<!--
+
+Starting with Node 4 Max
+see patcher /script notes
+basically, it can work well, but there will be some latency
+with @defer 1 it won't impact frame rate
+biggest challenge is how to get rich, complex data back & forth
+
+-->
 
 <!--
 
 Getting audio <-> jitter
 
 - `jit.peek~` and `jit.poke~` for reading/writing audio signals to/from individual planes (channels) of Jitter matrices
-	- You can choose whether to interpolate between pixels
+	- You can choose whether to interpolate between pixels.
 
 - `jit.buffer~`: work with audio `buffer~` data as if it were a `jit.matrix`. 
 	- `[jit.buffer~ mysound 500 2]` creates the equivalent of a `[buffer~ mysound 500 2]`, that is a stereo 500ms buffer of audio data called "mysound", that can be used by any MSP audio processing (including in `gen~` via `[buffer mysound]`).
-	- However, it is **also** a 
+	- However, it is **also** a jitter matrix. Set `@outputlength` equal to the number of samples, send an `output` message, and it will output the corresponding matrix. Send a matrix to the input, and it will replace the `buffer~` contents.
 
+- By audio analysis. ZSA in particular for example. 
+	- Convert list <-> matrix via `jit.iter`, `jit.spill`.
 
 -->
 
