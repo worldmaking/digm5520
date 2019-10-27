@@ -1,0 +1,230 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'>
+<title>DIGM5520 / DATT4520: Generative Art in Mixed Reality</title>
+<script type="text/markdown" style="display: none" id="headertext">
+## DIGM5520 / DATT4520: Generative Art in Mixed Reality
+#### Fall 2019	
+
+[Course details](index.html)   
+[Part 1](part1.html)   
+[Part 2](part2.html)  
+[Part 3](part3.html)   
+[Part 4](part4.html)    
+[Part 5](part5.html)    
+</script>
+<script type="text/markdown" style="display: none" id="bodytext">
+
+
+## Discussion & planning
+
+- [Sommerer, Christa, and Laurent Mignonneau. "Art as a living system: interactive computer artworks." Leonardo 32, no. 3 (1999): 165-173.](reading/sommerer_mignoneau_art_as_living_system.pdf)
+- [Dorin, Alan, Jonathan McCabe, Jon McCormack, Gordon Monro, and Mitchell Whitelaw. "A framework for understanding generative art." Digital Creativity 23, no. 3-4 (2012): 239-259.](https://www.researchgate.net/publication/263596638_A_framework_for_understanding_generative_art). It may be helpful to focus your thought on the section "Four main components of a generative art system".
+- [An Interview with Jaron Lanier, 1989](reading/jaron whole earth review.pdf) 
+- [Responsive Environments, 1977](reading/krueger-ResponsiveEnvironments.pdf)
+	- [Some Krueger videos on Wired](https://www.wired.com/2011/05/augmented-reality-myron-krueger-artificial-reality-lab-1985/)
+
+- Sharing your generative geometries / particle systems!
+
+## Tasks
+
+
+<!--
+	- [Wei, Sha Xin. "Resistance is fertile: Gesture and agency in the field of responsive media." Configurations 10, no. 3 (2002): 439-472.](reading/wei_resistance_is_fertile.pdf)
+
+
+
+
+## Topics
+
+Intro to VR ? Re-jig with Lanier quotes?
+
+Reading: Grau / Metacreation? 
+Davies / Tenhaaf?
+
+
+## Pragmatics
+	
+Want to get to procedural ASAP. 
+
+- Particle system? Using jit.gen to process particle properties? (or jit.gl.pix to do it?)
+	- will need particles for the Kinect anyway
+	- take IFS example, and port to VR? map controllers onto parameters?
+
+- VR interaction
+	- light-painting
+		- first with particles, then boxes, ribbons, volumes, ...
+		- generative: extend the gesture somehow, e.g. oscillating, mass-spring
+	- play with delay on gesture?
+	- teleporting
+	- make Beat Saber? 
+		- Would mean getting some audio processing in too, some physics, etc.
+
+- Jit.bfg/jit.gen geometry...
+	- maybe to generate landscape?
+	- audio-reactive shape?? e.g. a lissajous (e.g. by delay for Y & Z), or a spectral deformation (vasulka-esque), etc.?
+
+- Or maybe getting to know jit.gl.pix to generate some weird textures? 
+
+- soon we'll also need camera for marker tracking
+	- using Kinect for this too
+	- mainly about coordinate spaces
+
+- Getting to chemotaxis
+	- needs agents, figuring out relationships between them
+	- needs some kind of field display (particles/cloud/isosurface)
+		- better to do it in 2D first, somehow; maybe textured onto the floor?
+
+- Raymarching rendering	
+	- screen-quad style (i.e. porting shadertoys)
+		- fractals
+	- object-based
+
+
+## Lighting / shading
+
+Some places to get free HDR environments:
+
+- [HDR Labs](http://hdrlabs.com/sibl/archive.html)
+- [HDRI-Hub](https://www.hdri-hub.com/hdrishop/freesamples/freehdri)
+
+- See [this tutorial](https://www.youtube.com/watch?v=7ygquC9I4aA) for using CrazyBump to generate normal maps etc. from an arbitrary image. 
+
+## Shaders in Max
+
+Shaders are programs that run on the GPU and process large amounts of data in parallel in a user-defined way. Normally they are written in code, using a 'shader language'. OpenGL's standard shader language is called GLSL. 
+
+Shaders are mostly used for two purposes:
+
+1. **To process textures**. Mostly this means a **fragment shader** program operates on each 'texel' (texture-pixel) of a texture, determining its output colour. 
+	- In Max this can be done via a `jit.gl.pix`, which lets us visually patch operations together like in Max, 
+	- or via `jit.gl.slab`, by writing code in GLSL. 
+2. **To transform & light geometry**. A **vertex shader** defines a program that operates on each vertex of the geometry, setting its position in the window, and potentially other attributes such as color, normals, texture coordinates, and user-defined things. This is paired with a **fragment shader**, which defines a program to operate on each 'fragment' (you can think of it as a pixel of the image), receiving data from the vertex shader and using it to determine the final color of the fragment (and potentially other properties of the fragment, such as depth).
+	- In Max this is done via `jit.gl.shader`, by writing code in GLSL. 
+
+### GLSL in Max (JSX files)
+
+GLSL is the shading language used by OpenGL. Max adds some additional features to make it easier to use.
+
+- [Complete reference of the Max JSX format](https://docs.cycling74.com/max8/tutorials/jitterchapter99_appendixc) -- an invaluable resource!
+
+-->
+
+
+<!-- 	
+
+Four main components of a generative art system [Dorin, Alan, Jonathan McCabe, Jon McCormack, Gordon Monro, and Mitchell Whitelaw. "A framework for understanding generative art." Digital Creativity 23, no. 3-4 (2012): 239-259.](https://www.researchgate.net/publication/263596638_A_framework_for_understanding_generative_art)
+
+- Entities
+	The subjects on which the artwork's processes act; real or conceptual, simulated, physical, chemical, biological or mechanical.
+	Generally unitary/indivisible, though they have properties and states, and may form hierarchies
+	E.g. agent-based systems (whether monoculture or ecosystemic)
+	Perceived only via a mapping
+
+- Processes
+	May or may not be directly apparent
+	Operate on/by entities, possibly in process hierarchies
+	Describe via:
+	Initial conditions/initialization procedures
+	Possibly termination conditions
+	Continuation methods
+	Micro/macro events
+	Positive & negative feedbacks (cybernetics/regulation)
+	Statistical macrobehaviours/system dynamic tendencies
+
+- Environmental interaction
+	Flows of information between artwork/system and its operating environment
+	In both process of creation and final presentation (if separate)
+	Initial or continual, discrete or continuous, parametric
+	Physical sensors, human interaction, network...
+	Interactions in terms of frequency, range, and significance
+	How system output may influence subsequent input, also in frequency, range, and significance
+	Tweaking, selecting, filtering, rewriting
+
+- Sensory outcomes
+	visual, sonic, musical, literary, sculptural, etc.
+	static: snapshots, accretions, end-states
+	time-based: offline, real-time, interactive
+	multiplicity of results, framing/editing
+	flat: entities/processes are directly visible
+	mapping: transformation into perceptible outcomes, what should be perceived and how it should be mapped
+	natural mappings closely align in structure / entities & process match ontology of outcomes -- but not always possible
+
+**Q**: What is missing from this framework?
+
+#### "Generative art must do more than simply implement formal systems imported from the sciences."
+
+From Dorin et al., "A framework for understanding generative art", 2012.
+
+Generative Art invokes questions of *distributed and non-human creativity.* However, the degree of autonomy in one artwork or another can vary considerably -- along with differing perspectives on the value of an artwork as object, versus its understanding embedded in a social/cultural activity.
+
+	Refer to discussion of role of gen art -- Cramer/Cox/Whitelaw sequence  
+
+-->
+
+<!--
+
+Possible contribution projects:
+
+- port PBR from Three.js
+	- https://threejs.org/docs/#api/en/materials/MeshStandardMaterial
+	- https://threejs.org/docs/#api/en/materials/MeshPhysicalMaterial
+
+- implement a g-buffer based rendering workflow
+
+-->
+
+<!-- 
+
+multi-user VR:
+
+- can we use maxhole -- or whatever is the current replacement for that
+
+-->
+
+<!--
+
+Starting with Node 4 Max
+see patcher /script notes
+basically, it can work well, but there will be some latency
+with @defer 1 it won't impact frame rate
+biggest challenge is how to get rich, complex data back & forth
+
+-->
+
+<!--
+
+Getting audio <-> jitter
+
+- `jit.peek~` and `jit.poke~` for reading/writing audio signals to/from individual planes (channels) of Jitter matrices
+	- You can choose whether to interpolate between pixels.
+
+- `jit.buffer~`: work with audio `buffer~` data as if it were a `jit.matrix`. 
+	- `[jit.buffer~ mysound 500 2]` creates the equivalent of a `[buffer~ mysound 500 2]`, that is a stereo 500ms buffer of audio data called "mysound", that can be used by any MSP audio processing (including in `gen~` via `[buffer mysound]`).
+	- However, it is **also** a jitter matrix. Set `@outputlength` equal to the number of samples, send an `output` message, and it will output the corresponding matrix. Send a matrix to the input, and it will replace the `buffer~` contents.
+
+- By audio analysis. ZSA in particular for example. 
+	- Convert list <-> matrix via `jit.iter`, `jit.spill`.
+
+-->
+
+</script>
+
+<link href="css/site.css" media="all" rel="stylesheet" type="text/css" />
+<link href="css/highlight.default.css" media="all" rel="stylesheet" type="text/css" />
+<script src="js/showdown.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="wrapper">
+	<div class="header">
+		<script type="text/javascript">
+			document.write(new Showdown.converter().makeHtml(document.getElementById('headertext').innerHTML));
+		</script>
+	</div>
+	<div class="section">
+		<script type="text/javascript">
+		document.write(new Showdown.converter().makeHtml(document.getElementById('bodytext').innerHTML));
+		</script>
+	</div>
+	<div class="footer">Graham Wakefield, 2019</div>	
+</div>
+</body>
+</html>
