@@ -1,0 +1,231 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'>
+<title>DIGM5520 / DATT4520: Generative Art in Mixed Reality</title>
+<script type="text/markdown" style="display: none" id="headertext">
+## DIGM5520 / DATT4520: Generative Art in Mixed Reality
+#### Fall 2019	
+
+[Course details](index.html)   
+[Part 1](part1.html)   
+[Part 2](part2.html)  
+[Part 3](part3.html)   
+[Part 4](part4.html)    
+[Part 5](part5.html)    
+[Part 6](part6.html)    
+</script>
+<script type="text/markdown" style="display: none" id="bodytext">
+
+## Shaders in Max
+
+Shaders are programs that run on the GPU and process large amounts of data in parallel in a user-defined way. Normally they are written in code, using a 'shader language'. OpenGL's standard shader language is called GLSL. 
+
+Shaders are mostly used for two purposes:
+
+1. **To process textures**. Mostly this means a **fragment shader** program operates on each 'texel' (texture-pixel) of a texture, determining its output colour. 
+	- In Max this can be done via a `jit.gl.pix`, which lets us visually patch operations together like in Max, 
+	- or via `jit.gl.slab`, by writing code in GLSL. 
+2. **To transform & light geometry**. A **vertex shader** defines a program that operates on each vertex of the geometry, setting its position in the window, and potentially other attributes such as color, normals, texture coordinates, and user-defined things. This is paired with a **fragment shader**, which defines a program to operate on each 'fragment' (you can think of it as a pixel of the image), receiving data from the vertex shader and using it to determine the final color of the fragment (and potentially other properties of the fragment, such as depth).
+	- In Max this is done via `jit.gl.shader`, by writing code in GLSL. 
+
+Open the Max file browser and type in "jxs"; open any of the maxpat or maxhelp files that come up, find the `jit.gl.slab` or `jit.gl.shader` object, and double-click to open the editor.
+
+### Shaders in OpenGL
+
+The following links are helpful in explaining how shaders work in OpenGL. Note that these are for OpenGL 3.3, which is higher than the GL version we are using currently; the theory remains the same, but the syntax has changed somewhat.
+
+- [The OpenGL pipeline, and where shaders can fit](https://learnopengl.com/Getting-started/Hello-Triangle)
+
+- [What is object space, world space, view space, clip space, NDC space...](https://learnopengl.com/Getting-started/Coordinate-Systems)
+
+### GLSL in Max (JSX files)
+
+GLSL is the shading language used by OpenGL. Max adds some additional features to make it easier to use.
+
+- [Complete reference of the Max JSX format](https://docs.cycling74.com/max8/tutorials/jitterchapter99_appendixc) -- an invaluable resource!
+
+
+#### Quick reference for the GLSL language
+
+- [The full GLSL 120 specification](https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.1.20.pdf)
+
+- **attribtues:** paramaters that can be different for each vertex, e.g. position, normal, texture coordinate, colour, etc.
+- **uniforms**: parameters that have the same value for each vertex/fragment
+- **varyings**: parameters that are sent from the vertex shader through to the fragment shader
+
+```GLSL 
+// vec2, vec3, vec4 etc.
+vec2 v2 = new vec2(0., 1.);
+vec4 v4 = new vec4(0., 1., -1., 0.5);
+vec4 v4 = new vec4(v2, v2);
+vec2 v2 = v4.xy; // or v4.zw or v4.ww etc.
+vec3 v3 = v4.rgb; // or vec3(v4);
+float r = v4[0]; // or v4.r
+
+// mat2, mat3, mat4 etc.
+vec4 pos = gl_ModelViewMatrix * gl_Vertex;
+vec4 trans = gl_ModelViewMatrix[3]; 
+
+// functions (most work on float, vec2, vec3, etc.)
+radians(), degrees(),
+sin(), cos(), etc. Note: both atan(y/x), atan(y, x)
+pow(), exp(), log(), etc., also inversesqrt()
+abs(), floor(), min() etc., also: sign(), fract()
+clamp(x, min, max), mix(x, y, a), 
+step(edge, x) // 0.0 if x < edge, otherwise 1.0
+smoothstep(a, b, x) // smooth curve from 0..1 as x moves between a and b
+length(vec), normalize(vec), 
+distance(vec, vec), dot(vec, vec), cross(vec3, vec3), 
+faceforward(), reflect(), refract(),
+
+
+// These uniforms are already built-in and available to the shaders:
+uniform mat4  gl_ModelViewMatrix;
+uniform mat4  gl_ProjectionMatrix;
+uniform mat4  gl_ModelViewProjectionMatrix;
+uniform mat4  gl_TextureMatrix[gl_MaxTextureCoords];
+
+// inverse-transpose of the rotation & scale of modelview
+// (usually used to turn object-space normals into view-space normals)
+uniform mat3  gl_NormalMatrix; 
+
+// inverse and transpose variants of these are also available:
+uniform mat4  gl_ModelViewMatrixInverse;
+uniform mat4  gl_ProjectionMatrixInverse;
+uniform mat4  gl_ModelViewProjectionMatrixInverse;
+uniform mat4  gl_TextureMatrixInverse[gl_MaxTextureCoords];
+uniform mat4  gl_ModelViewMatrixTranspose;
+uniform mat4  gl_ProjectionMatrixTranspose;
+uniform mat4  gl_ModelViewProjectionMatrixTranspose;
+uniform mat4  gl_TextureMatrixTranspose[gl_MaxTextureCoords];
+uniform mat4  gl_ModelViewMatrixInverseTranspose;
+uniform mat4  gl_ProjectionMatrixInverseTranspose;
+uniform mat4  gl_ModelViewProjectionMatrixInverseTranspose;
+uniform mat4  gl_TextureMatrixInverseTranspose[gl_MaxTextureCoords];
+
+// details of the near & far clipping planes:
+uniform float gl_DepthRange.near;
+uniform float gl_DepthRange.far;
+uniform float gl_DepthRange.diff; // (far - near)
+
+// for each light source 0..7 (use jit.gl.light in Max to configure them)
+uniform vec4 gl_LightSource[0].diffuse;
+uniform vec4 gl_LightSource[0].ambient;
+uniform vec4 gl_LightSource[0].specular;
+uniform vec4 gl_LightSource[0].position;
+uniform vec4 gl_LightSource[0].halfVector;
+uniform vec3 gl_LightSource[0].spotDirection;
+uniform float gl_LightSource[0].spotExponent;
+uniform float gl_LightSource[0].spotCutoff;
+uniform float gl_LightSource[0].spotCosCutoff;
+uniform float gl_LightSource[0].constantAttenuation;
+uniform float gl_LightSource[0].linearAttenuation;
+uniform float gl_LightSource[0].quadraticAttenuation;
+```
+
+#### Vertex shaders
+
+```GLSL
+
+// position of vertex (geometry in object space)
+attribute vec4 gl_Vertex	
+
+// primary color of vertex (e.g. @color attribute of a jit.gl.gridshape)
+attribute vec4 gl_Color
+
+// direction perpendicular to surface at vertex (needed for lighting)
+attribute vec3 gl_Normal
+
+// Texture coordinate of first bound texture (unit 0)
+attribute vec4 gl_MultiTexCoord0 // also gl_MultiTexCoord1 etc. to gl_MultiTexCoord7 for other bound textures
+
+// MUST assign to this to set the clip-space position of the vertex (normally in -1..1 range)
+// most typically, `gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex`
+vec4 gl_Position 
+
+// can assign in Vertex shader:
+varying vec4  gl_FrontColor;
+varying vec4  gl_BackColor;
+varying vec4  gl_TexCoord[n];  // n = 0..7
+varying float gl_FogFragCoord;
+```
+
+#### Fragment Shaders
+
+```GLSL
+// gives the coordinate in fragment-space
+// gl_FragCoord.xy is relative to display size (pixels/texels etc.)
+// gl_FragCoord.z gives the computed depth coordinate
+vec4  gl_FragCoord;
+
+// e.g. gl_FragCoord.xy / u_viewport for normalized screen coordinates
+// (assuming <param name="u_viewport" type="vec2" state="VIEWPORT" /> is bound to the fragment program)
+
+// whether vertex appears to be facing toward or away from camera 
+bool  gl_FrontFacing;
+
+// MUST assign to this to set the final colour (rgba, 0..1):
+vec4 gl_FragColor; // aka gl_FragData[0]
+
+// when drawing to multiple output buffers (e.g. @capture is greater than 1)
+vec4 gl_FragData[1], ...
+
+// explicitly set depth coordinate (rarely needed)
+float gl_FragDepth;
+
+// a special command that tells the render to skip this fragment
+discard; 	
+
+// built-in varyings available if written from Vertex shader:
+varying vec4  gl_Color;   // written by gl_FrontColor or gl_BackColor as appropriate
+varying vec4  gl_TexCoord[n];  // n = 0..7
+```
+
+## Textured points, and points of different sizes
+
+Search for gm.billboard.jxs in the File Browser. 
+
+## Adding custom attributes to a mesh
+
+You can also attach other data to each vertex of a mesh (other than position, texcoord, normals, etc.)
+
+Use the `vertex_attr_matrix` message of `jit.gl.mesh`.
+
+
+## Resources
+
+Some places to get free HDR environments:
+
+- [HDR Labs](http://hdrlabs.com/sibl/archive.html)
+- [HDRI-Hub](https://www.hdri-hub.com/hdrishop/freesamples/freehdri)
+
+Some places to get better textures for materials:
+
+- [Free materials on FreePBR](https://freepbr.com)
+- See [this tutorial](https://www.youtube.com/watch?v=7ygquC9I4aA) for using CrazyBump to generate normal maps etc. from an arbitrary image. 
+- Or use Substance Designer, exporting textures
+
+## Deferred rendering (AKA the G-Buffer)
+
+TODO
+
+</script>
+
+<link href="css/site.css" media="all" rel="stylesheet" type="text/css" />
+<link href="css/highlight.default.css" media="all" rel="stylesheet" type="text/css" />
+<script src="js/showdown.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="wrapper">
+	<div class="header">
+		<script type="text/javascript">
+			document.write(new Showdown.converter().makeHtml(document.getElementById('headertext').innerHTML));
+		</script>
+	</div>
+	<div class="section">
+		<script type="text/javascript">
+		document.write(new Showdown.converter().makeHtml(document.getElementById('bodytext').innerHTML));
+		</script>
+	</div>
+	<div class="footer">Graham Wakefield, 2019</div>	
+</div>
+</body>
+</html>

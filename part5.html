@@ -10,6 +10,7 @@
 [Part 3](part3.html)   
 [Part 4](part4.html)    
 [Part 5](part5.html)    
+[Part 6](part6.html)    
 </script>
 <script type="text/markdown" style="display: none" id="bodytext">
 
@@ -141,38 +142,6 @@ Want to get to procedural ASAP.
 		- fractals
 	- object-based
 
-
-## Lighting / shading
-
-Some places to get free HDR environments:
-
-- [HDR Labs](http://hdrlabs.com/sibl/archive.html)
-- [HDRI-Hub](https://www.hdri-hub.com/hdrishop/freesamples/freehdri)
-
-- See [this tutorial](https://www.youtube.com/watch?v=7ygquC9I4aA) for using CrazyBump to generate normal maps etc. from an arbitrary image. 
-
-## Shaders in Max
-
-Shaders are programs that run on the GPU and process large amounts of data in parallel in a user-defined way. Normally they are written in code, using a 'shader language'. OpenGL's standard shader language is called GLSL. 
-
-Shaders are mostly used for two purposes:
-
-1. **To process textures**. Mostly this means a **fragment shader** program operates on each 'texel' (texture-pixel) of a texture, determining its output colour. 
-	- In Max this can be done via a `jit.gl.pix`, which lets us visually patch operations together like in Max, 
-	- or via `jit.gl.slab`, by writing code in GLSL. 
-2. **To transform & light geometry**. A **vertex shader** defines a program that operates on each vertex of the geometry, setting its position in the window, and potentially other attributes such as color, normals, texture coordinates, and user-defined things. This is paired with a **fragment shader**, which defines a program to operate on each 'fragment' (you can think of it as a pixel of the image), receiving data from the vertex shader and using it to determine the final color of the fragment (and potentially other properties of the fragment, such as depth).
-	- In Max this is done via `jit.gl.shader`, by writing code in GLSL. 
-
-### GLSL in Max (JSX files)
-
-GLSL is the shading language used by OpenGL. Max adds some additional features to make it easier to use.
-
-- [Complete reference of the Max JSX format](https://docs.cycling74.com/max8/tutorials/jitterchapter99_appendixc) -- an invaluable resource!
-
--->
-
-
-<!-- 	
 
 
 #### "Generative art must do more than simply implement formal systems imported from the sciences."
