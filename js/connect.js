@@ -67,4 +67,6 @@ class Socket {
     }
 };
 
-let sock = new Socket()
+if (window.location.hostname == "localhost") {
+    new Socket()
+}

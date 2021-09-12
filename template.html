@@ -16,17 +16,30 @@ header {
 	font-size: 75%;
 	padding: 0.5em;
 }
-
 footer {
 	background-color:#f5f5f5;
 	font-size: 75%;
 	padding: 0.5em;
 }
+.responsive-google-slides {
+    position: relative;
+    padding-bottom: 60%; /* 16:9 Ratio = 56.25%, 4:3 ratio = 75% */
+    height: 0;
+    overflow: hidden;
+}
+.responsive-google-slides iframe {
+	border: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100% !important;
+	height: 100% !important;
+}
 </style>
+<script src="https://unpkg.com/@stackblitz/sdk/bundles/sdk.umd.js"></script>
 </head>
-
 <body class="centremaxwidth960">
-<header><a href="index.html">Foundations of Digital Media</a></header>
+<header><a href="index.html">DATT4520 & DIGM5520: Generative Art in Mixed Reality / Spatial Computing in Responsive Environments</a></header>
 ${toc}
 ${body}
 <footer>DATT4520/DIGM5520 2021-22</footer>

@@ -73,7 +73,16 @@ function generate(file) {
 		// auto-embed codepens:
 		.replace(/\n---codepen:https?:\/\/codepen.io\/+([^\/]+)\/pen\/([^\/\n]+)\/?/g, 
 			`<p class="codepen" data-height="520" data-default-tab="js,result" data-user="$1" data-slug-hash="$2" data-preview="true"><span><a href="https://codepen.io/$1/pen/$2">Open pen.</a></span></p><script async src="https://static.codepen.io/assets/embed/ei.js"></script>`)
-
+		// auto-embed google slides:
+		.replace(/\nhttps?:\/\/docs.google.com\/presentation\/d\/([^\n\r\/]+)[^\n\r]*/g,
+			`<div class="responsive-google-slides"><iframe src="https://docs.google.com/presentation/d/$1/embed" frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe></div>`)
+		// auto-embed stackblitz
+		.replace(/\nhttps?:\/\/stackblitz.com\/edit\/([^\n\r\/]+)[^\n\r]*/g,
+		`
+<div id="$1">$1</div>
+<script>
+StackBlitzSDK.embedProjectId('$1','$1',{ openFile: 'index.html', theme: 'light', width: "100%", height: "50%", hideExplorer: true, hideNavigation: true, forceEmbedLayout: true, clickToLoad: true, view: "editor" });
+</script>`)
 	}
 	
 	let toc = []
@@ -112,7 +121,11 @@ function generate(file) {
 	return writename;
 }
 
-console.log("written:", fs.readdirSync(server_path, "utf8").map(file=>path.parse(file)).filter(file=>file.ext==".md").map(generate))
+function generateAll() {
+	console.log("written:", fs.readdirSync(server_path, "utf8").map(file=>path.parse(file)).filter(file=>file.ext==".md").map(generate))
+}
+generateAll();
+
 
 // watch for file changes:
 fs.watch(server_path, (event, filename)=>{
@@ -122,6 +135,9 @@ fs.watch(server_path, (event, filename)=>{
 		console.log("generating", file)
 		generate(file);
 		send_all_clients("reload")
+	} else if (filename == "template.html") {
+		// rebuild everything:
+		generateAll()
 	}
 })
 
