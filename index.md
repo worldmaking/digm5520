@@ -21,18 +21,18 @@ Instructor: [Graham Wakefield](https://ampd.yorku.ca/profile/graham-wakefield/) 
 
 | Week                        | Class | Due | 
 | :--                         | :--     | :-- |
-| Sep 14: [Week 1](#week-1)   | [Overview](course.html), [Project](project.html), [WebXR](webxr.html), [Three.js](three.html) | [Survey](https://forms.gle/aMokgKGcSbigzbwf6) |
-| Sep 21: [Week 2](#week-2)   |  | Three.js sketches; questions |
-| Sep 28: [Week 3](#week-3)   |  |  |
-| Oct 05: [Week 4](#week-4)   | Dev Milestone A: MVP | MVP |
+| Sep 14: [Week 1](#week-1)   | [Overview](course.html), [Project](project.html), [Three.js](three.html) | [Survey](https://forms.gle/aMokgKGcSbigzbwf6) |
+| Sep 21: [Week 2](#week-2)   | Intro to VR, [Project Planning](project.html), [Three.js topics](three.html) | Three.js sketches; questions |
+| Sep 28: [Week 3](#week-3)   | Development sprint | Project prototypes; questions |
+| Oct 05: [Week 4](#week-4)   | Dev Milestone MVP: A telematic world | MVP |
 | Oct 12: [Reading Week](#reading-week)   |  |  |
 | Oct 19: [Week 5](#week-5)   |  |  |
 | Oct 26: [Week 6](#week-6)   |  |  |
-| Nov 02: [Week 7](#week-7)   | Dev Milestone B |  |
+| Nov 02: [Week 7](#week-7)   | Dev Milestone: Improvising worlds |  |
 | Nov 09: [Week 8](#week-8)   |  |  |
 | Nov 16: [Week 9](#week-9)   |  |  |
 | Nov 23: [Week 10](#week-10)   |  |  |
-| Nov 30: [Week 11](#week-11)   | Dev Milestone C |  |
+| Nov 30: [Week 11](#week-11)   | Dev Milestone: Online Gallery |  |
 | Dec 07: [Week 12](#week-12)   | Exhibition Opening |  |
 | Dec 14:  | | Final Paper |
 
@@ -42,20 +42,92 @@ Instructor: [Graham Wakefield](https://ampd.yorku.ca/profile/graham-wakefield/) 
 
 - [Course overview](course.html)
 - This year's project: ["WebXR Studio"](project.html)
-- All about VR and [WebXR](webxr.html) 
 - **Break:** **[Please complete this survey](https://forms.gle/aMokgKGcSbigzbwf6)**
 - Sign up for a free account on [Github](https://github.com) (if you haven't already got one), and then connect it to [Stackblitz](https://stackblitz.com). 
 - First coding with [Three.js](three.html)
 - Homework: Build your first Three.js scene!
   - Use the [Three.js docs](https://threejs.org/docs/) to explore the possibilities
 
-<!--
+
 ### Week 2
+
+- An introduction to VR: history, psychology, technology, art
+- Project planning
+
+<!--
+
+- All about VR and [WebXR](webxr.html) 
+
+
+
+Technical baseline / template / engine to provide all the basic requirements for a project
+High-level “blocks” (education materials, and/or components) to build common needs quickly
+Server compute to negotiate shared experiences. Suggest Node.js capability to keep things in a single language.
+Now WebXR requires secure HTTPS hosting and other security settings (e.g. allow=”vr” on iframe). That means we need a bit more framing setup to get custom projects going. (These challenges also hold for anything that is exporting to web (unity etc.))
+How to hyperlink between sites (even on different domains) without exiting VR? (This was possible in WebVR, haven’t tested WebXR yet)
+Hot loading assets is fairly straightforward, but how to hot-load code in an XR session? Basic capacity exists in JS (new Function etc.) but some software design needed. 
+Assets have to download / stream to client. Better to structure experience such that waiting is minimized, and background load things that aren’t needed immediately. (Like 90’s web). 
+
+
 
 ### Week 4
 
 **Milestone A: Minimum Viable Product**
 
+
+
+<!--
+
+
+
+## What is Generative Art? 
+
+*...and Generative Music, Generative Architecture, etc...*
+
+> Generative Art refers to any art practice where the artist uses a system, such as a set of natural language rules a computer program, a machine, or other procedural invention, which is then set into motion with some degree of autonomy to or resulting in a complex work of art (Philip Galanter).
+
+> "Generative art is a term given to work which stems from concentrating on the processes involved in producing an artwork, usually (although not strictly) automated by the use of a machine or computer, or by using mathematic or pragmatic instructions to define the rules by which such artworks are executed." Adrian Ward, 1999, on the eu-gene mailing list welcome page.
+
+> "In essence, all generative art focuses on the process by which an artwork is made and this is required to have a degree of autonomy and independence from the artist who defines it." [McCormack, Jon, Oliver Bown, Alan Dorin, Jonathan McCabe, Gordon Monro, and Mitchell Whitelaw. "Ten questions concerning generative computer art." Leonardo 47, no. 2 (2014): 135-141.](http://jonmccormack.info/wp-content/uploads/2012/10/TenQuestionsV3.pdf)
+
+> See [more definitions here](http://www.generative.net/read/definitions)
+
+**Q:** How do you make art outside your own control?
+
+**Autonomous systems** used in generative art have included:
+
+- sets of rules or procedures: algorithms and games
+- geometries and symmetries
+- abstract mathematical or logical models
+- mechanics and kinetics
+- materials behaviors (such as fluid flow or chemical reactions)
+- relationships and navigations in huge data-sets
+- randomization, probability, statistics
+- interactions between, and interpretations by, multiple agents
+
+**Not just with computers.** Although "Generative Art" is often used to refer to computer-generated artwork that is algorithmically determined, the definition makes no reference of computers, and arguably generative artworks have existed throughout human history. Composers used strict rule systems (the counterpoint of Bach, the serialism of Schoenberg) as well as chance (the dice-game of Mozart and chance operations of Cage). Pointilism, cubism, and other abstractions in painting are rule-based constraints. Many art theorists refer to Sol LeWitt's textual instructions, to be carried out by others; a direction also explored in alternative scores in music. One might also mention kinetic sculpture and generative texts (particularly the Oulipo group), or the pattern-based arts of Islamic tiling and weaving, Celtic knots, and other traditional arts.
+
+![Sol Lewitt #797 instructions](img/Lewitt-instruction2-420x315.jpg) ![Sol Lewitt #797 instructions](img/Lewitt-result2-420x315.jpg)
+
+**Is all art generative?** The term generative is usually used for art in which these systems play a major role in the work, with significant autonomy from the artist's urges. **Q:** Is procedural content generation generative art?
+
+
+**Computational technology revolutionized generative art.** The computer brings new ideas and possibilities that were previously been impossible or impractical to realise -- making it *qualitatively* different. Notably, a great deal of the earliest computer art was also generative. **Q:** Is generative art is one of the most essential forms of computational art? **Q:** What are the most singular features of computational media -- that is, what differentiates it from most other media?
+
+
+### Complexity 
+
+[Galanter, Philip. "What is generative art? Complexity theory as a context for art theory." In In GA2003–6th Generative Art Conference. 2003.](http://philipgalanter.com/downloads/ga2003_what_is_genart.pdf) Galanter locates generative art in terms of scientificy complexity theory, placing it at the peak of complexity in the order/disorder spectrum, where information processing is maximised, and both entropy and compressibility are minimized. This is comparable to the peak in physical complexity between orderly and chaotic matter, where the organizations of living systems are found. 
+
+![Galanter Complexity Spectrum](img/galanter_complexity.jpg)
+
+
+Please read these papers and formulate your thoughts and questions for next week. Two volunteers are needed to lead focused discussions on each of them. That means bringing some in depth insights drawn from the reading, and one or more questions to spark conversation in class about them.
+
+	- [Sutherland, Ivan E. "The ultimate display." Multimedia: From Wagner to virtual reality (1965): 506-508.](http://worrydream.com/refs/Sutherland%20-%20The%20Ultimate%20Display.pdf). [Also here](reading/Sutherland - The Ultimate Display.pdf).
+	- McCormack et al. addressed the field by proposing 10 questions for its future. [McCormack, Jon, Oliver Bown, Alan Dorin, Jonathan McCabe, Gordon Monro, and Mitchell Whitelaw. "Ten questions concerning generative computer art." Leonardo 47, no. 2 (2014): 135-141.](http://jonmccormack.info/wp-content/uploads/2012/10/TenQuestionsV3.pdf). [Also here](reading/TenQuestionsConcerningComputerGenerativeArt.pdf).
+
+-->
 
 -->
 
