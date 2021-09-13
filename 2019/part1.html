@@ -1,81 +1,47 @@
-# Spatial Computing in Responsive Environments
+<!DOCTYPE html><html><head><meta charset='utf-8'>
+<title>DIGM5520 / DATT4520: Generative Art in Mixed Reality</title>
+<script type="text/markdown" style="display: none" id="headertext">
+## DIGM5520 / DATT4520: Generative Art in Mixed Reality
+#### Fall 2019	
 
-*Also known as "Generative Art in Mixed Reality" (both titles are used in York U course catalogs)*
-
-**Synopsis:** This practice-based course develops computationally literate art practices addressing 3D spaces of mixed reality as creative media, applying the interactive malleability of computation to understand, create and imagine new kinds of artistic, responsive, and generative worlds. That is, it addresses the spatialization of interactive computation, such that every part of peripersonal space around participants, in physical and virtual worlds, is rife with responsive behaviour.
-
-[Zoom meeting](https://yorku.zoom.us/j/94516869391?pwd=cWEyN0JIUFAvYU9xdmVmUXBhdXlxdz09), Tuesdays, 1pm, beginning September 14.
-
-<!-- **[Class video recordings](https://drive.google.com/drive/folders/1ugOFYW7sSkKypBPf_m7uCXDhz0GX8Cg8?usp=sharing)** -->
-
-[Course information](course.html)
-
-Instructor: [Graham Wakefield](https://ampd.yorku.ca/profile/graham-wakefield/) grrrwaaa at york u dot ca
-
-![mixed](img/mixed2.png)
-
-[2021 Project: WebXR Studio](project.html)
-
-<!-- ![inhabitat](img/inhabitat.png) -->
+[Course details](index.html)   
+[Part 1](part1.html)   
+[Part 2](part2.html)  
+[Part 3](part3.html)   
+[Part 4](part4.html)    
+[Part 5](part5.html)    
+[Part 6](part6.html)    
+[Part 7](part7.html)    
+[Part 8](part8.html)    
+</script>
+<script type="text/markdown" style="display: none" id="bodytext">
 
 
-| Week                        | Class | Due | 
-| :--                         | :--     | :-- |
-| Sep 14: [Week 1](#week-1)   | [Overview](course.html), [Project](project.html), [Three.js](three.html) | [Survey](https://forms.gle/aMokgKGcSbigzbwf6) |
-| Sep 21: [Week 2](#week-2)   | Intro to VR, [Project Planning](project.html), [Three.js topics](three.html) | Three.js sketches; questions |
-| Sep 28: [Week 3](#week-3)   | Development sprint | Project prototypes; questions |
-| Oct 05: [Week 4](#week-4)   | Dev Milestone MVP: A telematic world | MVP |
-| Oct 12: [Reading Week](#reading-week)   |  |  |
-| Oct 19: [Week 5](#week-5)   |  |  |
-| Oct 26: [Week 6](#week-6)   |  |  |
-| Nov 02: [Week 7](#week-7)   | Dev Milestone: Improvising worlds |  |
-| Nov 09: [Week 8](#week-8)   |  |  |
-| Nov 16: [Week 9](#week-9)   |  |  |
-| Nov 23: [Week 10](#week-10)   |  |  |
-| Nov 30: [Week 11](#week-11)   | Dev Milestone: Online Gallery |  |
-| Dec 07: [Week 12](#week-12)   | Exhibition Opening |  |
-| Dec 14:  | | Final Paper |
+## What is Mixed Reality?
 
------
+Mixed reality (MR) is the merging of real and virtual worlds to produce new environments and visualizations where physical and digital objects co-exist in real time. It describes a rapidly evolving spectrum of technologies and techniques merging real and virtual spaces, including spatial sensing and embodied interaction, spatial and heterogeneous visual and audio display. Incraesingly, the term is also taken to mean that these objects can also interact with each other.
 
-### Week 1
+![virtuality_continuum](img/Virtuality_Continuum_2.jpg)
 
-- [Course overview](course.html)
-- This year's project: ["WebXR Studio"](project.html)
-- **Break:** **[Please complete this survey](https://forms.gle/aMokgKGcSbigzbwf6)**
-- Sign up for a free account on [Github](https://github.com) (if you haven't already got one), and then connect it to [Stackblitz](https://stackblitz.com). 
-- First coding with [Three.js](three.html)
-- Homework: Build your first Three.js scene!
-  - Use the [Three.js docs](https://threejs.org/docs/) to explore the possibilities
+> **The reality-virtuality continuum**. *Milgram, Paul; H. Takemura; A. Utsumi; F. Kishino (1994). "Augmented Reality: A class of displays on the reality-virtuality continuum" (pdf). Proceedings of Telemanipulator and Telepresence Technologies. pp. 2351–34. Retrieved 2007-03-15.*
 
+- **Virtual reality (VR)** immerses users in a fully artificial virtual environment.
+- **Augmented Virtuality**: some elements of the physical world are visualized within the predominantly virtual world, with spatial *registration* such that visualized objects remain constitent with real/virtual-world positioning. 
+- **Augmented reality (AR)**: predominantly real world experience in which virtual objects are *overlaid* on the real-world environment, also with spatial registration such that virtual objects remain constitent with real-world positioning. Some kinds of overlays:
+	- Virtual objects overlaid on a camera-based image, such as in a hand-held smartphone or tablet. E.g. Pokemon Go.
+	- Virtual objects overlaid on a direct visual image (e.g. via AR glasses such as the Hololens).
+	- Projection-mapping virtual images onto physical objects
+- **Physical reality**, without technological mediation. 
 
-### Week 2
+**Observations**: These are predominantly *visual* definitions. What are the equivalents for our other senses? Note how essential *spatiality* is to mixed reality. 
 
-- An introduction to VR: history, psychology, technology, art
-- Project planning
+----
 
-<!--
+![vr spectrum](img/lanier-xr-gadget-spectrum.jpg)
 
-- All about VR and [WebXR](webxr.html) 
+> Spectrum of XR gadgets, taken from Jaron Lanier's *Dawn of the New Everything*, 2017.
 
-
-
-Technical baseline / template / engine to provide all the basic requirements for a project
-High-level “blocks” (education materials, and/or components) to build common needs quickly
-Server compute to negotiate shared experiences. Suggest Node.js capability to keep things in a single language.
-Now WebXR requires secure HTTPS hosting and other security settings (e.g. allow=”vr” on iframe). That means we need a bit more framing setup to get custom projects going. (These challenges also hold for anything that is exporting to web (unity etc.))
-How to hyperlink between sites (even on different domains) without exiting VR? (This was possible in WebVR, haven’t tested WebXR yet)
-Hot loading assets is fairly straightforward, but how to hot-load code in an XR session? Basic capacity exists in JS (new Function etc.) but some software design needed. 
-Assets have to download / stream to client. Better to structure experience such that waiting is minimized, and background load things that aren’t needed immediately. (Like 90’s web). 
-
-
-
-### Week 4
-
-**Milestone A: Minimum Viable Product**
-
-
-
+----
 
 ## What is Generative Art? 
 
@@ -118,13 +84,45 @@ Assets have to download / stream to client. Better to structure experience such 
 
 ![Galanter Complexity Spectrum](img/galanter_complexity.jpg)
 
+## Artificial Nature
 
-Please read these papers and formulate your thoughts and questions for next week. Two volunteers are needed to lead focused discussions on each of them. That means bringing some in depth insights drawn from the reading, and one or more questions to spark conversation in class about them.
+(Slideshow)
+
+[Project website](https://artificialnature.net)
+
+
+## Week 1 Tasks
+
+1. Please ensure you have the latest version of [Max](https://cycling74.com) installed. If you do not already have a license, you can install the demo first, and [sign up here for Max license via Digital Media](https://forms.gle/RymSWGBbBAbnGeFb7)
+
+	- Follow the tutorials by [Federico Foreiro here](https://www.youtube.com/watch?v=HORv7Ljd2gQ&list=PLRc5WfOZXC4lTij-h2bRQC4x6mDDkehKw&index=1) to get familiar (or refamilizarize yourself) with building 3D scenes in Jitter's OpenGL objects. If you haven't worked with Jitter GL before, do tutorials 1-3. If you have, do tutorials 5-7. 
+
+2. Please read these papers and formulate your thoughts and questions for next week. Two volunteers are needed to lead focused discussions on each of them. That means bringing some in depth insights drawn from the reading, and one or more questions to spark conversation in class about them.
 
 	- [Sutherland, Ivan E. "The ultimate display." Multimedia: From Wagner to virtual reality (1965): 506-508.](http://worrydream.com/refs/Sutherland%20-%20The%20Ultimate%20Display.pdf). [Also here](reading/Sutherland - The Ultimate Display.pdf).
 	- McCormack et al. addressed the field by proposing 10 questions for its future. [McCormack, Jon, Oliver Bown, Alan Dorin, Jonathan McCabe, Gordon Monro, and Mitchell Whitelaw. "Ten questions concerning generative computer art." Leonardo 47, no. 2 (2014): 135-141.](http://jonmccormack.info/wp-content/uploads/2012/10/TenQuestionsV3.pdf). [Also here](reading/TenQuestionsConcerningComputerGenerativeArt.pdf).
 
--->
 
 
-![Coding](img/coding.png)
+</script>
+
+<link href="css/site.css" media="all" rel="stylesheet" type="text/css" />
+<link href="css/highlight.default.css" media="all" rel="stylesheet" type="text/css" />
+<script src="js/showdown.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="wrapper">
+	<div class="header">
+		<script type="text/javascript">
+			document.write(new Showdown.converter().makeHtml(document.getElementById('headertext').innerHTML));
+		</script>
+	</div>
+	<div class="section">
+		<script type="text/javascript">
+		document.write(new Showdown.converter().makeHtml(document.getElementById('bodytext').innerHTML));
+		</script>
+	</div>
+	<div class="footer">Graham Wakefield, 2019</div>	
+</div>
+</body>
+</html>

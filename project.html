@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>2021 Project: WebXR Studio</title>
+<meta name="description" content="">
+<meta name="author" content="Graham Wakefield">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="stylesheet" href="css/basic.css" type="text/css" />
+<link rel="stylesheet" href="css/github.css" type="text/css" />
+<style>
+header {
+	background-color:#f5f5f5;
+	font-size: 75%;
+	padding: 0.5em;
+}
+footer {
+	background-color:#f5f5f5;
+	font-size: 75%;
+	padding: 0.5em;
+}
+.responsive-google-slides {
+    position: relative;
+    padding-bottom: 60%; /* 16:9 Ratio = 56.25%, 4:3 ratio = 75% */
+    height: 0;
+    overflow: hidden;
+}
+.responsive-google-slides iframe {
+	border: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100% !important;
+	height: 100% !important;
+}
+</style>
+<script src="https://unpkg.com/@stackblitz/sdk/bundles/sdk.umd.js"></script>
+</head>
+<body class="centremaxwidth960">
+<header><a href="index.html">DATT4520 & DIGM5520: Generative Art in Mixed Reality / Spatial Computing in Responsive Environments</a></header>
+<ul>
+<li><a href="#2021-project-webxr-studio">2021 Project: WebXR Studio</a><ul>
+<li><a href="#motivation">Motivation</a></li>
+</ul>
+</li>
+</ul>
+
+<hr>
+<h1 id="2021-project-webxr-studio">2021 Project: WebXR Studio</h1>
+<p>In 2021, due to pandemic conditions and class size, the course is being held remotely. </p>
+<p>This means that previous project-styles (large scale multisensor/display installations) are not feasible. Instead we will be focusing on building <em>telematic</em> (remote) immersive experiences, and building a platform to support them, using WebXR.</p>
+<blockquote>
+<p><em>This will also be part of a multi-institution project (&quot;WebXR Studio&quot;) between York U and OCAD U, to rethink how immersive worlds can be developed &amp; shared through remote development and education.</em></p>
+</blockquote>
+<p>Because of this, we will be focusing on using WebXR as the platform of choice for the course – that is, browser-based virtual worlds (whether in a VR headset or viewed through a regular screen). </p>
+<p>This is a project-based class, involving a lot of ground-up system development in teams. For the most part this will mean coding with Javascript (whether for client-side display using Three.js, WebAudio, and other libraries; or server-side integration using Node.js). Classes will include lectures and technical instruction throughout the course on different philosophical and technical aspects relevant to the project, from 3D graphics pipelines to spatial audio to visual programming to networking etc, as we collectively develop the platform, and then develop artworks upon that platform. </p>
+<h2 id="motivation">Motivation</h2>
+<div class="responsive-google-slides"><iframe src="https://docs.google.com/presentation/d/1_0yUFbHV7Ktma6V7UlB6TSqY3A9aJ6_e0ZaJ7XrnbDA/embed" frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe></div>
+
+<!-- 
+
+This means collaborative interaction in virtual worlds, up to and including the collaborative creation and live-coding of worlds from within. 
+
+- Multi-user telematic immersion
+- Collaborative interaction
+- Generative art in WebXR
+- Collaboratively live coding worlds
+
+
+WebXR Studio
+
+Define the goals:
+
+Motivation from message-of-the-medium via Lanier
+Motivation of rethinking VR via Davies
+Space teeming with possibility
+Motivation of music/modular
+Motivation of pandemic(s) or other situations in which remote participation is not an exception
+
+Imagine: A shared space, which can serve as a gallery, a studio, a critique space, in which generative/responsive/procedural/etc. works can be experienced and also created by remote visitors / collaborators.
+
+Project: build such a space, as an open source repository and functioning website. 
+
+
+
+USPs:
+
+Real time collaborative editing, in-VR editing, procedural / live coding, procedural audio, timeline scripting and other "dynamic" aspects are all things that have been pointed to as exciting, and what differentiates the project, and would lead to research outputs. “What can Unity not do -- focus on that area”
+
+
+
+
+
+
+
+
+
+
+Principles:
+- VR-first/VR-native: design to work in VR first, with non-VR fallback, to future proof it
+- Telematic-collaborative-first: design for multi-user online scenario, with single-user offline fallback. 
+- Dynamic/procedural everything, to the extent this is possible. Toward live coding/patching worlds around us. 
+- Not to replicate a game engine (no point), but to explore the medium itself
+- Not to create a packaged, finished "app", but rather an open-ended "studio". 
+
+
+Circular loop of content & tech (art & development)
+
+- Build a platform
+- Build artworks using the platform
+
+The first few weeks will focus on the MVP milestone of such a platform.
+This will be much more instructor/RA-led.  
+
+- top down: build set of example sketches of what outputs might look like
+- bottom up: work through list of min req's, demo via proof of concept sketches
+- a shared "design document", a living document that evolves from specification to documentation
+
+First deadline is Week 4 (Oct 4)
+
+From that point on we transition toward USP and branched/iterative development:
+
+- Bottom up continues, now as 'feature branch' teams focusing on specific aspects that make the platform unique and performant
+- Top down continues but increasingly *using the system* in self-evaluation, playtesting, etc. kind of mindset, identifying gaps and requirements. Projects and Issue trackers. 
+
+
+
+
+
+Students in other courses may start to use this platform as early as October.
+
+
+Currently supported features:
+- Six degrees of freedom (6DOF)
+- Movement on three axes
+- Upload and stage video
+- Video on a plane
+- Video as texture
+- Upload and stage custom models
+- Upload and stage point clouds
+- Adjust point size
+- Place and adjust Aframe primitives
+- Place and adjust light sources
+- Multi user access, with avatars
+- Place, move, adjust assets position, rotation and scale
+- Play animations
+- Stereo sound
+
+Features supported in future:
+- generative effects
+- change own user size
+- Upload through a GUI
+- Place, move, adjust assets position, rotation and scale using a GUI
+- Multi-user editing
+- annotations
+- in-app compression
+- apply and adjust physics
+- Volumetric display
+
+-->
+
+<footer>DATT4520/DIGM5520 2021-22</footer>
+</body>
+<script src="js/connect.js"></script>
+</html>

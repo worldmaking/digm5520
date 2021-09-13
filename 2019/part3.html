@@ -1,0 +1,165 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'>
+<title>DIGM5520 / DATT4520: Generative Art in Mixed Reality</title>
+<script type="text/markdown" style="display: none" id="headertext">
+## DIGM5520 / DATT4520: Generative Art in Mixed Reality
+#### Fall 2019	
+
+[Course details](index.html)   
+[Part 1](part1.html)   
+[Part 2](part2.html)  
+[Part 3](part3.html)   
+[Part 4](part4.html)    
+[Part 5](part5.html)    
+[Part 6](part6.html)    
+[Part 7](part7.html)    
+[Part 8](part8.html)    
+</script>
+<script type="text/markdown" style="display: none" id="bodytext">
+
+## Max
+
+Continuing our zero-to-VR practice from [last week](week2.html)
+
+
+## Particles
+
+`jit.gl.mesh @draw_mode points`: The simplest way to put some points on the screen. Hook up a `jit.noise 3 float32 10 10` to the first inlet, send a bang to the jit.noise, and you should see some particles in the jit.world.
+
+- `@point_size 20`: sets the points to be 20 pixels in size. Note that this is a screen-based size, and doesn't change with screen depth. To make perspective-sized points, we need to use a shader. 
+- `@antialias 1`: makes the particles render slightly more nicely. 
+
+To make them more dynamic, lets use `jit.gen` to generate more interesting and varying positions. 
+
+To update positions on each frame, set the output matrix name to be the same as the input matrix name.
+
+### Textured particles
+
+1. Create a "billboard" shader with `[jit.gl.shader @file gm.billboard.jxs @name bb]`. This uses a geometry shader pass to extrude points into quads, and orients them toward the camera (hence "billbaord").
+2. Load or a particle texture. For example, in `jit.gen`: `[snorm] -> [length] -> [!- 1] -> [clamp 0 1] -> [out 1]`. Send it a `[jit.matrix 1 float32 64 64]` and send the result to a `[jit.gl.texture @name paricle_tex]`.
+3. Attach the shader & texture to the `jit.gl.mesh` via `@texture particle_tex @shader bb`. 
+4. Set the particle size by sending `param scale 0.01` to the jit.gl.shader.
+
+![particles](img/particles.png) ![particles](img/particle-animator.png) ![particles](img/particle-texture-generator.png) 
+
+
+## Parametric geometry
+
+`jit.gl.gridshape` is a simple example of a parametric geometry. The parameters of `u` and `v`, that is, the two dimensions of the matrix of vertices, are mapped by different functions to produce planes, spheres, cylinders, and other objects.
+
+We can explore grid-based parametrics using `jit.gen` (using `norm` or `snorm` or `cell` as the grid parameters), feeding it a `jit.matrix 3 float32 100 100` for a parameter grid UV of 100x100, and outputting its 3D vertices to a `jit.gl.mesh`.
+
+	// plane
+	x = u
+	y = v
+
+	// opencylinder
+	x = sin(u * pi)
+	y = cos(u * pi)
+	z = v
+
+	// sphere
+	x = cos(v * pi/2) * sin(u * pi)
+	y = cos(v * pi/2) * cos(u * pi)
+	z = sin(v * pi/2)
+
+![parametric](img/parametric-geometry.png)
+
+![parametric](img/parametric-geometry-window.png)
+
+## Notes on the Matrix convention for geometry in Max
+
+- [Max's OpenGL Matrix Format](https://docs.cycling74.com/max8/tutorials/jitterchapter99_appendixb)
+
+Many geometry objects in Jitter can generate geometry matrices by setting `@matrixoutput 1` (this will stop the object from being rendered) -- and you can then send the matrix to `jit.gl.mesh` for rendering, perhaps transforming it via `jit.gen` first. The planes are interpreted as follows:
+
+- plane 0, 1, 2: x, y, z position of vertex. 
+- plane 3, 4: u, v texture coordinate of vertex
+- plane 5, 6, 7: x, y, z normal of vertex
+
+Or, you can just generate your own matrices from scratch. Normally, matrices use `float32` type, and can have between 2 and 12 planes. The matrices can be one or two dimensional. Normally, vertices are connected across its rows (see `@geom_rows`), but with `@draw_mode tri_grid`, all vertices are connected. The `@draw_mode` value determines how the connections are turned into shapes: points, lines, line_strip, line_loop, triangles, tri_strip, tri_grid, etc. 
+
+The inlets of `jit.gl.mesh` correspond to these matrix components, but allow you to specify them separately. They should all have the same dimensions.
+
+Optionally, a separte "connections matrix" can set the explicit way vertices are drawn (this matrix must be 1-plane, type char or long, and one-dimensional). This is the final "index array" input of the `jit.gl.mesh`, or the `index_matrix` message.
+
+
+## Notes on blending
+
+`@blend_enable 1 @blend screen`: Particles are often rendered with blending. This makes the particles look like transparent objects of light, like bubbles and flecks of dust. Typically the alpha channel is used to compute the blending. There are several different `@blend` mode options, which determine how the objects mix:
+
+- `@blend add`, aka `@blend_mode 1 1`. Colors add toward white very quickly. Not great for light backgrounds. 
+- `@blend coloradd`, aka `@blend_mode 3 1`. Colors add toward white very quickly but hold tone better. Ignores alpha value.
+- `@blend screen`, aka `@blend_mode 4 1`. Colours max toward light; desaturating more than `alphaadd` but with less white burnout
+- `@blend alphaadd`, aka `@blend_mode 6 1`. Colors mix toward white even more gently but and lose even more saturation. 
+- `@blend multiply`, aka `@blend_mode 2 0`. Colours multiply toward black. Not great for dark backgrounds.
+- Other strange modes that result in hue rotations, desaturations, etc., e.g. `@blend_mode 4 5`, `@blend_mode 2 8`, `@blend_mode 0 5`, `@blend_mode 0 7`, `@blend_mode 0 2`, `@blend_mode 0 4`.
+- Most other blend mode combinations are order-dependent. 
+
+Blending two objects means that both objects must be fully drawn -- that is, a translucent cannot occlude another. Thus, translucent objects must be drawn *after* any solid, occluding objects in the space. This is achieved by adding `@depth_write 0 @depth_enable 1 @layer 10`:
+
+- `@depth_write 0` means that these objects cannot occlude other objects, as they do not write into the depth buffer. 
+- `@depth_enable 1` ensures that other solid objects, which did write into the depth buffer, can occlude the translucent ones.
+- `@layer 10` (or any high number) is there to ensure the objects are drawn *after* solid, occluding objects (which would be in lower layers).
+
+> Usually order-independent blend modes are preferred. For order-dependent translucent objects to render properly, they should also be sorted by depth, which means drawn in a specific order (typically furthest first, nearest last), so that objects behind a translucent object are tinted accordingly. This can be quite difficult to achieve. 
+
+
+### Get the VR Package for Max
+
+To use an Oculus Rift, HTC Vive, or any other SteamVR supported VR headset in Max, you'll need to install the "VR" Max package. This package has been developed in the Alice lab, and [the project source etc. is available on Github here](https://github.com/worldmaking/vr).
+
+1. [Download the ZIP file here](https://github.com/worldmaking/vr/archive/master.zip), unzip it, and rename the `vr-master` folder to be called `vr`. 
+	- *Alternatively, you can check it out using git via `git clone https://github.com/worldmaking/vr.git`*
+3. Move the `VR` folder into your Max pacakges folder:
+	- **Windows**: `My Documents/Max 8/pacakges`
+	- **Mac**: `~/Documents/Max 8/Packages`
+4. Restart Max
+
+*Note: During the semester we might update this package, in which case download again and replace the existing files -- or from git, just `git pull`.*
+
+Once you have it, open the `vr.maxhelp` patcher, and save it somewhere with a new name. This basically functions as a template for VR worlds. It takes care of the world, camera, etc. in such a way that it maps directly to the head-mounted display, and it also handles tracking the hand controllers etc. It also has a `jit.gl.node world` sub-context, which is what we should use for all our objects in the scene. So for example, every `jit.gl.gridshape` should say `jit.gl.gridshape world` or `jit.gl.gridshape @drawto world`.
+
+
+## Tasks
+
+- Using Max, either
+	- a) create an interesting parametric geometry
+	- b) create an interesting particle system
+	- c) or both
+
+- Please, everyone add your slides to the [slideshow](https://docs.google.com/presentation/d/1eb0L7pwZYaEOFj_dQb2I-CEB5ABO3ryDL0uGfSwCpTU/edit#slide=id.g645368af72_0_0), and **remember to include your name**. Find a really interesting VR or mixed reality project, or generative art project, or better still, one that is both. Add a slide about it, including an image & link. Make sure you didn't pick something that is already there in someone else's slide. In the comments, add your name, and indicate why you think it is worth sharing. How is it generative, or why is the mixed reality intersting? How is it inspiring or could it be improved?
+
+## Patchers from today:
+
+- [materials](patchers/materials.maxpat)
+- [particles](patchers/particles.maxpat)
+- [parametric geometry](patchers/parametric-geometry.maxpat)
+
+## See also!
+
+- [Max tutorial article on `jit.gl.mesh`](https://cycling74.com/tutorials/my-favourite-object-jit-gl-mesh-1)
+- [Max tutorial article on `jit.gl.bfg`](https://cycling74.com/tutorials/the-great-jit-gl-bfg-round-up)
+- [Max tutorial article on `jit.gl.pix`](https://cycling74.com/tutorials/my-favorite-object-jit·gl·pix)
+
+</script>
+
+<link href="css/site.css" media="all" rel="stylesheet" type="text/css" />
+<link href="css/highlight.default.css" media="all" rel="stylesheet" type="text/css" />
+<script src="js/showdown.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="wrapper">
+	<div class="header">
+		<script type="text/javascript">
+			document.write(new Showdown.converter().makeHtml(document.getElementById('headertext').innerHTML));
+		</script>
+	</div>
+	<div class="section">
+		<script type="text/javascript">
+		document.write(new Showdown.converter().makeHtml(document.getElementById('bodytext').innerHTML));
+		</script>
+	</div>
+	<div class="footer">Graham Wakefield, 2019</div>	
+</div>
+</body>
+</html>
