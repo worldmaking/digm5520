@@ -24,16 +24,16 @@ Instructor: [Graham Wakefield](https://ampd.yorku.ca/profile/graham-wakefield/) 
 | Sep 14: [Week 1](#week-1)   | [Overview](course.html), [Project](project.html), [Three.js](three.html) | [Survey](https://forms.gle/aMokgKGcSbigzbwf6) |
 | Sep 21: [Week 2](#week-2)   | Intro to VR, [Project Planning](project.html), [Three.js topics](three.html) | Three.js sketches; questions |
 | Sep 28: [Week 3](#week-3)   | Development sprint | Project prototypes; questions |
-| Oct 05: [Week 4](#week-4)   | Dev Milestone MVP: A telematic world | MVP |
-| Oct 12: [Reading Week](#reading-week)   |  |  |
-| Oct 19: [Week 5](#week-5)   |  |  |
-| Oct 26: [Week 6](#week-6)   |  |  |
-| Nov 02: [Week 7](#week-7)   | Dev Milestone: Improvising worlds |  |
-| Nov 09: [Week 8](#week-8)   |  |  |
-| Nov 16: [Week 9](#week-9)   |  |  |
-| Nov 23: [Week 10](#week-10)   |  |  |
-| Nov 30: [Week 11](#week-11)   | Dev Milestone: Online Gallery |  |
-| Dec 07: [Week 12](#week-12)   | Exhibition Opening |  |
+| Oct 05: [Week 4](#week-4)   | Dev Milestone MVP: A telematic world | MVP Milestone |
+| Oct 12: [Reading Week](#reading-week)   | Team planning |  |
+| Oct 19: [Week 5](#week-5)   | Distributed objects |  |
+| Oct 26: [Week 6](#week-6)   | Development sprint |  |
+| Nov 02: [Week 7](#week-7)   | Dev Milestone: Improvising worlds | Milestone |
+| Nov 09: [Week 8](#week-8)   | Generative Art, Artificial Nature |  |
+| Nov 16: [Week 9](#week-9)   | Tech topic |  |
+| Nov 23: [Week 10](#week-10)   | Development sprint |  |
+| Nov 30: [Week 11](#week-11)   | Dev Milestone: Online Gallery | Milestone |
+| Dec 07: [Week 12](#week-12)   | Exhibition Opening | Launch |
 | Dec 14:  | | Final Paper |
 
 -----
