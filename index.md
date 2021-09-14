@@ -45,8 +45,10 @@ Instructor: [Graham Wakefield](https://ampd.yorku.ca/profile/graham-wakefield/) 
 - **Break:** **[Please complete this survey](https://forms.gle/aMokgKGcSbigzbwf6)**
 - Sign up for a free account on [Github](https://github.com) (if you haven't already got one), and then connect it to [Stackblitz](https://stackblitz.com). 
 - First coding with [Three.js](three.html)
-- Homework: Build your first Three.js scene!
-  - Use the [Three.js docs](https://threejs.org/docs/) to explore the possibilities
+- Homework: 
+  - Build your first Three.js scene! Use the [Three.js docs](https://threejs.org/docs/) to explore the possibilities
+  - [Read: Ivan Sutherland - The Ultimate Display (1965)](https://my.eng.utah.edu/~cs6360/Readings/UltimateDisplay.pdf) <br> [Listen: Jaron Lanier Voices of VR Podcast](https://voicesofvr.com/600-jaron-laniers-journey-into-vr-dawn-of-the-new-everything/)
+  - [Please complete this survey](https://forms.gle/aMokgKGcSbigzbwf6)!
 
 
 ### Week 2
