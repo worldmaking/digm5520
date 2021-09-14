@@ -4,6 +4,10 @@
 
 [Dawn of the New Everything](https://en.wikipedia.org/wiki/Jaron_Lanier#Dawn_of_the_New_Everything_(2017)), 2017.
 
+[https://youtu.be/yrGAeHJ2Xg4 29min](https://youtu.be/yrGAeHJ2Xg4?t=1730)
+
+VPL == **Virtual Programming Languages**
+
 ### Unstructured notes from the book:
 
 1 "everything connects with everything. every tweak of the rules of a new world is a potential setting for a startling, surrealistic bug."
