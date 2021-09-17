@@ -5,6 +5,7 @@
 
 - [Documentation](https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene)
 - [Amazing collection of examples](https://threejs.org/examples/)
+- [More great tutorial material at https://threejsfundamentals.org/](https://threejsfundamentals.org/)
 
 ## Overview
 
@@ -217,9 +218,132 @@ import { VRButton } from 'https://cdn.skypack.dev/three@0.128.0/examples/jsm/web
 renderer.xr.enabled = true;
 ```
 
-
 https://stackblitz.com/edit/web-platform-filbdd
 
+## Timing
+
+```javascript
+const clock = new THREE.Clock();
+
+function animate() {
+  // get current timing:
+  const dt = clock.getDelta();
+  const t = clock.getElapsedTime();
+
+  // ...
+};
+```
+
+## Navigation
+
+For an object-centric viewpoint, look at [Orbit controls](https://threejs.org/docs/#examples/en/controls/OrbitControls), but see also [Track ball controls](https://threejs.org/docs/?q=controls#examples/en/controls/TrackballControls)
+
+```javascript
+import { OrbitControls } from 'https://unpkg.com/three@0.126.0/examples/jsm/controls/OrbitControls.js';
+
+const controls = new OrbitControls(camera, renderer.domElement);
+
+function animate() {
+  //...
+  controls.update(dt);
+  //...
+}
+```
+
+For free movement in 3D space, look at [Fly controls](https://threejs.org/docs/?q=controls#examples/en/controls/FlyControls), but see also [First person controls](https://threejs.org/docs/?q=controls#examples/en/controls/FirstPersonControls)
+
+```javascript
+import { FlyControls } from 'https://unpkg.com/three@0.126.0/examples/jsm/controls/FlyControls.js';
+
+const controls = new FlyControls(camera, renderer.domElement);
+controls.movementSpeed = 1;
+controls.rollSpeed = Math.PI / 3;
+
+function animate() {
+  //...
+  controls.update(dt);
+  //...
+}
+```
+
+For a WASD style interface, start from [Pointer lock controls](https://threejs.org/docs/?q=controls#examples/en/controls/PointerLockControls)
+
+```javascript
+import { PointerLockControls } from 'https://unpkg.com/three@0.126.0/examples/jsm/controls/PointerLockControls.js';
+
+const controls = new PointerLockControls( camera, document.body );
+scene.add(controls.getObject());
+
+// Pointer lock requires a user action to start, e.g. click on canvas to start pointerlock:
+renderer.domElement.addEventListener( 'click', function () {
+	controls.lock();
+});
+// get callbacks when this happens:
+controls.addEventListener( 'lock', function () { /* e.g. hide "click to look" instructions */ })
+controls.addEventListener( 'unlock', function () {  /* e.g. show "click to look" instructions */  })
+
+// for WASD:
+const move = {
+  forward: false,
+  backward: false,
+  right: false, 
+  left: false,
+  jump: false,
+}
+
+document.addEventListener( 'keydown', function ( event ) {
+	switch ( event.code ) {
+		case 'ArrowUp':
+		case 'KeyW':
+			move.forward = true;
+			break;
+		case 'ArrowLeft':
+		case 'KeyA':
+			move.left = true;
+			break;
+		case 'ArrowDown':
+		case 'KeyS':
+			move.backward = true;
+			break;
+		case 'ArrowRight':
+		case 'KeyD':
+			move.right = true;
+			break;
+		case 'Space':
+			move.jump = true;
+			break;
+	}
+});
+
+document.addEventListener( 'keyup', function ( event ) {
+	switch ( event.code ) {
+		case 'ArrowUp':
+		case 'KeyW':
+			move.forward = false;
+			break;
+		case 'ArrowLeft':
+		case 'KeyA':
+			move.left = false;
+			break;
+		case 'ArrowDown':
+		case 'KeyS':
+			move.backward = false;
+			break;
+		case 'ArrowRight':
+		case 'KeyD':
+			move.right = false;
+			break;
+	}
+});
+
+function animate() {
+  if (controls.isLocked === true) {
+    // use move properties and controls.moveRight() / controls.moveForward() to modify camera...
+    // use controls.getObject().position for navigation limits / collisions etc.
+    // [See example code](https://threejs.org/examples/#misc_controls_pointerlock)
+  }
+}
+```
 
 
 <!-- 
