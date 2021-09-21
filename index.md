@@ -59,7 +59,7 @@ Instructor: [Graham Wakefield](https://ampd.yorku.ca/profile/graham-wakefield/) 
 - Discussion incl. reading/listening materials
 - Project planning
 - Coding
-  - [https://threejsfundamentals.org/](https://threejsfundamentals.org/)
+  - [https://threejsfundamentals.org/](https://threejsfundamentals.org/) -- great resource, if slightly out of date on some aspects
   - [How to update things](https://threejs.org/docs/#manual/en/introduction/How-to-update-things)
   - [How to remove things](https://threejs.org/docs/#manual/en/introduction/How-to-dispose-of-objects)
   - More [Three.js](three.html)

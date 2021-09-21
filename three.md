@@ -5,7 +5,7 @@
 
 - [Documentation](https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene)
 - [Amazing collection of examples](https://threejs.org/examples/)
-- [More great tutorial material at https://threejsfundamentals.org/](https://threejsfundamentals.org/)
+- [More great tutorial material at https://threejsfundamentals.org/](https://threejsfundamentals.org/) -- if slightly out of date on some aspects
 
 ## Overview
 
