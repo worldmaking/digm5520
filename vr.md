@@ -336,6 +336,7 @@ Things slow down a little -- talk of "VR Winter" -- but a steady rollout of new 
 
 -------
 
+<!--
 # VR: Unifying illusions
 
 - Film/animation depends on a perceptual illusion -- [persistence of vision](https://en.wikipedia.org/wiki/Persistence_of_vision). This is easier to understand via animation: around 12-15 frames per second is enough for the brain to interpret as movement, but only when sequent images are plausible enough to be fused. *Plausibility* in this case is a function of neurophysiology and cognition. (Of course, cinema also depends on other perceptual quirks, such as the brain's acceptance of cuts in editing even though nothing like a cut exists in real life, the suspension of disbelief through non-human perspectives, and so forth.)
@@ -685,3 +686,4 @@ Hardly a solution, but there are a few techniques that people susceptible to sim
 See the [Simulator Sickness questionnaire](https://www.twentymilliseconds.com/html/ssq-scoring.html)
 
 - [Valve advice in interaction in VR](https://www.gamasutra.com/view/news/250362/Valve_shares_advice_on_designing_great_VR_game_interactions.php)
+-->
