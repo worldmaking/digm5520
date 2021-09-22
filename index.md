@@ -64,7 +64,17 @@ Instructor: [Graham Wakefield](https://ampd.yorku.ca/profile/graham-wakefield/) 
   - [How to remove things](https://threejs.org/docs/#manual/en/introduction/How-to-dispose-of-objects)
   - More [Three.js](three.html)
 
+**Homework**
 
+- Please update the [shared google brainstorm doc](https://docs.google.com/document/d/1328XZqjSkB2JyqNE_EtBIMScVHjwK7qVT0Jdyfvg14A/edit) with your name to identify what area you will focus on over the week. 
+- You can coordinate in teams via Discord!
+- Please work on at least one of these:
+  - Code: building up a proof-of-concept sketch for aspect of the topic
+  - Survey: collecting reference URLs for existing example scripts, or external libraries, that can respond to the challenge
+  - Research: collecting ideas and/or related work references that can inform this aspect
+- Please add to the shared doc links to any codepen or stackblitz scripts, URLs for libraries, or for reference materials as appropriate.
+ 
+- [Zoom recording](https://yorku.zoom.us/rec/share/kkrFcJ311TJegl8JulTeeJluena97W44i_onEIU_wWM1HpF4Io-TmOW-l39WqecF.VK4HRiseJ5WXRd2i)
 
 <!--
 
