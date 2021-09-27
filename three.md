@@ -5,6 +5,7 @@
 
 - [Documentation](https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene)
 - [Amazing collection of examples](https://threejs.org/examples/)
+- [More great tutorial material at https://threejsfundamentals.org/](https://threejsfundamentals.org/) -- if slightly out of date on some aspects
 
 ## Overview
 
@@ -211,7 +212,7 @@ For a WebXR scene, we need to add a few more lines of code:
 
 ```javascript
 // load in the VRButton module for the "Enter VR" button
-import { VRButton } from 'https://cdn.skypack.dev/three@0.128.0/examples/jsm/webxr/VRButton.js';
+import { VRButton } from 'https://cdn.skypack.dev/three@0.126.0/examples/jsm/webxr/VRButton.js';
 
 // enable XR option in the renderer
 renderer.xr.enabled = true;
@@ -235,6 +236,174 @@ TODO: find a way to detect that case.
         }
 ```
 
+
+## Notes on Stackblitz
+
+If you want to write your Stackblitz code as a module, I found that I had to load Three.js this way:
+
+```javascript
+const THREE = await import('https://cdn.skypack.dev/three@0.126.0');
+const { OrbitControls } = await import(
+  'https://cdn.skypack.dev/three@0.126.0/examples/jsm/controls/OrbitControls.js'
+);
+// etc.
+
+```
+
+If you want to load static resources such as models, image textures, etc., they will need to be on a public server URL with appropriate access sharing, as Stackblitz itself does not currently have good support for static files. 
+
+I can recommend using a [Github pages](https://pages.github.com) account.  Any Github repository can be a static file server by adding a branch called `gh-pages`. Note that there is a file size limit of around 25mb -- but you should avoid even files as large as this anyway, to prevent slow downloads of the site! 
+
+## Timing
+
+```javascript
+const clock = new THREE.Clock();
+
+function animate() {
+  // get current timing:
+  const dt = clock.getDelta();
+  const t = clock.getElapsedTime();
+
+  // ...
+};
+```
+
+## Navigation
+
+For an object-centric viewpoint, look at [Orbit controls](https://threejs.org/docs/#examples/en/controls/OrbitControls), but see also [Track ball controls](https://threejs.org/docs/?q=controls#examples/en/controls/TrackballControls)
+
+```javascript
+import { OrbitControls } from 'https://unpkg.com/three@0.126.0/examples/jsm/controls/OrbitControls.js';
+
+const controls = new OrbitControls(camera, renderer.domElement);
+
+function animate() {
+  //...
+  controls.update(dt);
+  //...
+}
+```
+
+For free movement in 3D space, look at [Fly controls](https://threejs.org/docs/?q=controls#examples/en/controls/FlyControls), but see also [First person controls](https://threejs.org/docs/?q=controls#examples/en/controls/FirstPersonControls)
+
+```javascript
+import { FlyControls } from 'https://unpkg.com/three@0.126.0/examples/jsm/controls/FlyControls.js';
+
+const controls = new FlyControls(camera, renderer.domElement);
+controls.movementSpeed = 1;
+controls.rollSpeed = Math.PI / 3;
+
+function animate() {
+  //...
+  controls.update(dt);
+  //...
+}
+```
+
+For a WASD style interface, start from [Pointer lock controls](https://threejs.org/docs/?q=controls#examples/en/controls/PointerLockControls)
+
+[See also example code](https://threejs.org/examples/#misc_controls_pointerlock)
+
+```javascript
+import { PointerLockControls } from 'https://unpkg.com/three@0.126.0/examples/jsm/controls/PointerLockControls.js';
+
+const controls = new PointerLockControls( camera, document.body );
+scene.add(controls.getObject());
+
+// Pointer lock requires a user action to start, e.g. click on canvas to start pointerlock:
+renderer.domElement.addEventListener( 'click', function () {
+	controls.lock();
+});
+// get callbacks when this happens:
+// controls.addEventListener( 'lock', function () { /* e.g. hide "click to look" instructions */ })
+// controls.addEventListener( 'unlock', function () {  /* e.g. show "click to look" instructions */  })
+
+// for WASD:
+const move = {
+  forward: 0,
+  backward: 0,
+  right: 0, 
+  left: 0,
+  dir: new THREE.Vector3(),
+}
+
+document.addEventListener( 'keydown', function (event) {
+	switch ( event.code ) {
+		case 'ArrowUp':
+		case 'KeyW':
+			move.forward = 1;
+			break;
+		case 'ArrowLeft':
+		case 'KeyA':
+			move.left = 1;
+			break;
+		case 'ArrowDown':
+		case 'KeyS':
+			move.backward = 1;
+			break;
+		case 'ArrowRight':
+		case 'KeyD':
+			move.right = 1;
+			break;
+	}
+});
+
+document.addEventListener( 'keyup', function (event) {
+	switch ( event.code ) {
+		case 'ArrowUp':
+		case 'KeyW':
+			move.forward = 0;
+			break;
+		case 'ArrowLeft':
+		case 'KeyA':
+			move.left = 0;
+			break;
+		case 'ArrowDown':
+		case 'KeyS':
+			move.backward = 0;
+			break;
+		case 'ArrowRight':
+		case 'KeyD':
+			move.right = 0;
+			break;
+	}
+});
+
+function animate() {
+  if (controls.isLocked === true) {
+    // use move properties and controls.moveRight() / controls.moveForward() to modify camera...
+    // use controls.getObject().position for navigation limits / collisions etc.
+    move.dir.z = move.forward - move.backward;
+    move.dir.x = move.right - move.left;
+    move.dir.normalize();
+    let spd = 3 * dt;  // or 3/60
+    controls.moveRight(move.dir.x * spd);
+    controls.moveForward(move.dir.z * spd);
+  }
+}
+```
+
+## A quick GUI
+
+This is a desktop-only GUI, it won't appear in VR. 
+
+[See documentation here](https://github.com/SolalDR/three-dat.gui#readme)
+
+```javascript
+const { GUI } = await import(
+  'https://unpkg.com/three@0.126.0/examples/jsm/libs/dat.gui.module.js'
+);
+
+const settings = {
+  // your parameters here, e.g.:
+  enable: true,
+}
+
+const gui = new GUI();
+gui.add(settings, 'enable').onChange(function (value) {
+  // do something with `value` here
+});
+```
 
 
 <!-- 

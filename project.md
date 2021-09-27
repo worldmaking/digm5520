@@ -15,7 +15,32 @@ This is a project-based class, involving a lot of ground-up system development i
 
 https://docs.google.com/presentation/d/1_0yUFbHV7Ktma6V7UlB6TSqY3A9aJ6_e0ZaJ7XrnbDA/edit#slide=id.gd39ea690a7_0_14
 
+---
+
+- Make it work
+- Make it right
+- Make it fast
+
+## MVP of USPs 
+
+Minimum Viable Product of the Unique Selling Point(s). 
+
+This is the "make it work" stage, which means avoiding premature optimization. 
+
+Unique means something that is impossible/difficult/etc in another platform. What 
+
+"Minimum" means not overcomplicating anything, "viable" means just enough as a proof-of-concept. What are the absolute minimum components needed to demonstrate the possibility?
+
+[brainstorm doc](https://docs.google.com/document/d/1328XZqjSkB2JyqNE_EtBIMScVHjwK7qVT0Jdyfvg14A)
+
+
+
+
+
+
 <!-- 
+
+
 
 This means collaborative interaction in virtual worlds, up to and including the collaborative creation and live-coding of worlds from within. 
 
@@ -75,6 +100,7 @@ From that point on we transition toward USP and branched/iterative development:
 
 Students in other courses may start to use this platform as early as October.
 
+Documentation is therefore important!!
 
 Currently supported features:
 - Six degrees of freedom (6DOF)

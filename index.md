@@ -24,9 +24,9 @@ Instructor: [Graham Wakefield](https://ampd.yorku.ca/profile/graham-wakefield/) 
 | Sep 14: [Week 1](#week-1)   | [Overview](course.html), [Project](project.html), [Three.js](three.html) | [Survey](https://forms.gle/aMokgKGcSbigzbwf6) | [Read: Ivan Sutherland - The Ultimate Display (1965)](https://my.eng.utah.edu/~cs6360/Readings/UltimateDisplay.pdf) <br> [Listen: Jaron Lanier Voices of VR Podcast](https://voicesofvr.com/600-jaron-laniers-journey-into-vr-dawn-of-the-new-everything/) |
 | Sep 21: [Week 2](#week-2)   | [Intro to VR](vr.html), [Project Planning](project.html), [Three.js topics](three.html) | Three.js sketches; questions |
 | Sep 28: [Week 3](#week-3)   | Development sprint | Project prototypes; questions |
-| Oct 05: [Week 4](#week-4)   | Dev Milestone MVP: A telematic world | MVP Milestone |
+| Oct 05: [Week 4](#week-4)   | Dev Milestone MVP: A telematic world, OCAD U demo? | MVP Milestone |
 | Oct 12: [Reading Week](#reading-week)   | Team planning | Project updates |
-| Oct 19: [Week 5](#week-5)   | Distributed objects | Project updates |
+| Oct 19: [Week 5](#week-5)   | Distributed objects, OCAD U demo? | Project updates |
 | Oct 26: [Week 6](#week-6)   | Development sprint | Project updates |
 | Nov 02: [Week 7](#week-7)   | Dev Milestone: Improvising worlds | Milestone |
 | Nov 09: [Week 8](#week-8)   | Generative Art, Artificial Nature | Project updates |
@@ -45,8 +45,12 @@ Instructor: [Graham Wakefield](https://ampd.yorku.ca/profile/graham-wakefield/) 
 - **Break:** **[Please complete this survey](https://forms.gle/aMokgKGcSbigzbwf6)**
 - Sign up for a free account on [Github](https://github.com) (if you haven't already got one), and then connect it to [Stackblitz](https://stackblitz.com). 
 - First coding with [Three.js](three.html)
-- Homework: Build your first Three.js scene!
-  - Use the [Three.js docs](https://threejs.org/docs/) to explore the possibilities
+- Homework: 
+  - Build your first Three.js scene! Use the [Three.js docs](https://threejs.org/docs/) to explore the possibilities
+  - [Read: Ivan Sutherland - The Ultimate Display (1965)](https://my.eng.utah.edu/~cs6360/Readings/UltimateDisplay.pdf) <br> [Listen: Jaron Lanier Voices of VR Podcast](https://voicesofvr.com/600-jaron-laniers-journey-into-vr-dawn-of-the-new-everything/)
+  - [Please complete this survey](https://forms.gle/aMokgKGcSbigzbwf6)!
+
+- [Zoom recording](https://yorku.zoom.us/rec/share/zBHcbySo3OQ2TbiUDEETjebBYdTk1zxvIJhkL1FcOJkWEW_v3uITc4WI6Mcofc83.0avGR5hcfZM4p9TY)
 
 
 ### Week 2
@@ -54,6 +58,28 @@ Instructor: [Graham Wakefield](https://ampd.yorku.ca/profile/graham-wakefield/) 
 - [An introduction to VR](vr.html): history, psychology, technology, art
 - Discussion incl. reading/listening materials
 - Project planning
+- Coding
+  - [https://threejsfundamentals.org/](https://threejsfundamentals.org/) -- great resource, if slightly out of date on some aspects
+  - [How to update things](https://threejs.org/docs/#manual/en/introduction/How-to-update-things)
+  - [How to remove things](https://threejs.org/docs/#manual/en/introduction/How-to-dispose-of-objects)
+  - More [Three.js](three.html)
+
+**Homework**
+
+- Please update the [shared google brainstorm doc](https://docs.google.com/document/d/1328XZqjSkB2JyqNE_EtBIMScVHjwK7qVT0Jdyfvg14A) with your name to identify what area you will focus on over the week. 
+- You can coordinate in teams via Discord!
+- Please work on at least one of these:
+  - Code: building up a proof-of-concept sketch for aspect of the topic
+  - Survey: collecting reference URLs for existing example scripts, or external libraries, that can respond to the challenge
+  - Research: collecting ideas and/or related work references that can inform this aspect
+- Please add to the shared doc links to any codepen or stackblitz scripts, URLs for libraries, or for reference materials as appropriate.
+ 
+- [Zoom recording](https://yorku.zoom.us/rec/share/kkrFcJ311TJegl8JulTeeJluena97W44i_onEIU_wWM1HpF4Io-TmOW-l39WqecF.VK4HRiseJ5WXRd2i)
+
+## Week 3
+
+- Development sprint
+
 
 <!--
 

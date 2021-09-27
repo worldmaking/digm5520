@@ -53,6 +53,10 @@ footer {
 <li><a href="#overview">Overview</a></li>
 <li><a href="#starter-code">Starter code</a></li>
 <li><a href="#webxr-starter-code">WebXR starter code</a></li>
+<li><a href="#notes-on-stackblitz">Notes on Stackblitz</a></li>
+<li><a href="#timing">Timing</a></li>
+<li><a href="#navigation">Navigation</a></li>
+<li><a href="#a-quick-gui">A quick GUI</a></li>
 </ul>
 </li>
 </ul>
@@ -63,6 +67,7 @@ footer {
 <ul>
 <li><a href="https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene">Documentation</a></li>
 <li><a href="https://threejs.org/examples/">Amazing collection of examples</a></li>
+<li><a href="https://threejsfundamentals.org/">More great tutorial material at https://threejsfundamentals.org/</a> -- if slightly out of date on some aspects</li>
 </ul>
 <h2 id="overview">Overview</h2>
 <p>Three.js builds upon the <a href="https://github.com/worldmaking/worldmaking.github.io/wiki/WebGL-notes">WebGL</a> API available in recent browsers, which is built upon OpenGL, one of the oldest and most established 3D hardware graphics APIs. But whereas the WebGL (and OpenGL) APIs are relatively low-level and state-based, Three.js offers a more mid-level object-based interface, including a &quot;scene-graph&quot;, &quot;materials&quot;, and other elements you might find in a modern game engine. But on the other hand, unlike a game engine, we create a scene not through a drag &amp; drop user interface, but by typing code (as we might with Processing or P5.js etc.) The structure of a Three.js code document might look something like this:</p>
@@ -257,7 +262,7 @@ StackBlitzSDK.embedProjectId('web-platform-a9gien','web-platform-a9gien',{ openF
 <h2 id="webxr-starter-code">WebXR starter code</h2>
 <p>For a WebXR scene, we need to add a few more lines of code:</p>
 <pre><code class="language-javascript"><span class="hljs-comment">// load in the VRButton module for the &quot;Enter VR&quot; button</span>
-<span class="hljs-keyword">import</span> { VRButton } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;https://cdn.skypack.dev/three@0.128.0/examples/jsm/webxr/VRButton.js&#x27;</span>;
+<span class="hljs-keyword">import</span> { VRButton } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;https://cdn.skypack.dev/three@0.126.0/examples/jsm/webxr/VRButton.js&#x27;</span>;
 
 <span class="hljs-comment">// enable XR option in the renderer</span>
 renderer.xr.enabled = <span class="hljs-literal">true</span>;
@@ -268,7 +273,148 @@ StackBlitzSDK.embedProjectId('web-platform-filbdd','web-platform-filbdd',{ openF
 </script>
 
 
+<h2 id="notes-on-stackblitz">Notes on Stackblitz</h2>
+<p>If you want to write your Stackblitz code as a module, I found that I had to load Three.js this way:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> THREE = <span class="hljs-keyword">await</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;https://cdn.skypack.dev/three@0.126.0&#x27;</span>);
+<span class="hljs-keyword">const</span> { OrbitControls } = <span class="hljs-keyword">await</span> <span class="hljs-keyword">import</span>(
+  <span class="hljs-string">&#x27;https://cdn.skypack.dev/three@0.126.0/examples/jsm/controls/OrbitControls.js&#x27;</span>
+);
+<span class="hljs-comment">// etc.</span>
+</code></pre>
+<p>If you want to load static resources such as models, image textures, etc., they will need to be on a public server URL with appropriate access sharing, as Stackblitz itself does not currently have good support for static files. </p>
+<p>I can recommend using a <a href="https://pages.github.com">Github pages</a> account.  Any Github repository can be a static file server by adding a branch called <code>gh-pages</code>. Note that there is a file size limit of around 25mb -- but you should avoid even files as large as this anyway, to prevent slow downloads of the site! </p>
+<h2 id="timing">Timing</h2>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> clock = <span class="hljs-keyword">new</span> THREE.Clock();
 
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">animate</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// get current timing:</span>
+  <span class="hljs-keyword">const</span> dt = clock.getDelta();
+  <span class="hljs-keyword">const</span> t = clock.getElapsedTime();
+
+  <span class="hljs-comment">// ...</span>
+};
+</code></pre>
+<h2 id="navigation">Navigation</h2>
+<p>For an object-centric viewpoint, look at <a href="https://threejs.org/docs/#examples/en/controls/OrbitControls">Orbit controls</a>, but see also <a href="https://threejs.org/docs/?q=controls#examples/en/controls/TrackballControls">Track ball controls</a></p>
+<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { OrbitControls } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;https://unpkg.com/three@0.126.0/examples/jsm/controls/OrbitControls.js&#x27;</span>;
+
+<span class="hljs-keyword">const</span> controls = <span class="hljs-keyword">new</span> OrbitControls(camera, renderer.domElement);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">animate</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">//...</span>
+  controls.update(dt);
+  <span class="hljs-comment">//...</span>
+}
+</code></pre>
+<p>For free movement in 3D space, look at <a href="https://threejs.org/docs/?q=controls#examples/en/controls/FlyControls">Fly controls</a>, but see also <a href="https://threejs.org/docs/?q=controls#examples/en/controls/FirstPersonControls">First person controls</a></p>
+<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { FlyControls } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;https://unpkg.com/three@0.126.0/examples/jsm/controls/FlyControls.js&#x27;</span>;
+
+<span class="hljs-keyword">const</span> controls = <span class="hljs-keyword">new</span> FlyControls(camera, renderer.domElement);
+controls.movementSpeed = <span class="hljs-number">1</span>;
+controls.rollSpeed = <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">3</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">animate</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">//...</span>
+  controls.update(dt);
+  <span class="hljs-comment">//...</span>
+}
+</code></pre>
+<p>For a WASD style interface, start from <a href="https://threejs.org/docs/?q=controls#examples/en/controls/PointerLockControls">Pointer lock controls</a></p>
+<p><a href="https://threejs.org/examples/#misc_controls_pointerlock">See also example code</a></p>
+<pre><code class="language-javascript"><span class="hljs-keyword">import</span> { PointerLockControls } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;https://unpkg.com/three@0.126.0/examples/jsm/controls/PointerLockControls.js&#x27;</span>;
+
+<span class="hljs-keyword">const</span> controls = <span class="hljs-keyword">new</span> PointerLockControls( camera, <span class="hljs-built_in">document</span>.body );
+scene.add(controls.getObject());
+
+<span class="hljs-comment">// Pointer lock requires a user action to start, e.g. click on canvas to start pointerlock:</span>
+renderer.domElement.addEventListener( <span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    controls.lock();
+});
+<span class="hljs-comment">// get callbacks when this happens:</span>
+<span class="hljs-comment">// controls.addEventListener( &#x27;lock&#x27;, function () { /* e.g. hide &quot;click to look&quot; instructions */ })</span>
+<span class="hljs-comment">// controls.addEventListener( &#x27;unlock&#x27;, function () {  /* e.g. show &quot;click to look&quot; instructions */  })</span>
+
+<span class="hljs-comment">// for WASD:</span>
+<span class="hljs-keyword">const</span> move = {
+  <span class="hljs-attr">forward</span>: <span class="hljs-number">0</span>,
+  <span class="hljs-attr">backward</span>: <span class="hljs-number">0</span>,
+  <span class="hljs-attr">right</span>: <span class="hljs-number">0</span>, 
+  <span class="hljs-attr">left</span>: <span class="hljs-number">0</span>,
+  <span class="hljs-attr">dir</span>: <span class="hljs-keyword">new</span> THREE.Vector3(),
+}
+
+<span class="hljs-built_in">document</span>.addEventListener( <span class="hljs-string">&#x27;keydown&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
+    <span class="hljs-keyword">switch</span> ( event.code ) {
+        <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;ArrowUp&#x27;</span>:
+        <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;KeyW&#x27;</span>:
+            move.forward = <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">break</span>;
+        <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;ArrowLeft&#x27;</span>:
+        <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;KeyA&#x27;</span>:
+            move.left = <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">break</span>;
+        <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;ArrowDown&#x27;</span>:
+        <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;KeyS&#x27;</span>:
+            move.backward = <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">break</span>;
+        <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;ArrowRight&#x27;</span>:
+        <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;KeyD&#x27;</span>:
+            move.right = <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">break</span>;
+    }
+});
+
+<span class="hljs-built_in">document</span>.addEventListener( <span class="hljs-string">&#x27;keyup&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
+    <span class="hljs-keyword">switch</span> ( event.code ) {
+        <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;ArrowUp&#x27;</span>:
+        <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;KeyW&#x27;</span>:
+            move.forward = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">break</span>;
+        <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;ArrowLeft&#x27;</span>:
+        <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;KeyA&#x27;</span>:
+            move.left = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">break</span>;
+        <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;ArrowDown&#x27;</span>:
+        <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;KeyS&#x27;</span>:
+            move.backward = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">break</span>;
+        <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;ArrowRight&#x27;</span>:
+        <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;KeyD&#x27;</span>:
+            move.right = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">break</span>;
+    }
+});
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">animate</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">if</span> (controls.isLocked === <span class="hljs-literal">true</span>) {
+    <span class="hljs-comment">// use move properties and controls.moveRight() / controls.moveForward() to modify camera...</span>
+    <span class="hljs-comment">// use controls.getObject().position for navigation limits / collisions etc.</span>
+    move.dir.z = move.forward - move.backward;
+    move.dir.x = move.right - move.left;
+    move.dir.normalize();
+    <span class="hljs-keyword">let</span> spd = <span class="hljs-number">3</span> * dt;  <span class="hljs-comment">// or 3/60</span>
+    controls.moveRight(move.dir.x * spd);
+    controls.moveForward(move.dir.z * spd);
+  }
+}
+</code></pre>
+<h2 id="a-quick-gui">A quick GUI</h2>
+<p>This is a desktop-only GUI, it won&#39;t appear in VR. </p>
+<p><a href="https://github.com/SolalDR/three-dat.gui#readme">See documentation here</a></p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { GUI } = <span class="hljs-keyword">await</span> <span class="hljs-keyword">import</span>(
+  <span class="hljs-string">&#x27;https://unpkg.com/three@0.126.0/examples/jsm/libs/dat.gui.module.js&#x27;</span>
+);
+
+<span class="hljs-keyword">const</span> settings = {
+  <span class="hljs-comment">// your parameters here, e.g.:</span>
+  <span class="hljs-attr">enable</span>: <span class="hljs-literal">true</span>,
+}
+
+<span class="hljs-keyword">const</span> gui = <span class="hljs-keyword">new</span> GUI();
+gui.add(settings, <span class="hljs-string">&#x27;enable&#x27;</span>).onChange(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>{
+  <span class="hljs-comment">// do something with `value` here</span>
+});
+</code></pre>
 <!-- 
 ## Point clouds
 
