@@ -217,8 +217,23 @@ import { VRButton } from 'https://cdn.skypack.dev/three@0.128.0/examples/jsm/web
 renderer.xr.enabled = true;
 ```
 
-
 https://stackblitz.com/edit/web-platform-filbdd
+
+### Mirroring the VR scene on the desktop while in VR
+
+This works for PC-based VR, but might not be what you want for mobile-based VR. 
+TODO: find a way to detect that case.
+
+```javascript
+        if (renderer.xr.isPresenting) {
+          renderer.xr.isPresenting = false;
+          renderer.setFramebuffer(null);
+          renderer.setRenderTarget(renderer.getRenderTarget()); // Hack #15830
+          renderer.clear();
+          renderer.render(scene, camera);
+          renderer.xr.isPresenting = true;
+        }
+```
 
 
 
