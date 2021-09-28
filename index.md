@@ -79,7 +79,7 @@ Instructor: [Graham Wakefield](https://ampd.yorku.ca/profile/graham-wakefield/) 
 ## Week 3
 
 - Development sprint
-
+- [Shared design doc]([shared google brainstorm doc](https://docs.google.com/document/d/1328XZqjSkB2JyqNE_EtBIMScVHjwK7qVT0Jdyfvg14A))
 
 Graham's prototypes:
 - [https://github.com/worldmaking/nodelab](https://github.com/worldmaking/nodelab) as a very simple demonstration of sharing multiple users' states. Set up as a re-usable script
@@ -88,6 +88,9 @@ Graham's prototypes:
 
 
 <!--
+
+
+
 
 - All about VR and [WebXR](webxr.html) 
 
