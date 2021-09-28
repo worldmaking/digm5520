@@ -86,6 +86,7 @@ Graham's prototypes:
 - a more complex scene, linked to a github, at [https://stackblitz.com/edit/web-platform-re4a34](https://stackblitz.com/edit/web-platform-re4a34)
 - (with Haru Ji, OCAD U): a pseudo-gallery hosting p5.js sketches at [https://stackblitz.com/edit/web-platform-mbcqax](https://stackblitz.com/edit/web-platform-mbcqax)
 
+**[Zoom recording](https://yorku.zoom.us/rec/share/lncvLSsr9vPnSfWVPrOadR0O_O1bnsFGJjxCkW5fMDYuoO4REZypH4RWV8pWgMac.6VWYK_C_QJWP3UtT)**
 
 <!--
 
