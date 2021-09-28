@@ -272,7 +272,18 @@ renderer.xr.enabled = <span class="hljs-literal">true</span>;
 StackBlitzSDK.embedProjectId('web-platform-filbdd','web-platform-filbdd',{ openFile: 'index.html', theme: 'light', width: "100%", height: "50%", hideExplorer: true, hideNavigation: true, forceEmbedLayout: true, clickToLoad: true, view: "editor" });
 </script>
 
-
+<h3 id="mirroring-the-vr-scene-on-the-desktop-while-in-vr">Mirroring the VR scene on the desktop while in VR</h3>
+<p>This works for PC-based VR, but might not be what you want for mobile-based VR. 
+TODO: find a way to detect that case.</p>
+<pre><code class="language-javascript">        <span class="hljs-keyword">if</span> (renderer.xr.isPresenting) {
+          renderer.xr.isPresenting = <span class="hljs-literal">false</span>;
+          renderer.setFramebuffer(<span class="hljs-literal">null</span>);
+          renderer.setRenderTarget(renderer.getRenderTarget()); <span class="hljs-comment">// Hack #15830</span>
+          renderer.clear();
+          renderer.render(scene, camera);
+          renderer.xr.isPresenting = <span class="hljs-literal">true</span>;
+        }
+</code></pre>
 <h2 id="notes-on-stackblitz">Notes on Stackblitz</h2>
 <p>If you want to write your Stackblitz code as a module, I found that I had to load Three.js this way:</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> THREE = <span class="hljs-keyword">await</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;https://cdn.skypack.dev/three@0.126.0&#x27;</span>);
