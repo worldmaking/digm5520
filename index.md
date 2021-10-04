@@ -122,6 +122,7 @@ Graham's prototypes:
   - [Three.js JSON scene format](https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4)
   - [Scene to JSON: call scene.toJSON()!](https://threejs.org/docs/?q=object3d#api/en/core/Object3D.toJSON)
   - [JSON to Scene](https://threejs.org/docs/#api/en/loaders/ObjectLoader)
+  - [Very important: how to free memory!](https://threejs.org/docs/#manual/en/introduction/How-to-dispose-of-objects)
   - [Minimal demo](https://codepen.io/grrrwaaa/pen/abwxdPg)
 
 - References
