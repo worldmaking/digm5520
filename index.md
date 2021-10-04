@@ -24,7 +24,7 @@ Instructor: [Graham Wakefield](https://ampd.yorku.ca/profile/graham-wakefield/) 
 | Sep 14: [Week 1](#week-1)   | [Overview](course.html), [Project](project.html), [Three.js](three.html) | [Survey](https://forms.gle/aMokgKGcSbigzbwf6) | [Read: Ivan Sutherland - The Ultimate Display (1965)](https://my.eng.utah.edu/~cs6360/Readings/UltimateDisplay.pdf) <br> [Listen: Jaron Lanier Voices of VR Podcast](https://voicesofvr.com/600-jaron-laniers-journey-into-vr-dawn-of-the-new-everything/) |
 | Sep 21: [Week 2](#week-2)   | [Intro to VR](vr.html), [Project Planning](project.html), [Three.js topics](three.html) | Three.js sketches; questions |
 | Sep 28: [Week 3](#week-3)   | Development sprint | Project prototypes show & tell, questions/roadblocks/etc |
-| Oct 05: [Week 4](#week-4)   | Dev Milestone MVP: A telematic world, OCAD U demo? | MVP Milestone |
+| Oct 05: [Week 4](#week-4)   | Dev Milestone MVP: A telematic world | MVP Milestone |
 | Oct 12: [Reading Week](#reading-week)   | Team planning | Project updates |
 | Oct 19: [Week 5](#week-5)   | Distributed objects, OCAD U demo? | Project updates |
 | Oct 26: [Week 6](#week-6)   | Development sprint | Project updates |

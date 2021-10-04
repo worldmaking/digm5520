@@ -83,6 +83,9 @@ function generate(file) {
 <script>
 StackBlitzSDK.embedProjectId('$1','$1',{ openFile: 'index.html', theme: 'light', width: "100%", height: "50%", hideExplorer: true, hideNavigation: true, forceEmbedLayout: true, clickToLoad: true, view: "editor" });
 </script>`)
+		.replace(/\nhttps?:\/\/www.youtube.com\/watch\?v=([^\n\r\/]+)[^\n\r]*/g, `
+<iframe width="720" height="540" src="https://youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>
+`)
 	}
 	
 	let toc = []
