@@ -80,6 +80,44 @@ Instructor: [Graham Wakefield](https://ampd.yorku.ca/profile/graham-wakefield/) 
 
 **Development sprint**
 
+- [Shared design doc]([shared google brainstorm doc](https://docs.google.com/document/d/1328XZqjSkB2JyqNE_EtBIMScVHjwK7qVT0Jdyfvg14A))
+
+Graham's prototypes:
+- [https://github.com/worldmaking/nodelab](https://github.com/worldmaking/nodelab) as a very simple demonstration of sharing multiple users' states. Set up as a re-usable script
+- a more complex scene, linked to a github, at [https://stackblitz.com/edit/web-platform-re4a34](https://stackblitz.com/edit/web-platform-re4a34)
+- (with Haru Ji, OCAD U): a pseudo-gallery hosting p5.js sketches at [https://stackblitz.com/edit/web-platform-mbcqax](https://stackblitz.com/edit/web-platform-mbcqax)
+
+**[Zoom recording](https://yorku.zoom.us/rec/share/lncvLSsr9vPnSfWVPrOadR0O_O1bnsFGJjxCkW5fMDYuoO4REZypH4RWV8pWgMac.6VWYK_C_QJWP3UtT)**
+
+
+### Week 4
+
+**Milestone A: Minimum Viable Product**
+
+- **Basic object manipulation**
+  - Three.js has a built-in [Transform Controls](https://threejs.org/docs/#examples/en/controls/TransformControls), though it is mouse-centric, and might not be that easy to port to VR
+    - [Example](https://threejs.org/examples/#misc_controls_transform)
+
+- **UI libs**
+  - [Three Mesh UI](https://github.com/felixmariotto/Three-Mesh-UI)
+    - Uses 3D objects, and nice SDF fonts, to build a UI piece by piece
+    - Rich text, inline images; buttons, a floating keyboard!  But no sliders yet
+    - Works without VR too
+    - Many users, recent commits
+  - [CanvasUI](https://github.com/NikLever/CanvasUI)
+    - Uses an offscreen HTML5 Canvas to render elements, textured onto a plane in VR
+    - Text, images, buttons, scroll, floating keyboard 
+    - Last commit 11 months ago
+  - Build our own based on CanvasTexture, as they did in [Building an in-game Editor](https://blog.mozvr.com/jinglesmash-editor/)
+  - ~~[DatGUI VR](https://github.com/dataarts/dat.guiVR)~~
+    - mainly a floating window with folders and **sliders**
+    - Last commit 5 years ago :-(
+  - ~~[VR UI](https://github.com/artflow-vr/vr-ui)~~
+    - Discontinued. 
+
+- References
+  - [Building an in-game Editor](https://blog.mozvr.com/jinglesmash-editor/)
+
 <!--
 
 Github team: https://github.com/orgs/worldmaking/teams/webxr-nodelab
@@ -98,14 +136,6 @@ Heroku *could* be allowed to set up remote access by enabling CORS
 
 -->
 
-- [Shared design doc]([shared google brainstorm doc](https://docs.google.com/document/d/1328XZqjSkB2JyqNE_EtBIMScVHjwK7qVT0Jdyfvg14A))
-
-Graham's prototypes:
-- [https://github.com/worldmaking/nodelab](https://github.com/worldmaking/nodelab) as a very simple demonstration of sharing multiple users' states. Set up as a re-usable script
-- a more complex scene, linked to a github, at [https://stackblitz.com/edit/web-platform-re4a34](https://stackblitz.com/edit/web-platform-re4a34)
-- (with Haru Ji, OCAD U): a pseudo-gallery hosting p5.js sketches at [https://stackblitz.com/edit/web-platform-mbcqax](https://stackblitz.com/edit/web-platform-mbcqax)
-
-**[Zoom recording](https://yorku.zoom.us/rec/share/lncvLSsr9vPnSfWVPrOadR0O_O1bnsFGJjxCkW5fMDYuoO4REZypH4RWV8pWgMac.6VWYK_C_QJWP3UtT)**
 
 <!--
 
@@ -124,13 +154,8 @@ How to hyperlink between sites (even on different domains) without exiting VR? (
 Hot loading assets is fairly straightforward, but how to hot-load code in an XR session? Basic capacity exists in JS (new Function etc.) but some software design needed. 
 Assets have to download / stream to client. Better to structure experience such that waiting is minimized, and background load things that aren’t needed immediately. (Like 90’s web). 
 
-
-
-### Week 4
-
-**Milestone A: Minimum Viable Product**
-
-
+-->
+<!--
 
 
 ## What is Generative Art? 
