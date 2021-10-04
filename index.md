@@ -78,7 +78,25 @@ Instructor: [Graham Wakefield](https://ampd.yorku.ca/profile/graham-wakefield/) 
 
 ## Week 3
 
-- Development sprint
+**Development sprint**
+
+<!--
+
+Github team: https://github.com/orgs/worldmaking/teams/webxr-nodelab
+- add all users who need to work on the server
+
+SERVER
+
+https://github.com/worldmaking/nodelab is the repo that automatically pushes to https://alicelab.herokuapp.com/ 
+Note that pushes can take a few minutes to propagate
+
+Heroku has a 500mb limit
+Heroku doesn't handle github submodules correctly, so we can't go that way.
+
+Heroku *could* be allowed to set up remote access by enabling CORS
+
+
+-->
 
 
 <!--
