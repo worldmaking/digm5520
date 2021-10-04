@@ -98,6 +98,9 @@ Graham's prototypes:
   - Three.js has a built-in [Transform Controls](https://threejs.org/docs/#examples/en/controls/TransformControls), though it is mouse-centric, and might not be that easy to port to VR
     - [Example](https://threejs.org/examples/#misc_controls_transform)
 
+- **Teleport**
+  - [Nice tutorial here](https://ada.is/blog/2020/05/18/using-vr-controllers-and-locomotion-in-threejs/)
+
 - **UI libs**
   - [Three Mesh UI](https://github.com/felixmariotto/Three-Mesh-UI)
     - Uses 3D objects, and nice SDF fonts, to build a UI piece by piece
@@ -115,8 +118,16 @@ Graham's prototypes:
   - ~~[VR UI](https://github.com/artflow-vr/vr-ui)~~
     - Discontinued. 
 
+- **Scene as JSON**
+  - [Three.js JSON scene format](https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4)
+  - [Scene to JSON: call scene.toJSON()!](https://threejs.org/docs/?q=object3d#api/en/core/Object3D.toJSON)
+  - [JSON to Scene](https://threejs.org/docs/#api/en/loaders/ObjectLoader)
+  - [Minimal demo](https://codepen.io/grrrwaaa/pen/abwxdPg)
+
 - References
   - [Building an in-game Editor](https://blog.mozvr.com/jinglesmash-editor/)
+  - [Progressive XR user interfaces](https://blog.mozvr.com/progressive-webxr-ar-store/)
+  - [Getting VR headset orientation](https://stackoverflow.com/questions/65673273/access-vr-headset-orientation-in-three-js)
 
 <!--
 
