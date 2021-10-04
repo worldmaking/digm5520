@@ -123,7 +123,8 @@ Graham's prototypes:
   - [Scene to JSON: call scene.toJSON()!](https://threejs.org/docs/?q=object3d#api/en/core/Object3D.toJSON)
   - [JSON to Scene](https://threejs.org/docs/#api/en/loaders/ObjectLoader)
   - [Very important: how to free memory!](https://threejs.org/docs/#manual/en/introduction/How-to-dispose-of-objects)
-  - [Minimal demo](https://codepen.io/grrrwaaa/pen/abwxdPg)
+  - [Tutorial on cleanup](https://threejsfundamentals.org/threejs/lessons/threejs-cleanup.html)
+  - [Minimal demo](https://codepen.io/grrrwaaa/pen/abwxdPg) -- loads a scene from JSON, then unloads it (freeing GPU memory) every second
 
 - References
   - [Building an in-game Editor](https://blog.mozvr.com/jinglesmash-editor/)
