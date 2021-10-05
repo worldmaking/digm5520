@@ -94,6 +94,8 @@ Graham's prototypes:
 
 **Milestone A: Minimum Viable Product**
 
+**Development notes**
+
 - **Basic object manipulation**
   - Three.js has a built-in [Transform Controls](https://threejs.org/docs/#examples/en/controls/TransformControls), though it is mouse-centric, and might not be that easy to port to VR
     - [Example](https://threejs.org/examples/#misc_controls_transform)
@@ -130,6 +132,38 @@ Graham's prototypes:
   - [Building an in-game Editor](https://blog.mozvr.com/jinglesmash-editor/)
   - [Progressive XR user interfaces](https://blog.mozvr.com/progressive-webxr-ar-store/)
   - [Getting VR headset orientation](https://stackoverflow.com/questions/65673273/access-vr-headset-orientation-in-three-js)
+
+
+**Homework**:
+
+Please submit a report on your homeworks so far in the course. Please submit this report as a PDF by email to me, by **Friday October 15th**
+
+The PDF should include a written section, and example links to code (codepen, stackblitz, github).
+
+- The written section can be around 300 words (half a page or so) and should include the elements below. This written report contributes to the "Reporting & Discussion" section of the course [evaluation](course.html#evaluation):
+  - Your student number and your name  
+  - Which section(s) of the project you have been working on, and which sections you want to work on. You can identify your motivations or inspirations here. Was there a core question you wanted to address? Did you have an idea that you wanted to evaluate?
+  - Explain in depth your implementation. How you have approached this: building proof-of-concept sketches, or exploratory experiments, or research into literature (written/online -- if so, please provide links), or design documents (if so, please provide a link!) Be sure to focus on the most complex, innovative, or otherwise interesting parts of the code, beyond what we have covered during class sessions.
+  - Evaluate the results. Are there significant variable changes that can produce different behaviour? Did you try several variations of your system (if so, show them!) If you had an idea that you explored, but it didn't work as expected, show that too -- and offer your ideas about why you think it didn't. This is valid research! Note any specific challenges or roadblocks you have found along the way, and any solutions if you found them. This will help me coordinate content for the next weeks in the course. 
+  - What you see as the next steps for this part of the project. Are there significant limitations that will affect designs going forward? 
+  - Who you have been working with (if you have been collaborating) -- and if so, clearly identifying your contributions. 
+- Links to your code. Code can be submitted as URL links to either Github, Codepen, or Stackblitz that you have created. Before submitting code, ensure that it meets all of the following formatting requirements. The code submissions contribute to the "Assignments" section of the course [evaluation](course.html#evaluation):
+  - Put a block comment at the top of your code with the following information (that is, a multi-line comment starting with `/* and ending with */`).  
+    - Your student number, your name, and a description of what the code demonstrates, and how to use it. If there are any specific variables that are worth modifying, please describe these too.
+    - A description of the **idea** of the script and **why** it is valuable to the project, interesting, surprising, etc., and 
+    - A description of the technical realization: **how** it works (or why it doesn't). Perhaps you tried a few different algorithms until it worked as expected? Then mention them!) If you were inspired by another system, mention it (with links). 
+    - Ideas for future extensions or **where** it will integrate to the larger project. 
+  - Format your code well:
+    - Ensure that there are proper **comments** in the code. 
+      - A good rule of thumb is that at least 30% of the lines in your script should be comments (not including the block comments at top & bottom); or another rule of thumb is to expect comments every 1-4 lines. 
+      - Comments should actually illuminate the code meaningfully (e.g. "set x to 3" is NOT a useful comment for x = 3). Use the comments to say WHY. 
+      - All functions should have a comment to say what they can be used for, what the arguments are expected to be, and what they will return.
+    - Ensure that you use **meaningful variable names**: they should help describe what they refer to, as this makes code easier to understand.
+      - Single-letter names are usually only used briefly.
+      - Boolean variables tend to begin with "is" or "has" etc.
+      - Arrays may use plural rather than singular names. Etc. 
+    - Ensure you have properly **indented** your code. A lot of code editors can automatically format your code, which will solve this. Code that isn't indented properly is really hard to read, and can often lead you into to strange bugs. Being in the habit of frequently indenting properly helps avoid these bugs.
+
 
 <!--
 

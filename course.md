@@ -48,17 +48,17 @@ At the completion of the course students will:
 
 - 30% Assignments
 - 20% Participation
-- 10% Seminar
+- 10% Reporting & discussion
 - 30% Final Project
 - 10% Final Presentation
 
 **Graduate:**
 
 - 30% Assignments
-- 10% Seminar
+- 10% Reporting & discussion
 - 30% Final Project
 - 10% Project Presentation
-- 20% Project Report
+- 20% Project Paper
 
 Graduate students are expected to achieve a higher calibre of work and depth of research underlying the realization of the assignments and project. 
 
@@ -69,7 +69,7 @@ Graduate students are expected to achieve a higher calibre of work and depth of 
 3. Technical completeness: Functionality, accuracy, efficiency, creativity, and clear structure in the development and in the results.
 4. Novel contribution: Ingenuity in response to unanticipated challenges, comprehension and creativity beyond what is demonstrated in labs, and vision in further extension. 
 
-**Seminars.** Students take turns to present on readings from landmark papers or book excerpts chosen to directly support the development of practical work and tutorial discussion. Students are examined for their awareness/understanding and creative extrapolation of issues in readings, and the ability to relate tutorial issues to the broader concerns of the projects, course, and broader field(s).
+**Reporting & discussion.** Students will present in person or in reports to directly account the development of practical work and tutorial progress. Students are examined for their awareness/understanding and creative extrapolation of issues and the ability to relate the project to the broader concerns of the course, the medium of XR, and broader field(s).
 	
 **Participation** (Undergraduate students only). Incorporates presence, contributions to seminar discussions, engagement with the material, and effort and advancement in practical work. 
 
@@ -77,4 +77,4 @@ Graduate students are expected to achieve a higher calibre of work and depth of 
 
 **Final Presentations** will be given to the class at the end of the semester and will be in the form of an open exhibit and talk, with critical discussion that reflects on the results of the experience gained over duration of the course.
 
-**Final Report.** (Graduate students only) will provide a final report that provides a documentation of the development of the project, overview of the concepts and motivation of the work, assessment of related works, and a description of future work to be done on this project.
+**Final Paper.** (Graduate students only) will provide a final report that provides a documentation of the development of the project, overview of the concepts and motivation of the work, assessment of related works, and a description of future work to be done on this project.
