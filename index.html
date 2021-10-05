@@ -231,6 +231,16 @@ footer {
 <h3 id="week-4">Week 4</h3>
 <p><strong>Milestone A: Minimum Viable Product</strong></p>
 <ul>
+<li><p><strong>Possible scene graph</strong></p>
+<ul>
+<li>Root (Scene)<ul>
+<li>Project world (i.e. the non-user world contents shared and synced via the server)</li>
+<li>Other users (all users other than current player, synced via the server)</li>
+<li>User interface</li>
+</ul>
+</li>
+</ul>
+</li>
 <li><p><strong>Basic object manipulation</strong></p>
 <ul>
 <li>Three.js has a built-in <a href="https://threejs.org/docs/#examples/en/controls/TransformControls">Transform Controls</a>, though it is mouse-centric, and might not be that easy to port to VR<ul>
@@ -279,6 +289,11 @@ footer {
 <li><a href="https://threejs.org/docs/#manual/en/introduction/How-to-dispose-of-objects">Very important: how to free memory!</a></li>
 <li><a href="https://threejsfundamentals.org/threejs/lessons/threejs-cleanup.html">Tutorial on cleanup</a></li>
 <li><a href="https://codepen.io/grrrwaaa/pen/abwxdPg">Minimal demo</a> -- loads a scene from JSON, then unloads it (freeing GPU memory) every second</li>
+<li>Insight: it&#39;s not a simple problem. You have to manually track what images, textures, geometries, materials, (any others?) have been allocated on the GPU; and when they are to be unloaded, call <code>dispose()</code> on them. But only when no other element is referencing them anymore! <ul>
+<li>If the entire scene is unloaded &amp; recreated, this can be done by traversal of the root world object as in that codepen above.</li>
+<li>If the scene is being modified incrementally, don&#39;t want to dispose a material if another mesh is using it. Possibly requires reference counting. </li>
+</ul>
+</li>
 </ul>
 </li>
 <li><p>References</p>

@@ -94,6 +94,12 @@ Graham's prototypes:
 
 **Milestone A: Minimum Viable Product**
 
+- **Possible scene graph**
+  - Root (Scene)
+    - Project world (i.e. the non-user world contents shared and synced via the server)
+    - Other users (all users other than current player, synced via the server)
+    - User interface
+
 - **Basic object manipulation**
   - Three.js has a built-in [Transform Controls](https://threejs.org/docs/#examples/en/controls/TransformControls), though it is mouse-centric, and might not be that easy to port to VR
     - [Example](https://threejs.org/examples/#misc_controls_transform)
@@ -125,6 +131,9 @@ Graham's prototypes:
   - [Very important: how to free memory!](https://threejs.org/docs/#manual/en/introduction/How-to-dispose-of-objects)
   - [Tutorial on cleanup](https://threejsfundamentals.org/threejs/lessons/threejs-cleanup.html)
   - [Minimal demo](https://codepen.io/grrrwaaa/pen/abwxdPg) -- loads a scene from JSON, then unloads it (freeing GPU memory) every second
+  - Insight: it's not a simple problem. You have to manually track what images, textures, geometries, materials, (any others?) have been allocated on the GPU; and when they are to be unloaded, call `dispose()` on them. But only when no other element is referencing them anymore! 
+    - If the entire scene is unloaded & recreated, this can be done by traversal of the root world object as in that codepen above.
+    - If the scene is being modified incrementally, don't want to dispose a material if another mesh is using it. Possibly requires reference counting. 
 
 - References
   - [Building an in-game Editor](https://blog.mozvr.com/jinglesmash-editor/)
