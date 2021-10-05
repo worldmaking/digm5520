@@ -99,6 +99,7 @@ Graham's prototypes:
 - **Basic object manipulation**
   - Three.js has a built-in [Transform Controls](https://threejs.org/docs/#examples/en/controls/TransformControls), though it is mouse-centric, and might not be that easy to port to VR
     - [Example](https://threejs.org/examples/#misc_controls_transform)
+    - Any such interface that modifies the world, we will need to convert to creating Automerge patches so that world changes are shared.
 
 - **Teleport**
   - [Nice tutorial here](https://ada.is/blog/2020/05/18/using-vr-controllers-and-locomotion-in-threejs/)
@@ -106,6 +107,7 @@ Graham's prototypes:
 - **VR User interfacing**
   - [Basic hand input](https://threejs.org/examples/?q=xr#webxr_vr_handinput)
   - [Ray-based select & drag/orient with VR controllers](https://threejs.org/examples/?q=xr#webxr_vr_dragging)
+  - [Hand painting](https://threejs.org/examples/?q=xr#webxr_vr_paint)
 
 - **UI libs**
   - [Three Mesh UI](https://github.com/felixmariotto/Three-Mesh-UI)
