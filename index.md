@@ -26,7 +26,7 @@ Instructor: [Graham Wakefield](https://ampd.yorku.ca/profile/graham-wakefield/) 
 | Sep 28: [Week 3](#week-3)   | Development sprint | Project prototypes show & tell, questions/roadblocks/etc |
 | Oct 05: [Week 4](#week-4)   | Dev Milestone MVP: A telematic world | MVP Milestone |
 | Oct 12: [Reading Week](#reading-week)   | Team planning | Project updates |
-| Oct 19: [Week 5](#week-5)   | Node.js intro, Distributed objects, OCAD U demo? | Project updates |
+| Oct 19: [Week 5](#week-5)   | Node.js intro, Distributed objects | Project updates |
 | Oct 26: [Week 6](#week-6)   | Development sprint | Project updates |
 | Nov 02: [Week 7](#week-7)   | Dev Milestone: Improvising worlds | Milestone |
 | Nov 09: [Week 8](#week-8)   | Generative Art, Artificial Nature | Project updates |
@@ -144,7 +144,9 @@ Graham's prototypes:
 
 **[Zoom Recording](https://yorku.zoom.us/rec/share/gLAhfR4qzz9Ke7ZbEZ7anCLDoBoWON_fertY97l_lof-101oPBMxPgfrYbyHi-IK.GuoMIygWdfS04M6W)**
 
-**Homework**:
+### Reading Week
+
+**Homework:**
 
 Please submit a report on your homeworks so far in the course. Please submit this report as a PDF by email to me, by **Friday October 15th**
 
