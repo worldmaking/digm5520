@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title></title>
+<meta name="description" content="">
+<meta name="author" content="Graham Wakefield">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="stylesheet" href="css/basic.css" type="text/css" />
+<link rel="stylesheet" href="css/github.css" type="text/css" />
+<style>
+td { 
+	vertical-align: top;
+}
+
+img {
+	max-height: 75vh;
+}
+
+header {
+	background-color:#f5f5f5;
+	font-size: 75%;
+	padding: 0.5em;
+}
+footer {
+	background-color:#f5f5f5;
+	font-size: 75%;
+	padding: 0.5em;
+}
+.responsive-google-slides {
+    position: relative;
+    padding-bottom: 60%; /* 16:9 Ratio = 56.25%, 4:3 ratio = 75% */
+    height: 0;
+    overflow: hidden;
+}
+.responsive-google-slides iframe {
+	border: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100% !important;
+	height: 100% !important;
+}
+</style>
+<script src="https://unpkg.com/@stackblitz/sdk/bundles/sdk.umd.js"></script>
+</head>
+<body class="centremaxwidth960">
+<header><a href="index.html">DATT4520 & DIGM5520: Generative Art in Mixed Reality / Spatial Computing in Responsive Environments</a></header>
+<ul>
+<li><a href="#nodejs">Node.js</a><ul>
+<li><a href="#installing">Installing</a></li>
+<li><a href="#using-nodejs">Using Node.js</a></li>
+<li><a href="#npm">NPM</a></li>
+<li><a href="#express">Express</a></li>
+<li><a href="#ws">WS</a></li>
+<li><a href="#writing-your-own-modules">Writing your own modules</a></li>
+<li><a href="#github">Github</a></li>
+<li><a href="#github-pages">Github Pages</a></li>
+<li><a href="#heroku">Heroku</a></li>
+<li><a href="#native-modules">Native modules</a></li>
+</ul>
+</li>
+</ul>
+
+<h1 id="nodejs">Node.js</h1>
+<p>Node.js was designed to support scalable network applications. Initially conceived as a <em>server-side</em> engine, it has grown to become a fantastic environment for desktop console-based scripting in general. </p>
+<blockquote>
+<p>Actually, these course notes were generated using Node.js!</p>
+</blockquote>
+<ul>
+<li>Tutorial/guides: <a href="https://nodejs.org/en/docs/guides/">https://nodejs.org/en/docs/guides/</a></li>
+<li>API: <a href="https://nodejs.org/dist/latest-v14.x/docs/api/">https://nodejs.org/dist/latest-v14.x/docs/api/</a>. </li>
+</ul>
+<h2 id="installing">Installing</h2>
+<ul>
+<li>Download and install Node.js from <a href="https://nodejs.org/en/">https://nodejs.org/en/</a> -- recommend the most recent &quot;LTS&quot; edition</li>
+<li>I recommend Visual Studio Code as an editor -- it has an integrated terminal, is consistent between Mac and Windows, and has good Javascript support built in. Get it from <a href="https://code.visualstudio.com/download">https://code.visualstudio.com/download</a></li>
+</ul>
+<h2 id="using-nodejs">Using Node.js</h2>
+<p>Look at the API again. Notice some of the features: File System/Path, OS, Timers, HTTP(S), etc. </p>
+<p>A core concept is that it is <strong>event-driven</strong>: responding to network, file, sub-processes, and many other events and data streams via callback functions.  For example, look at <a href="html#fs_fs_readfile_path_options_callback"><code>fs.readFile()</code></a>. But many offer non-event-based equivalents, such as <a href="https://nodejs.org/docs/latest-v12.x/api/fs.html#fs_fs_readfilesync_path_options"><code>fs.readFileSync()</code></a>.</p>
+<p>You can run Node.js as an interactive interpreter (REPL = Read Eval Print Loop, a basic conversational model dating back to teletype days), simply with <code>node</code> on the console. Type in an expression, it will print the result. </p>
+<p>But most of the time Node is used to run a main script, invoked with the filename. Let&#39;s make a simple Node.js script. We can use VS Code (integrated file editor &amp; terminal, with good default syntax colouring). A minimal script:</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// save as `index.js`</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;hello&quot;</span>)
+</code></pre>
+<p><code>node index.js</code> will run it.  (Hint, tab-complete)</p>
+<p>How about something dangerous?</p>
+<pre><code class="language-js"><span class="hljs-comment">// load in the &quot;fs&quot; (file system) module, so that we can use its API</span>
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;fs&quot;</span>);
+
+<span class="hljs-comment">// 1st arg is the file name/path</span>
+<span class="hljs-comment">// 2nd arg is the file encoding. Use &quot;utf8&quot; for most text files</span>
+<span class="hljs-keyword">let</span> content = fs.readFileSync(<span class="hljs-string">&quot;index.js&quot;</span>, <span class="hljs-string">&quot;utf8&quot;</span>)   
+
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Know thyself:&quot;</span>)
+<span class="hljs-built_in">console</span>.log(content)
+
+<span class="hljs-comment">// as a risky demo, let&#x27;s rewrite our own file!</span>
+<span class="hljs-comment">// using the `` backtick quotes here for a multi-line string</span>
+<span class="hljs-comment">// it also allows string interpolation (aka quasiquoting) via ${expr}</span>
+content = <span class="hljs-string">`e
+console.log(&quot;I repeat myself when under stress,&quot;);
+<span class="hljs-subst">${content}</span>
+`</span>
+fs.writeFileSync(<span class="hljs-string">&quot;index.js&quot;</span>, content, <span class="hljs-string">&quot;utf8&quot;</span>);
+</code></pre>
+<p>Run a few times. (Hint, up arrow)</p>
+<h2 id="npm">NPM</h2>
+<p>Notice that we use <code>require</code> to load in modules (to make new functions available to our script). The &quot;fs&quot; module is one of the few modules that comes with Node.js, but there are many, many, more that can be downloaded and installed. </p>
+<p>One of the most remarkable features of Node.js is the <a href="https://www.npmjs.com/">&quot;Node Package Manager&quot; (NPM)</a>, a collection of a million libraries -- the single-largest open-source package manager in the world, underlining the dictum that &quot;anything that can be written in Javascript eventually will&quot;. NPM is installed along with Node.js. </p>
+<h3 id="packagejson">Package.json</h3>
+<p>To start a new project, usually it&#39;s a good idea to run <code>npm init</code>. It will ask you for some parameters; I recommend changing the version to 0.0.1. Others you can go with the defaults usually. This will create a file called <code>package.json</code> which stores all your configuration for the project, including library dependencies, start scripts, etc. </p>
+<p>Typing <code>npm start</code> into the terminal should now run your script.</p>
+<h3 id="live-coding-tip">Live coding tip:</h3>
+<p><code>npm install -g nodemon</code> then <code>nodemon index.js</code> to reload the server after each edit.</p>
+<h2 id="express">Express</h2>
+<p>To add a library, such as <a href="https://www.npmjs.com/package/express">express</a>, simply:</p>
+<p><code>npm install --save express</code></p>
+<p>This will place the library folder <code>express</code> in a <code>node_mmodules</code> subfolder; and it will add the dependency to <code>package.json</code>. That way, if someone else was to check out your git repository, they could simply run <code>npm install</code> and it would download <code>express</code> for them too. </p>
+<p>Express itself is one of the popular web server frameworks -- it makes it very easy to host html pages from Node.js. </p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;express&#x27;</span>)
+<span class="hljs-keyword">const</span> app = express()
+<span class="hljs-keyword">const</span> port = <span class="hljs-number">3000</span>
+
+app.get(<span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+  res.send(<span class="hljs-string">&#x27;Hello World!&#x27;</span>)
+})
+
+<span class="hljs-keyword">const</span> server = app.listen(port, <span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Example app listening at http://localhost:<span class="hljs-subst">${port}</span>`</span>)
+})
+</code></pre>
+<p>To serve HTML pages, there&#39;s quite a bit of plumbing needed in terms of formatting messages, but fortunately <a href="https://expressjs.com/en/starter/static-files.html"><code>express</code> makes this very easy</a>:</p>
+<pre><code class="language-js"><span class="hljs-comment">// assumes &#x27;app&#x27; was created as above</span>
+<span class="hljs-comment">// assumes &#x27;public&#x27; is a subfolder relative to index.js</span>
+app.use(express.static(<span class="hljs-string">&#x27;public&#x27;</span>))
+
+<span class="hljs-comment">// alternatively, try with path.join(__dirname, &quot;public&quot;)</span>
+<span class="hljs-comment">// where const path = require(&quot;path&quot;); Node utilities for resolving filepaths</span>
+<span class="hljs-comment">// and __dirname is the path to the folder where index.js lives</span>
+</code></pre>
+<p>Create an <code>index.html</code> in the /public folder, and add the basic html5 template:</p>
+<pre><code class="language-html"><span class="hljs-meta">&lt;!doctype <span class="hljs-meta-keyword">html</span>&gt;</span>  
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span>  
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span>&gt;</span>  
+<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>My page<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>  
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>  
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+
+HTML objects go here.
+
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+<span class="hljs-comment">// Javascript code goes here.</span>
+<span class="hljs-comment">// (or link to an external &#x27;js&#x27; file using &#x27;&lt;script src=&quot;myscript.js&quot;&gt;</span></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>&#x27;)
+<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>  
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+<p>Great -- now you can see your page at localhost:3000 -- and anyone on your local network can see it too, so long as they know your machine&#39;s IP address (or possibly machine name). E.g. try it on your phone. </p>
+<p>Google: <code>what is my ip?</code></p>
+<p>Or <code>ifconfig</code>/<code>ipconfig</code> in the terminal. </p>
+<p>To make it visible beyond the local network, on the internet as a whole, you may need to configure your router quite a bit. But it&#39;s probably much simpler to set up a free account on a service like <a href="#heroku">Heroku</a>. </p>
+<h2 id="ws">WS</h2>
+<p>Serving HTML pages is fine enough for passive experiences, but what if you want something more dynamic -- where the browser and the Node &#39;server&#39; are talking to each other continuously? Here, <a href="https://en.wikipedia.org/wiki/WebSocket">WebSockets</a> can help. They are a bi-directional message-passing network protocol (not the only such thing, but a very commonly-supproted one) which can sit upon the HTTP protocol. It works on most browsers already.  To use them in Node.js, we need another library. <a href="https://github.com/websockets/ws">Try this one</a>:</p>
+<p><code>npm install --save ws</code></p>
+<p>And in our <code>index.js</code>:</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> ws = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;ws&#x27;</span>);
+
+<span class="hljs-comment">//... and after we&#x27;ve set up our &#x27;app&#x27; server:</span>
+<span class="hljs-comment">// add a websocket server for continuous communication with clients:</span>
+<span class="hljs-keyword">const</span> wss = <span class="hljs-keyword">new</span> ws.Server({ server });
+<span class="hljs-comment">// handle each new connections from a client:</span>
+wss.on(<span class="hljs-string">&#x27;connection&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">client</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;I got a connection!&quot;</span>);
+});
+</code></pre>
+<p>Meanwhile, in the browser (&quot;client&quot;) javascript code, add some code to try to connect to this server: </p>
+<pre><code class="language-js">
+<span class="hljs-comment">// connect to websocket at same location as the web-page host:</span>
+<span class="hljs-keyword">const</span> addr = <span class="hljs-string">`ws://<span class="hljs-subst">${<span class="hljs-built_in">window</span>.location.hostname}</span>:<span class="hljs-subst">${<span class="hljs-built_in">window</span>.location.port || <span class="hljs-number">80</span>}</span>`</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;connecting to&quot;</span>, addr)
+
+<span class="hljs-comment">// this is how to create a client socket in the browser:</span>
+<span class="hljs-keyword">let</span> socket = <span class="hljs-keyword">new</span> WebSocket(addr);
+
+<span class="hljs-comment">// let&#x27;s know when it works:</span>
+socket.onopen = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{ 
+    <span class="hljs-comment">// or document.write(&quot;websocket connected to &quot;+addr); </span>
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;websocket connected to &quot;</span>+addr); 
+}
+socket.onerror = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{ 
+    <span class="hljs-built_in">console</span>.error(err); 
+}
+socket.onclose = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{ 
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;websocket disconnected from &quot;</span>+addr); 
+}
+</code></pre>
+<p>Assuming this hand-shaking works, we can start adding some conversational back &amp; forth. In the client, let&#39;s tell the server if our mouse is moving:</p>
+<pre><code class="language-js"><span class="hljs-built_in">document</span>.addEventListener(<span class="hljs-string">&quot;pointermove&quot;</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
+    <span class="hljs-comment">// is the socket available?</span>
+    <span class="hljs-keyword">if</span> (socket.readyState !== WebSocket.OPEN) <span class="hljs-keyword">return</span>;
+
+    <span class="hljs-comment">// we can send any old string:</span>
+    socket.send(<span class="hljs-string">&quot;boo!&quot;</span>)
+});
+
+socket.onmessage = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">msg</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(msg.data);
+}
+</code></pre>
+<p>And, in the server, we can make a reply. Now here we have to be more careful: the server might have connections to MANY clients at once, so we need to handle it <em>inside</em> the wss.on(&#39;connection&#39;) handler:</p>
+<pre><code class="language-js">wss.on(<span class="hljs-string">&#x27;connection&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">client</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;I got a connection!&quot;</span>);
+    <span class="hljs-comment">// all per-client code goes here now.</span>
+
+    client.on(<span class="hljs-string">&#x27;message&#x27;</span>, <span class="hljs-function"><span class="hljs-params">msg</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;I got a message!&quot;</span>, msg);
+        
+        <span class="hljs-comment">// reply:</span>
+        client.send(<span class="hljs-string">&quot;who?&quot;</span>)
+    });
+});
+
+<span class="hljs-comment">// to send a message to *everyone*:</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sendAllClients</span>(<span class="hljs-params">message</span>) </span>{
+  wss.clients.forEach(<span class="hljs-function"><span class="hljs-params">client</span> =&gt;</span> {
+      client.send(message);
+  });
+}
+</code></pre>
+<h3 id="complex-data-on-websockets">Complex data on websockets</h3>
+<p>To send more structured, arbitrary data back &amp; forth, we can encode it using JSON:</p>
+<pre><code class="language-js"><span class="hljs-comment">// most js objects can be encoded as JSON</span>
+<span class="hljs-comment">// except for functions, complex structures that contain multiple references to the same object, or binary arrays, etc.</span>
+<span class="hljs-keyword">let</span> obj = { 
+    <span class="hljs-attr">a</span>: [<span class="hljs-string">&quot;complex&quot;</span>, <span class="hljs-string">&quot;object&quot;</span>],
+    <span class="hljs-attr">is</span>: { <span class="hljs-attr">fine</span>: <span class="hljs-number">2</span> },
+    <span class="hljs-attr">encode</span>: <span class="hljs-string">&quot;as json&quot;</span>
+}
+<span class="hljs-keyword">let</span> str = <span class="hljs-built_in">JSON</span>.stringify(obj)  <span class="hljs-comment">// this is the compact version</span>
+<span class="hljs-comment">//let str = JSON.stringify(obj, null, &quot;  &quot;) // human-readable version</span>
+<span class="hljs-built_in">console</span>.log(str) <span class="hljs-comment">// -&gt; suitable for sending on a websocket</span>
+
+<span class="hljs-keyword">let</span> obj1 = <span class="hljs-built_in">JSON</span>.parse(str) 
+<span class="hljs-built_in">console</span>.log(obj1) <span class="hljs-comment">// it&#x27;s a js object again! </span>
+</code></pre>
+<p>You could even look at the 1st character of a message string (<code>substring(0,1)</code>) and see if it <code>== &quot;{&quot;</code> to detect a potential JSON-encoded message.</p>
+<h3 id="binary-data-on-websockets">Binary data on websockets</h3>
+<p>Sometimes you want to send a LOT of numbers (e.g. an array of sensor measurments, an image, etc.); in this case, using an <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a> would make more sense. We can do this too. We just need to do a couple more things:</p>
+<pre><code class="language-js">socket.binaryType = <span class="hljs-string">&#x27;arraybuffer&#x27;</span>;
+
+socket.onmessage = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">msg</span>) </span>{
+    <span class="hljs-keyword">if</span> (msg.data <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">ArrayBuffer</span>) {
+        <span class="hljs-comment">// do stuff with msg.data</span>
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;ws received arraybuffer of &quot;</span> + msg.data.byteLength + <span class="hljs-string">&quot; bytes&quot;</span>)
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-comment">// as before</span>
+    }
+}
+</code></pre>
+<p>Similarly in the server:</p>
+<pre><code class="language-js"><span class="hljs-comment">// before calling socket.open():</span>
+socket.binaryType = <span class="hljs-string">&#x27;arraybuffer&#x27;</span>;
+
+client.on(<span class="hljs-string">&#x27;message&#x27;</span>, <span class="hljs-function"><span class="hljs-params">msg</span> =&gt;</span> {
+    msg.buffer
+})
+</code></pre>
+<p>Your server probably wants to maintain a list of clients (sessions) data. It might collect updates from each client, merge them into a combined &quot;scene&quot; representation, and broadcast that scene to all clients.</p>
+<p>You might need some way of uniquely identifying each client, so that they can render their own data locally rather than waiting for the server reply.</p>
+<p>You could store the scene data into a file (e.g. JSON, or binary), so if the server crashes, you can re-open it and continue where it left off.</p>
+<h2 id="writing-your-own-modules">Writing your own modules</h2>
+<p>You can write your own JS modules very easily. It&#39;s a good idea if you want to package up some code that will be re-used in many projects. </p>
+<p>It can also be a good way to break up a complex project into smaller components that are easier to work with.     </p>
+<p><code>require</code> can take a relative path, e.g. <code>require(&quot;./mylib&quot;)</code> or <code>require(path.join(__dirname, &quot;mylib&quot;))</code> will both find a <code>mylib.js</code> in the same folder. </p>
+<p>There are some standard paths that <code>require</code> will always look into -- you can check out <code>module.paths</code> to know what they are. </p>
+<p>In the code of a module, we declare what it &#39;exports&#39; to the <code>require()</code> call via <code>module.exports</code>. Usually it looks like this:</p>
+<pre><code class="language-js"><span class="hljs-comment">// save as ultimate.js</span>
+
+<span class="hljs-comment">// module.exports can be a function, an object, an anything really.</span>
+<span class="hljs-comment">// objects make sense when exporting an API:</span>
+<span class="hljs-built_in">module</span>.exports = {
+    <span class="hljs-attr">question</span>: <span class="hljs-string">&quot;what is the meaning of life?&quot;</span>,
+    <span class="hljs-attr">answer</span>: <span class="hljs-number">42</span>,
+}
+</code></pre>
+<pre><code class="language-js"><span class="hljs-comment">// save as test.js</span>
+
+<span class="hljs-keyword">const</span> ultimate = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;./ultimate&quot;</span>)
+
+<span class="hljs-built_in">console</span>.log(ultimate.question)
+<span class="hljs-built_in">console</span>.log(ultimate.answer)
+</code></pre>
+<hr>
+<h2 id="github">Github</h2>
+<p>One of the most widely-used platforms for working on code bases in teams, built upon <code>git</code>, a technology for versioning, merging, and forking code. </p>
+<ul>
+<li>First you need to install <code>git</code>, <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">tutorial here</a> and <a href="https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup">first time setup tutorial</a></li>
+<li>Sign up for an account on <a href="https://github.com">Github</a> and link your SSH keys; <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">SSH set up tutorial</a> and <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account">tutorial on adding SSH key to github</a></li>
+</ul>
+<h2 id="github-pages">Github Pages</h2>
+<p>One nice feature about github repositories is that, if you create a branch with the specific branch name <code>gh-pages</code>, it will automatically turn that into a static public website. (Static means that there is no active server code, only fixed files like images, HTML, etc.) </p>
+<blockquote>
+<p>E.g. if your github username is <code>arthurdent</code> and your repo name is <code>golgafrincham</code> then your <code>gh-pages</code> branch contains a file called <code>slartibartfarst.html</code>, then it will be visible at <a href="https://arthurdent.github.io/golgafrincham/slartibartfarst.html">https://arthurdent.github.io/golgafrincham/slartibartfarst.html</a>. </p>
+</blockquote>
+<p>A particularly useful thing about this is that github pages are CORS-enabled, which means, you can load them from another website without the browser blocking them for being on a different domain.  So this can be a good way to store GLTF models, image textures, etc. that can be accessed from another site such as Codepen, Stackblitz, etc. </p>
+<p>Note however that there is a 25mb size limit on github pages. </p>
+<h2 id="heroku">Heroku</h2>
+<p>Heroku provides server space and bandwidth with the ability to run Node.js under a flexible and powerful control panel. One nice thing is that, if you have set up a Github account, you can link a github repository to a Heroku site, so that each time you push to your github repository, it automatically updates and reloads the web server. </p>
+<ul>
+<li><a href="https://signup.heroku.com">Sign up here</a></li>
+<li>It gives you 550 free &quot;dyno&quot; hours per month. </li>
+<li><a href="https://devcenter.heroku.com/categories/nodejs-support">Getting started guide</a></li>
+<li><a href="https://devcenter.heroku.com/articles/github-integration">How to link to github</a></li>
+</ul>
+<p>One unusual quirk: Heroku sites are secure (https) by default, even if you set them up using <code>http</code> rather than <code>https</code>.  This is good for us: WebXR requires an https connection. </p>
+<p>Here&#39;s a more involved example that should work both on localhost and Heroku:</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// internal modules:</span>
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;fs&#x27;</span>);
+<span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;path&quot;</span>)
+<span class="hljs-keyword">const</span> url = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;url&#x27;</span>);
+<span class="hljs-keyword">const</span> assert = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;assert&quot;</span>);
+<span class="hljs-keyword">const</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;http&quot;</span>);
+<span class="hljs-comment">// external modules:</span>
+<span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;express&quot;</span>);
+
+<span class="hljs-comment">// this will be true if this server is running on Heroku</span>
+<span class="hljs-keyword">const</span> IS_HEROKU = (process.env._ &amp;&amp; process.env._.indexOf(<span class="hljs-string">&quot;heroku&quot;</span>) !== -<span class="hljs-number">1</span>);
+<span class="hljs-comment">// what port should this server be accessed on?</span>
+<span class="hljs-keyword">const</span> PORT = process.env.PORT || <span class="hljs-number">3000</span>)
+<span class="hljs-comment">// where static HTML etc. files are found</span>
+<span class="hljs-keyword">const</span> PUBLIC_PATH = path.join(__dirname, <span class="hljs-string">&quot;public&quot;</span>)
+
+
+<span class="hljs-comment">// create an Express app:</span>
+<span class="hljs-keyword">const</span> app = express();
+<span class="hljs-comment">// serve static files from PUBLIC_PATH:</span>
+app.use(express.static(PUBLIC_PATH)); 
+<span class="hljs-comment">// default to index.html if no file given:</span>
+app.get(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
+    res.sendFile(path.join(PUBLIC_PATH, <span class="hljs-string">&quot;index.html&quot;</span>))
+});
+<span class="hljs-comment">// uncomment this to allow cross-domain access (CORS):</span>
+<span class="hljs-comment">// app.use(function(req, res, next) {</span>
+<span class="hljs-comment">//     res.header(&#x27;Access-Control-Allow-Origin&#x27;, &#x27;*&#x27;);</span>
+<span class="hljs-comment">//     res.header(&#x27;Access-Control-Allow-Methods&#x27;, &#x27;GET, OPTIONS&#x27;);</span>
+<span class="hljs-comment">//     res.header(&#x27;Access-Control-Allow-Headers&#x27;, &#x27;Content-Type&#x27;);</span>
+<span class="hljs-comment">//     return next();</span>
+<span class="hljs-comment">// });</span>
+
+<span class="hljs-comment">// create the primary server from this app:</span>
+<span class="hljs-keyword">const</span> server = http.createServer(app);
+
+<span class="hljs-comment">// add a websocket to it:</span>
+<span class="hljs-keyword">const</span> wss = <span class="hljs-keyword">new</span> ws.Server({ server });
+<span class="hljs-comment">// handle websocket connections and events from clients:</span>
+wss.on(<span class="hljs-string">&#x27;connection&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">socket, req</span>) =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;received a new websocket connection to&quot;</span>, req.url)
+    
+    socket.on(<span class="hljs-string">&#x27;message&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">msg</span>) =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(msg)
+        <span class="hljs-comment">// send it back:</span>
+        socket.send(msg)
+    });
+
+    socket.on(<span class="hljs-string">&#x27;error&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(err)
+    });
+
+    socket.on(<span class="hljs-string">&#x27;close&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;client closed socket&quot;</span>)
+    });
+});
+
+<span class="hljs-comment">// start the server:</span>
+server.listen(PORT, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;\nNode.js listening on port &quot;</span> + PORT);
+});
+</code></pre>
+<h2 id="native-modules">Native modules</h2>
+<p>Modules can also be written in C or C++ (&quot;native code&quot;), which is what most of Node&#39;s own libraries are written in.  Why?</p>
+<ul>
+<li>You want to hook your script into another C++ library or code base (e.g. binding to OpenGL). Most operating system frameworks and APIs are C-based, as are most device drivers etc. For example, I have worked on node modules for <a href="https://github.com/worldmaking/node-gles3">Kinect sensors, VR headsets (and gloves), as well as OpenGL, native windowing</a>, and so on, which all meant mapping to a C/C++ SDK. </li>
+<li>You want to write some routines that run much faster. C++ is usually a lot faster than JS for large scale numeric operations (though this can depend on a lot of factors -- see the <a href="https://benchmarksgame-team.pages.debian.net/benchmarksgame/fastest/node-gpp.html">benchmarks game here</a>, which shows 2-4x speedups in many tests). For example, in some of the Artificial Nature exhibits, I have written some parts of the simulations in JS, but others, such as 3D fluid and other physics simulations, were C++ native modules. </li>
+</ul>
+<p>It&#39;s a lot more layered than just writing some JS, but after a while it gets easier. <a href="https://github.com/worldmaking/worldmaking.github.io/wiki/Node.js-native-C-modules">See notes here</a> </p>
+
+<footer>DATT4520/DIGM5520 2021-22</footer>
+</body>
+<script src="js/connect.js"></script>
+</html>
