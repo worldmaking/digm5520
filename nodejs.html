@@ -101,7 +101,7 @@ footer {
 <span class="hljs-comment">// as a risky demo, let&#x27;s rewrite our own file!</span>
 <span class="hljs-comment">// using the `` backtick quotes here for a multi-line string</span>
 <span class="hljs-comment">// it also allows string interpolation (aka quasiquoting) via ${expr}</span>
-content = <span class="hljs-string">`e
+content = <span class="hljs-string">`
 console.log(&quot;I repeat myself when under stress,&quot;);
 <span class="hljs-subst">${content}</span>
 `</span>
@@ -123,14 +123,14 @@ fs.writeFileSync(<span class="hljs-string">&quot;index.js&quot;</span>, content,
 <p>Express itself is one of the popular web server frameworks -- it makes it very easy to host html pages from Node.js. </p>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;express&#x27;</span>)
 <span class="hljs-keyword">const</span> app = express()
-<span class="hljs-keyword">const</span> port = <span class="hljs-number">3000</span>
+<span class="hljs-keyword">const</span> PORT = <span class="hljs-number">3000</span>
 
 app.get(<span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
   res.send(<span class="hljs-string">&#x27;Hello World!&#x27;</span>)
 })
 
-<span class="hljs-keyword">const</span> server = app.listen(port, <span class="hljs-function">() =&gt;</span> {
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Example app listening at http://localhost:<span class="hljs-subst">${port}</span>`</span>)
+<span class="hljs-keyword">const</span> server = app.listen(PORT, <span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Example app listening at http://localhost:<span class="hljs-subst">${PORT}</span>`</span>)
 })
 </code></pre>
 <p>To serve HTML pages, there&#39;s quite a bit of plumbing needed in terms of formatting messages, but fortunately <a href="https://expressjs.com/en/starter/static-files.html"><code>express</code> makes this very easy</a>:</p>
@@ -327,11 +327,12 @@ client.on(<span class="hljs-string">&#x27;message&#x27;</span>, <span class="hlj
 <span class="hljs-keyword">const</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;http&quot;</span>);
 <span class="hljs-comment">// external modules:</span>
 <span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;express&quot;</span>);
+<span class="hljs-keyword">const</span> ws = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;ws&quot;</span>);
 
 <span class="hljs-comment">// this will be true if this server is running on Heroku</span>
 <span class="hljs-keyword">const</span> IS_HEROKU = (process.env._ &amp;&amp; process.env._.indexOf(<span class="hljs-string">&quot;heroku&quot;</span>) !== -<span class="hljs-number">1</span>);
 <span class="hljs-comment">// what port should this server be accessed on?</span>
-<span class="hljs-keyword">const</span> PORT = process.env.PORT || <span class="hljs-number">3000</span>)
+<span class="hljs-keyword">const</span> PORT = process.env.PORT || <span class="hljs-number">3000</span>
 <span class="hljs-comment">// where static HTML etc. files are found</span>
 <span class="hljs-keyword">const</span> PUBLIC_PATH = path.join(__dirname, <span class="hljs-string">&quot;public&quot;</span>)
 

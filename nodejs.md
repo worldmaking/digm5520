@@ -48,7 +48,7 @@ console.log(content)
 // as a risky demo, let's rewrite our own file!
 // using the `` backtick quotes here for a multi-line string
 // it also allows string interpolation (aka quasiquoting) via ${expr}
-content = `e
+content = `
 console.log("I repeat myself when under stress,");
 ${content}
 `
@@ -88,14 +88,14 @@ Express itself is one of the popular web server frameworks -- it makes it very e
 ```js
 const express = require('express')
 const app = express()
-const port = 3000
+const PORT = 3000
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-const server = app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+const server = app.listen(PORT, () => {
+  console.log(`Example app listening at http://localhost:${PORT}`)
 })
 ```
 
@@ -354,11 +354,12 @@ const assert = require("assert");
 const http = require("http");
 // external modules:
 const express = require("express");
+const ws = require("ws");
 
 // this will be true if this server is running on Heroku
 const IS_HEROKU = (process.env._ && process.env._.indexOf("heroku") !== -1);
 // what port should this server be accessed on?
-const PORT = process.env.PORT || 3000)
+const PORT = process.env.PORT || 3000
 // where static HTML etc. files are found
 const PUBLIC_PATH = path.join(__dirname, "public")
 
