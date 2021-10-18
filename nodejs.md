@@ -62,8 +62,7 @@ Run a few times. (Hint, up arrow)
 
 Notice that we use `require` to load in modules (to make new functions available to our script). The "fs" module is one of the few modules that comes with Node.js, but there are many, many, more that can be downloaded and installed. 
 
-One of the most remarkable features of Node.js is the ["Node Package Manager" (NPM)](https://www.npmjs.com/), a collection of a million libraries -- the single-largest open-source package manager in the world, underlining the dictum that "anything that can be written in Javascript eventually will". NPM is installed along with Node.js. 
-
+One of the most remarkable features of Node.js is the ["Node Package Manager" (NPM)](https://www.npmjs.com/), a collection of a million libraries -- the single-largest open-source package manager in the world, underlining the dictum that "anything that can be written i.
 
 ### Package.json
 
