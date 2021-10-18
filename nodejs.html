@@ -54,11 +54,13 @@ footer {
 <li><a href="#using-nodejs">Using Node.js</a></li>
 <li><a href="#npm">NPM</a></li>
 <li><a href="#express">Express</a></li>
+<li><a href="#threejs-in-your-static-site">Three.js in your static site</a></li>
 <li><a href="#ws">WS</a></li>
 <li><a href="#writing-your-own-modules">Writing your own modules</a></li>
 <li><a href="#github">Github</a></li>
 <li><a href="#github-pages">Github Pages</a></li>
 <li><a href="#heroku">Heroku</a></li>
+<li><a href="#https-on-a-localhost">HTTPS on a localhost</a></li>
 <li><a href="#native-modules">Native modules</a></li>
 </ul>
 </li>
@@ -164,6 +166,10 @@ HTML objects go here.
 <p>Google: <code>what is my ip?</code></p>
 <p>Or <code>ifconfig</code>/<code>ipconfig</code> in the terminal. </p>
 <p>To make it visible beyond the local network, on the internet as a whole, you may need to configure your router quite a bit. But it&#39;s probably much simpler to set up a free account on a service like <a href="#heroku">Heroku</a>. </p>
+<h2 id="threejs-in-your-static-site">Three.js in your static site</h2>
+<p>You can pretty much copy from your code on Stackblitz and paste into a static file in your project&#39;s public folder. </p>
+<p>And unlike Stackblitz, now you can load local assets like GLTF, images, etc. from the same folder. </p>
+<p>However, for running WebXR, you will run into trouble because the WebXR spec is only permitted on secure HTTPS, while the standard express localhost site is unsecure HTTP. See notes below.</p>
 <h2 id="ws">WS</h2>
 <p>Serving HTML pages is fine enough for passive experiences, but what if you want something more dynamic -- where the browser and the Node &#39;server&#39; are talking to each other continuously? Here, <a href="https://en.wikipedia.org/wiki/WebSocket">WebSockets</a> can help. They are a bi-directional message-passing network protocol (not the only such thing, but a very commonly-supproted one) which can sit upon the HTTP protocol. It works on most browsers already.  To use them in Node.js, we need another library. <a href="https://github.com/websockets/ws">Try this one</a>:</p>
 <p><code>npm install --save ws</code></p>
@@ -181,7 +187,7 @@ wss.on(<span class="hljs-string">&#x27;connection&#x27;</span>, <span class="hlj
 <p>Meanwhile, in the browser (&quot;client&quot;) javascript code, add some code to try to connect to this server: </p>
 <pre><code class="language-js">
 <span class="hljs-comment">// connect to websocket at same location as the web-page host:</span>
-<span class="hljs-keyword">const</span> addr = <span class="hljs-string">`ws://<span class="hljs-subst">${<span class="hljs-built_in">window</span>.location.hostname}</span>:<span class="hljs-subst">${<span class="hljs-built_in">window</span>.location.port || <span class="hljs-number">80</span>}</span>`</span>
+<span class="hljs-keyword">const</span> addr = location.origin.replace(<span class="hljs-regexp">/^http/</span>, <span class="hljs-string">&#x27;ws&#x27;</span>)
 <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;connecting to&quot;</span>, addr)
 
 <span class="hljs-comment">// this is how to create a client socket in the browser:</span>
@@ -191,12 +197,18 @@ wss.on(<span class="hljs-string">&#x27;connection&#x27;</span>, <span class="hlj
 socket.onopen = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{ 
     <span class="hljs-comment">// or document.write(&quot;websocket connected to &quot;+addr); </span>
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;websocket connected to &quot;</span>+addr); 
+    socket.send(<span class="hljs-string">&quot;hello&quot;</span>)
 }
 socket.onerror = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{ 
     <span class="hljs-built_in">console</span>.error(err); 
 }
 socket.onclose = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{ 
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;websocket disconnected from &quot;</span>+addr); 
+
+    <span class="hljs-comment">// a useful trick:</span>
+    <span class="hljs-comment">// if the server disconnects (happens a lot during development!)</span>
+    <span class="hljs-comment">// reload this page to try to reconnect again</span>
+    location.reload()
 }
 </code></pre>
 <p>Assuming this hand-shaking works, we can start adding some conversational back &amp; forth. In the client, let&#39;s tell the server if our mouse is moving:</p>
@@ -217,7 +229,8 @@ socket.onmessage = <span class="hljs-function"><span class="hljs-keyword">functi
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;I got a connection!&quot;</span>);
     <span class="hljs-comment">// all per-client code goes here now.</span>
 
-    client.on(<span class="hljs-string">&#x27;message&#x27;</span>, <span class="hljs-function"><span class="hljs-params">msg</span> =&gt;</span> {
+    client.on(<span class="hljs-string">&#x27;message&#x27;</span>, <span class="hljs-function"><span class="hljs-params">buf</span> =&gt;</span> {
+        <span class="hljs-keyword">const</span> msg = buf.toString()
         <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;I got a message!&quot;</span>, msg);
         
         <span class="hljs-comment">// reply:</span>
@@ -382,6 +395,42 @@ server.listen(PORT, <span class="hljs-function"><span class="hljs-keyword">funct
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;\nNode.js listening on port &quot;</span> + PORT);
 });
 </code></pre>
+<h2 id="https-on-a-localhost">HTTPS on a localhost</h2>
+<p>However, for running WebXR, you will run into trouble because the WebXR spec is only permitted on secure HTTPS, while the standard express localhost site is unsecure HTTP. This <em>can</em> be solved by generating your own local SSL certificate, and convincing Chrome to accept it, but it&#39;s quite a few complex steps. </p>
+<pre><code>See walkthrough at https://stackoverflow.com/questions/21397809/create-a-trusted-self-signed-ssl-cert-for-localhost-for-use-with-express-node
+
+cd security
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout cert.key -out cert.pem -config req.cnf -sha256
+
+Modify server.js:
+
+    const http = require(&quot;http&quot;)
+    const https = require(&quot;https&quot;)
+    const IS_HTTPS = !IS_HEROKU;
+
+    const server = IS_HTTPS ? 
+        https.createServer({ 
+            key: fs.readFileSync(&quot;./cert.key&quot;), 
+            cert: fs.readFileSync(&quot;./cert.pem&quot;)
+        }, app) // &lt;-- for localhost
+        :  http.createServer(app)  // &lt;-- for Heroku
+
+run server.js
+
+go to https://localhost:3000 in Chrome
+
+Chrome -&gt; dev tools / security, click on View Certificate
+Details panel, &quot;Copy to File&quot;, save it somewhere as &quot;localhost.cer&quot;
+
+Open chrome://settings/
+serch for Security / Manage Certificates, open the popup
+ Go to Trusted Root Certification Authorities panel, and click import.
+ Browse to where you saved &quot;localhost.cer&quot;
+ Next, next, etc. until the warning panel, click &quot;Yes&quot;
+
+Restart Chrome. 
+</code></pre>
+<p>...but it might be easier to just use a Heroku server, where none of the https stuff needs to be dealt with. </p>
 <h2 id="native-modules">Native modules</h2>
 <p>Modules can also be written in C or C++ (&quot;native code&quot;), which is what most of Node&#39;s own libraries are written in.  Why?</p>
 <ul>

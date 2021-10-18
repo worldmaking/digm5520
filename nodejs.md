@@ -140,6 +140,13 @@ Or `ifconfig`/`ipconfig` in the terminal.
 
 To make it visible beyond the local network, on the internet as a whole, you may need to configure your router quite a bit. But it's probably much simpler to set up a free account on a service like [Heroku](#heroku). 
 
+## Three.js in your static site
+
+You can pretty much copy from your code on Stackblitz and paste into a static file in your project's public folder. 
+
+And unlike Stackblitz, now you can load local assets like GLTF, images, etc. from the same folder. 
+
+However, for running WebXR, you will run into trouble because the WebXR spec is only permitted on secure HTTPS, while the standard express localhost site is unsecure HTTP. See notes below.
 ## WS
 
 Serving HTML pages is fine enough for passive experiences, but what if you want something more dynamic -- where the browser and the Node 'server' are talking to each other continuously? Here, [WebSockets](https://en.wikipedia.org/wiki/WebSocket) can help. They are a bi-directional message-passing network protocol (not the only such thing, but a very commonly-supproted one) which can sit upon the HTTP protocol. It works on most browsers already.  To use them in Node.js, we need another library. [Try this one](https://github.com/websockets/ws):
@@ -165,7 +172,7 @@ Meanwhile, in the browser ("client") javascript code, add some code to try to co
 ```js
 
 // connect to websocket at same location as the web-page host:
-const addr = `ws://${window.location.hostname}:${window.location.port || 80}`
+const addr = location.origin.replace(/^http/, 'ws')
 console.log("connecting to", addr)
 
 // this is how to create a client socket in the browser:
@@ -175,12 +182,18 @@ let socket = new WebSocket(addr);
 socket.onopen = function() { 
 	// or document.write("websocket connected to "+addr); 
 	console.log("websocket connected to "+addr); 
+	socket.send("hello")
 }
 socket.onerror = function(err) { 
 	console.error(err); 
 }
 socket.onclose = function(e) { 
 	console.log("websocket disconnected from "+addr); 
+
+	// a useful trick:
+	// if the server disconnects (happens a lot during development!)
+	// reload this page to try to reconnect again
+	location.reload()
 }
 ```
 
@@ -207,7 +220,8 @@ wss.on('connection', function(client) {
 	console.log("I got a connection!");
 	// all per-client code goes here now.
 
-	client.on('message', msg => {
+	client.on('message', buf => {
+		const msg = buf.toString()
 		console.log("I got a message!", msg);
 		
 		// reply:
@@ -411,6 +425,47 @@ server.listen(PORT, function() {
 ```
 
 
+## HTTPS on a localhost
+
+However, for running WebXR, you will run into trouble because the WebXR spec is only permitted on secure HTTPS, while the standard express localhost site is unsecure HTTP. This *can* be solved by generating your own local SSL certificate, and convincing Chrome to accept it, but it's quite a few complex steps. 
+
+
+	See walkthrough at https://stackoverflow.com/questions/21397809/create-a-trusted-self-signed-ssl-cert-for-localhost-for-use-with-express-node
+
+	cd security
+	openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout cert.key -out cert.pem -config req.cnf -sha256
+
+	Modify server.js:
+
+		const http = require("http")
+		const https = require("https")
+		const IS_HTTPS = !IS_HEROKU;
+
+		const server = IS_HTTPS ? 
+			https.createServer({ 
+				key: fs.readFileSync("./cert.key"), 
+				cert: fs.readFileSync("./cert.pem")
+			}, app) // <-- for localhost
+			:  http.createServer(app)  // <-- for Heroku
+
+	run server.js
+
+	go to https://localhost:3000 in Chrome
+
+	Chrome -> dev tools / security, click on View Certificate
+	Details panel, "Copy to File", save it somewhere as "localhost.cer"
+
+	Open chrome://settings/
+	serch for Security / Manage Certificates, open the popup
+	 Go to Trusted Root Certification Authorities panel, and click import.
+	 Browse to where you saved "localhost.cer"
+	 Next, next, etc. until the warning panel, click "Yes"
+
+	Restart Chrome. 
+
+...but it might be easier to just use a Heroku server, where none of the https stuff needs to be dealt with. 
+
+
 ## Native modules
 
 Modules can also be written in C or C++ ("native code"), which is what most of Node's own libraries are written in.  Why?
@@ -419,3 +474,4 @@ Modules can also be written in C or C++ ("native code"), which is what most of N
 - You want to write some routines that run much faster. C++ is usually a lot faster than JS for large scale numeric operations (though this can depend on a lot of factors -- see the [benchmarks game here](https://benchmarksgame-team.pages.debian.net/benchmarksgame/fastest/node-gpp.html), which shows 2-4x speedups in many tests). For example, in some of the Artificial Nature exhibits, I have written some parts of the simulations in JS, but others, such as 3D fluid and other physics simulations, were C++ native modules. 
 
 It's a lot more layered than just writing some JS, but after a while it gets easier. [See notes here](https://github.com/worldmaking/worldmaking.github.io/wiki/Node.js-native-C-modules) 
+
