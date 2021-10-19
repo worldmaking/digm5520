@@ -176,6 +176,11 @@ The PDF should include a written section, and example links to code (codepen, st
       - Arrays may use plural rather than singular names. Etc. 
     - Ensure you have properly **indented** your code. A lot of code editors can automatically format your code, which will solve this. Code that isn't indented properly is really hard to read, and can often lead you into to strange bugs. Being in the habit of frequently indenting properly helps avoid these bugs.
 
+### Week 5
+
+- [Node.js intro](nodejs.html)
+ 
+[Zoom recording](https://yorku.zoom.us/rec/share/o5gXgDhqFig6pLtkftXr5d2aQoVzaP8LB8AwVpaF8UMrIV7rfysaPRbIe2kP0wjo.MIyDErTudxcIuZSh)
 
 <!--
 
