@@ -191,6 +191,22 @@ The PDF should include a written section, and example links to code (codepen, st
 - Development sprint
 - Navigation example: [https://stackblitz.com/edit/web-platform-phnvvr](https://stackblitz.com/edit/web-platform-phnvvr)
 
+Groups:
+- Navigation/Avatar integration
+  - Douglas, Martin, Nick, Jonathan
+- Signals-to-mesh
+  - Eyal, Grace, Kavi, Kwame
+- UI-in-three
+  - Faadhi, Filiz, Jamie, Jorge
+- Generative geometry & agents
+  - Andrew, Hrysovalante, Kimberly
+
+# Week 8
+
+- Refactoring
+- Instancing and Agents
+- Generative buffer geometry
+
 <!--
 
 Github team: https://github.com/orgs/worldmaking/teams/webxr-nodelab
