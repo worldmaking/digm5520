@@ -19,16 +19,22 @@ Instructor: [Graham Wakefield](https://ampd.yorku.ca/profile/graham-wakefield/) 
 <!-- ![inhabitat](img/inhabitat.png) -->
 
 
-| Week                        | Class   | Due | Reading |
-| :--                         | :--     | :-- | :--     |
-| Sep 14: [Week 1](#week-1)   | [Overview](course.html), [Project](project.html), [Three.js](three.html) | [Survey](https://forms.gle/aMokgKGcSbigzbwf6) | [Read: Ivan Sutherland - The Ultimate Display (1965)](https://my.eng.utah.edu/~cs6360/Readings/UltimateDisplay.pdf) <br> [Listen: Jaron Lanier Voices of VR Podcast](https://voicesofvr.com/600-jaron-laniers-journey-into-vr-dawn-of-the-new-everything/) |
+| Week                        | Class   | Due | 
+| :--                         | :--     | :-- | 
+| Sep 14: [Week 1](#week-1)   | [Overview](course.html), [Project](project.html), [Three.js](three.html) | [Survey](https://forms.gle/aMokgKGcSbigzbwf6) 
 | Sep 21: [Week 2](#week-2)   | [Intro to VR](vr.html), [Project Planning](project.html), [Three.js topics](three.html) | Three.js sketches; questions |
 | Sep 28: [Week 3](#week-3)   | Development sprint | Project prototypes show & tell, questions/roadblocks/etc |
 | Oct 05: [Week 4](#week-4)   | Dev Milestone MVP: A telematic world | MVP Milestone |
 | Oct 12: [Reading Week](#reading-week)   | Team planning | Project updates |
+<<<<<<< HEAD
 | Oct 19: [Week 5](#week-5)   | [Node.js intro](nodejs.html) | Project updates |
 | Oct 26: [Week 6](#week-6)   | Group work | Project updates |
 | Nov 02: [Week 7](#week-7)   | Dev Sprint | Milestone |
+=======
+| Oct 19: [Week 5](#week-5)   | [Node.js intro](nodejs.html) | Project reports |
+| Oct 26: [Week 6](#week-6)   | Development sprint | Project updates |
+| Nov 02: [Week 7](#week-7)   | Dev Milestone: Improvising worlds | Milestone |
+>>>>>>> 1735bf3bcfeef104f4cc46e81fe7d83960e553fd
 | Nov 09: [Week 8](#week-8)   | Generative Art, Artificial Nature | Project updates |
 | Nov 16: [Week 9](#week-9)   | Tech topic | Project updates |
 | Nov 23: [Week 10](#week-10)   | Development sprint | Project updates |
@@ -180,6 +186,8 @@ The PDF should include a written section, and example links to code (codepen, st
 
 [nodejs.html](Introduction to Node.js, from zero to multi-user server)
 
+[Zoom recording](https://yorku.zoom.us/rec/share/o5gXgDhqFig6pLtkftXr5d2aQoVzaP8LB8AwVpaF8UMrIV7rfysaPRbIe2kP0wjo.MIyDErTudxcIuZSh)
+
 # Week 6
 
 - Group work
@@ -188,7 +196,6 @@ The PDF should include a written section, and example links to code (codepen, st
 
 - Development sprint
 - Navigation example: https://web-platform-phnvvr.stackblitz.io/
-
 
 <!--
 
