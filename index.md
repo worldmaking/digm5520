@@ -27,8 +27,8 @@ Instructor: [Graham Wakefield](https://ampd.yorku.ca/profile/graham-wakefield/) 
 | Oct 05: [Week 4](#week-4)   | Dev Milestone MVP: A telematic world | MVP Milestone |
 | Oct 12: [Reading Week](#reading-week)   | Team planning | Project updates |
 | Oct 19: [Week 5](#week-5)   | [Node.js intro](nodejs.html) | Project updates |
-| Oct 26: [Week 6](#week-6)   | Development sprint | Project updates |
-| Nov 02: [Week 7](#week-7)   | Dev Milestone: Improvising worlds | Milestone |
+| Oct 26: [Week 6](#week-6)   | Group work | Project updates |
+| Nov 02: [Week 7](#week-7)   | Dev Sprint | Milestone |
 | Nov 09: [Week 8](#week-8)   | Generative Art, Artificial Nature | Project updates |
 | Nov 16: [Week 9](#week-9)   | Tech topic | Project updates |
 | Nov 23: [Week 10](#week-10)   | Development sprint | Project updates |
@@ -175,6 +175,19 @@ The PDF should include a written section, and example links to code (codepen, st
       - Boolean variables tend to begin with "is" or "has" etc.
       - Arrays may use plural rather than singular names. Etc. 
     - Ensure you have properly **indented** your code. A lot of code editors can automatically format your code, which will solve this. Code that isn't indented properly is really hard to read, and can often lead you into to strange bugs. Being in the habit of frequently indenting properly helps avoid these bugs.
+
+# Week 5
+
+[nodejs.html](Introduction to Node.js, from zero to multi-user server)
+
+# Week 6
+
+- Group work
+
+# Week 7
+
+- Development sprint
+- Navigation example: https://web-platform-phnvvr.stackblitz.io/
 
 
 <!--

@@ -352,9 +352,19 @@ Heroku provides server space and bandwidth with the ability to run Node.js under
 - [Sign up here](https://signup.heroku.com)
 - It gives you 550 free "dyno" hours per month. 
 - [Getting started guide](https://devcenter.heroku.com/categories/nodejs-support)
-- [How to link to github](https://devcenter.heroku.com/articles/github-integration)
 
 One unusual quirk: Heroku sites are secure (https) by default, even if you set them up using `http` rather than `https`.  This is good for us: WebXR requires an https connection. 
+
+**Linking to a Github repo**
+
+- Once you are logged in to Heroku, on the Dashboard, select New / Create new app, name it, and Create
+- Under the Deploy tab, under Deployment method, select Github: Connect to Github
+- (it might ask you to grant permissions first)
+- Now pick the Github repo name and click Search, and when it finds it, Connect
+- Turn on "Enable Automatic Deploys" and every `git push` will update the site
+- Now Deploy Branch (or git push)
+- The progress and success/errors will be under the Activity tab
+
 
 Here's a more involved example that should work both on localhost and Heroku:
 

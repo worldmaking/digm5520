@@ -328,9 +328,18 @@ client.on(<span class="hljs-string">&#x27;message&#x27;</span>, <span class="hlj
 <li><a href="https://signup.heroku.com">Sign up here</a></li>
 <li>It gives you 550 free &quot;dyno&quot; hours per month. </li>
 <li><a href="https://devcenter.heroku.com/categories/nodejs-support">Getting started guide</a></li>
-<li><a href="https://devcenter.heroku.com/articles/github-integration">How to link to github</a></li>
 </ul>
 <p>One unusual quirk: Heroku sites are secure (https) by default, even if you set them up using <code>http</code> rather than <code>https</code>.  This is good for us: WebXR requires an https connection. </p>
+<p><strong>Linking to a Github repo</strong></p>
+<ul>
+<li>Once you are logged in to Heroku, on the Dashboard, select New / Create new app, name it, and Create</li>
+<li>Under the Deploy tab, under Deployment method, select Github: Connect to Github</li>
+<li>(it might ask you to grant permissions first)</li>
+<li>Now pick the Github repo name and click Search, and when it finds it, Connect</li>
+<li>Turn on &quot;Enable Automatic Deploys&quot; and every <code>git push</code> will update the site</li>
+<li>Now Deploy Branch (or git push)</li>
+<li>The progress and success/errors will be under the Activity tab</li>
+</ul>
 <p>Here&#39;s a more involved example that should work both on localhost and Heroku:</p>
 <pre><code class="language-javascript"><span class="hljs-comment">// internal modules:</span>
 <span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;fs&#x27;</span>);
