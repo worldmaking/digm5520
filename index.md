@@ -201,6 +201,8 @@ Groups:
 - Generative geometry & agents
   - Andrew, Hrysovalante, Kimberly
 
+**[Zoom recording](https://yorku.zoom.us/rec/share/iJkXi_Y6Dpn8eNy11AmHjLMTivpMDRueh5nKSkoItW-FAJyy8HL6FH2OJ2kehv8E.YzjqQLOQPgaaLiwH)**
+
 # Week 8
 
 - Refactoring
