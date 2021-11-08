@@ -205,7 +205,7 @@ Groups:
 
 # Week 8
 
-## Generative buffer geometry
+**Generative buffer geometry**
 
 In Three.js, a Mesh is a combination of a Geometry and a Material. 
 - The Geometry defines the positions of vertices of a shape, as well as its texture coordinates, normals, etc. It is stored on the CPU, and gets uploaded to the GPU when wrapped in a Mesh. 
@@ -254,7 +254,7 @@ Alternatively, rather than building a geometry from scratch, you can take any ex
 
 For example, you can access the raw positions array under `geometry.attributes.position.array`. After modifying it, you need to tell Three.js to update the GPU using `geometry.attributes.position.needsUpdate = true;`
 
-## Parametric GUI
+**Parametric GUI**
 
 For a parameteric geometry, you'll likely want to be able to tweak the parameters to see how they change the shape. 
 
@@ -296,7 +296,7 @@ For example:
 
 https://codepen.io/grrrwaaa/pen/zYdjPNm?editors=0010
 
-## Surfaces
+**Surfaces**
 
 To draw surfaces rather than points, it gets a little more complex. Surfaces are made of triangle faces. 
 
@@ -311,7 +311,7 @@ Example:
 
 https://codepen.io/grrrwaaa/pen/gOxzzPx?editors=0010 
 
-## Instanced mesh
+**Instanced mesh**
 
 Drawing lots of different meshes in a scene can quite quickly become expensive on the GPU, but there's a fantastic method to speed this up when most of the objects have the same basic geometry, such as a field of trees, asteroid field, etc, using what's called "GPU instancing". Here, the GPU uses the same basic geometry and material for each "instance", but with a few small variations such as the world matrix transform (position, rotation, scale) or base material color.
 
@@ -320,7 +320,8 @@ In this case we can use [InstancedMesh](https://threejs.org/docs/?q=instan#api/e
 For example: 
 
 https://codepen.io/grrrwaaa/pen/Vwzxxgr?editors=0010
-## Agents
+
+**Agents**
 
 Instancing can be particularly useful for a multi-agent system, where several "agents" are moving around the space according to internal rules, and often look very simliar to one another (e.g. NPCs). 
 
@@ -331,7 +332,7 @@ Example:
 https://codepen.io/grrrwaaa/pen/xxLjzqX?editors=0010
 
 
-## Refactoring
+**Refactoring**
 
 Refactoring mostly means shuffling things around without changing the actual behavior, but making it much easier to adapt and further develop the code. It's a bit like driving away from the destination in order to get on a highway that will get you there faster. Refactoring can also make it easier to read code (but not always). Basically, humans have a limited cognitive range, can only hold a few things in mind at once, and once a script gets over a few hundred lines of code, it can quickly seem impenetrable and impossible to modify. Refactoring can reduce this size and complexity be abstracting (hiding) internal steps. 
 

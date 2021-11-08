@@ -56,15 +56,7 @@ footer {
 <li><a href="#week-5">Week 5</a></li>
 <li><a href="#week-6">Week 6</a></li>
 <li><a href="#week-7">Week 7</a></li>
-<li><a href="#week-8">Week 8</a><ul>
-<li><a href="#generative-buffer-geometry">Generative buffer geometry</a></li>
-<li><a href="#parametric-gui">Parametric GUI</a></li>
-<li><a href="#surfaces">Surfaces</a></li>
-<li><a href="#instanced-mesh">Instanced mesh</a></li>
-<li><a href="#agents">Agents</a></li>
-<li><a href="#refactoring">Refactoring</a></li>
-</ul>
-</li>
+<li><a href="#week-8">Week 8</a></li>
 </ul>
 
 <h1 id="spatial-computing-in-responsive-environments">Spatial Computing in Responsive Environments</h1>
@@ -379,7 +371,7 @@ footer {
 <p><strong><a href="https://yorku.zoom.us/rec/share/iJkXi_Y6Dpn8eNy11AmHjLMTivpMDRueh5nKSkoItW-FAJyy8HL6FH2OJ2kehv8E.YzjqQLOQPgaaLiwH">Zoom recording</a></strong></p>
 <hr>
 <h1 id="week-8">Week 8</h1>
-<h2 id="generative-buffer-geometry">Generative buffer geometry</h2>
+<p><strong>Generative buffer geometry</strong></p>
 <p>In Three.js, a Mesh is a combination of a Geometry and a Material. </p>
 <ul>
 <li>The Geometry defines the positions of vertices of a shape, as well as its texture coordinates, normals, etc. It is stored on the CPU, and gets uploaded to the GPU when wrapped in a Mesh. </li>
@@ -419,7 +411,7 @@ scene.add(points);
 <p>Now you can create any geometric shape if you know the mathematics/algorithm to specify the vertex positions!  (For example, how about trying one of the parametric geometries on Paul Bourke&#39;s <a href="http://paulbourke.net/geometry">amazing website</a>).</p>
 <p>Alternatively, rather than building a geometry from scratch, you can take any existing geometry constructor (such as <code>CylinderGeometry</code>) and then modify the attributes it already has. Use <code>console.log()</code> to inspect the geometry and its attributes to understand them first. </p>
 <p>For example, you can access the raw positions array under <code>geometry.attributes.position.array</code>. After modifying it, you need to tell Three.js to update the GPU using <code>geometry.attributes.position.needsUpdate = true;</code></p>
-<h2 id="parametric-gui">Parametric GUI</h2>
+<p><strong>Parametric GUI</strong></p>
 <p>For a parameteric geometry, you&#39;ll likely want to be able to tweak the parameters to see how they change the shape. </p>
 <p>For prototyping, you can use the excellent <code>dat.GUI</code> library:</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">import</span> dat <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;https://cdn.skypack.dev/dat.gui&quot;</span>;
@@ -448,7 +440,7 @@ gui.add(params, <span class="hljs-string">&quot;a&quot;</span>, <span class="hlj
 </code></pre>
 <p>For example: </p>
 <p><a href="https://codepen.io/grrrwaaa/pen/zYdjPNm?editors=0010">https://codepen.io/grrrwaaa/pen/zYdjPNm?editors=0010</a></p>
-<h2 id="surfaces">Surfaces</h2>
+<p><strong>Surfaces</strong></p>
 <p>To draw surfaces rather than points, it gets a little more complex. Surfaces are made of triangle faces. </p>
 <p>The simplest way to do this is to insert positions in triplets, for each point of each triangle face. Example: <a href="https://threejs.org/examples/#webgl_buffergeometry">https://threejs.org/examples/#webgl_buffergeometry</a></p>
 <p>This is quite wasteful, since for most surfaces, points are shared between faces. So, another way to do it is to fill the positions array with the points needed, then fill another array (called the Index) with triplets of integer indices for each triangle face. Example: <a href="https://threejs.org/examples/#webgl_buffergeometry_indexed">https://threejs.org/examples/#webgl_buffergeometry_indexed</a></p>
@@ -456,17 +448,17 @@ gui.add(params, <span class="hljs-string">&quot;a&quot;</span>, <span class="hlj
 Fortunately, Three.js has a fallback to automatically compute these normals: you can just call <code>geometry.computeVertexNormals()</code></p>
 <p>Example: </p>
 <p><a href="https://codepen.io/grrrwaaa/pen/gOxzzPx?editors=0010">https://codepen.io/grrrwaaa/pen/gOxzzPx?editors=0010</a> </p>
-<h2 id="instanced-mesh">Instanced mesh</h2>
+<p><strong>Instanced mesh</strong></p>
 <p>Drawing lots of different meshes in a scene can quite quickly become expensive on the GPU, but there&#39;s a fantastic method to speed this up when most of the objects have the same basic geometry, such as a field of trees, asteroid field, etc, using what&#39;s called &quot;GPU instancing&quot;. Here, the GPU uses the same basic geometry and material for each &quot;instance&quot;, but with a few small variations such as the world matrix transform (position, rotation, scale) or base material color.</p>
 <p>In this case we can use <a href="https://threejs.org/docs/?q=instan#api/en/objects/InstancedMesh">InstancedMesh</a>.</p>
 <p>For example: </p>
 <p><a href="https://codepen.io/grrrwaaa/pen/Vwzxxgr?editors=0010">https://codepen.io/grrrwaaa/pen/Vwzxxgr?editors=0010</a></p>
-<h2 id="agents">Agents</h2>
+<p><strong>Agents</strong></p>
 <p>Instancing can be particularly useful for a multi-agent system, where several &quot;agents&quot; are moving around the space according to internal rules, and often look very simliar to one another (e.g. NPCs). </p>
 <p>In general, I recommend separating out the simulation/control logic entirely from the rendering code. This is helpful when scaling a system up, e.g. for distributed applications. This means, having one data structure representing the state of the population, and a completely different data structure (such as our InstancedMesh) representing how to draw them.  Similarly, one function that handles the simulation updates, that makes no direct contact with the GPU, which we can call <code>update()</code> or <code>simulate()</code> for example.</p>
 <p>Example: </p>
 <p><a href="https://codepen.io/grrrwaaa/pen/xxLjzqX?editors=0010">https://codepen.io/grrrwaaa/pen/xxLjzqX?editors=0010</a></p>
-<h2 id="refactoring">Refactoring</h2>
+<p><strong>Refactoring</strong></p>
 <p>Refactoring mostly means shuffling things around without changing the actual behavior, but making it much easier to adapt and further develop the code. It&#39;s a bit like driving away from the destination in order to get on a highway that will get you there faster. Refactoring can also make it easier to read code (but not always). Basically, humans have a limited cognitive range, can only hold a few things in mind at once, and once a script gets over a few hundred lines of code, it can quickly seem impenetrable and impossible to modify. Refactoring can reduce this size and complexity be abstracting (hiding) internal steps. </p>
 <p>Caveat: refactoring can be a lot of work, with no actual gain, until you use the freedom it provides. It&#39;s not always a good idea to refactor.</p>
 <ul>
