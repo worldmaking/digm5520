@@ -18,6 +18,7 @@ Instructor: [Graham Wakefield](https://ampd.yorku.ca/profile/graham-wakefield/) 
 
 <!-- ![inhabitat](img/inhabitat.png) -->
 
+## Schedule
 
 | Week                        | Class   | Due | 
 | :--                         | :--     | :-- | 
@@ -29,8 +30,8 @@ Instructor: [Graham Wakefield](https://ampd.yorku.ca/profile/graham-wakefield/) 
 | Oct 19: [Week 5](#week-5)   | [Node.js intro](nodejs.html) | Project reports |
 | Oct 26: [Week 6](#week-6)   | Development sprint | Project updates |
 | Nov 02: [Week 7](#week-7)   | Dev Milestone: Improvising worlds | Milestone |
-| Nov 09: [Week 8](#week-8)   | Generative Art, Artificial Nature | Project updates |
-| Nov 16: [Week 9](#week-9)   | Tech topic | Project updates |
+| Nov 09: [Week 8](#week-8)   | Parametric geometry, Instancing, Refactoring | Project updates |
+| Nov 16: [Week 9](#week-9)   | Generative Art, Artificial Nature | Project updates |
 | Nov 23: [Week 10](#week-10)   | Development sprint | Project updates |
 | Nov 30: [Week 11](#week-11)   | Dev Milestone: Online Gallery | Milestone |
 | Dec 07: [Week 12](#week-12)   | Exhibition Opening | Launch |
@@ -38,7 +39,7 @@ Instructor: [Graham Wakefield](https://ampd.yorku.ca/profile/graham-wakefield/) 
 
 -----
 
-### Week 1
+## Week 1
 
 - [Course overview](course.html)
 - This year's project: ["WebXR Studio"](project.html)
@@ -53,7 +54,7 @@ Instructor: [Graham Wakefield](https://ampd.yorku.ca/profile/graham-wakefield/) 
 - [Zoom recording](https://yorku.zoom.us/rec/share/zBHcbySo3OQ2TbiUDEETjebBYdTk1zxvIJhkL1FcOJkWEW_v3uITc4WI6Mcofc83.0avGR5hcfZM4p9TY)
 
 
-### Week 2
+## Week 2
 
 - [An introduction to VR](vr.html): history, psychology, technology, art
 - Discussion incl. reading/listening materials
@@ -90,7 +91,7 @@ Graham's prototypes:
 **[Zoom recording](https://yorku.zoom.us/rec/share/lncvLSsr9vPnSfWVPrOadR0O_O1bnsFGJjxCkW5fMDYuoO4REZypH4RWV8pWgMac.6VWYK_C_QJWP3UtT)**
 
 
-### Week 4
+## Week 4
 
 **Milestone A: Minimum Viable Product**
 
@@ -144,7 +145,7 @@ Graham's prototypes:
 
 **[Zoom Recording](https://yorku.zoom.us/rec/share/gLAhfR4qzz9Ke7ZbEZ7anCLDoBoWON_fertY97l_lof-101oPBMxPgfrYbyHi-IK.GuoMIygWdfS04M6W)**
 
-### Reading Week
+## Reading Week
 
 **Homework:**
 
@@ -176,17 +177,17 @@ The PDF should include a written section, and example links to code (codepen, st
       - Arrays may use plural rather than singular names. Etc. 
     - Ensure you have properly **indented** your code. A lot of code editors can automatically format your code, which will solve this. Code that isn't indented properly is really hard to read, and can often lead you into to strange bugs. Being in the habit of frequently indenting properly helps avoid these bugs.
 
-# Week 5
+## Week 5
 
 [nodejs.html](Introduction to Node.js, from zero to multi-user server)
 
 [Zoom recording](https://yorku.zoom.us/rec/share/o5gXgDhqFig6pLtkftXr5d2aQoVzaP8LB8AwVpaF8UMrIV7rfysaPRbIe2kP0wjo.MIyDErTudxcIuZSh)
 
-# Week 6
+## Week 6
 
 - Group work
 
-# Week 7
+## Week 7
 
 - Development sprint
 - Navigation example: [https://stackblitz.com/edit/web-platform-phnvvr](https://stackblitz.com/edit/web-platform-phnvvr)
@@ -203,7 +204,7 @@ Groups:
 
 **[Zoom recording](https://yorku.zoom.us/rec/share/iJkXi_Y6Dpn8eNy11AmHjLMTivpMDRueh5nKSkoItW-FAJyy8HL6FH2OJ2kehv8E.YzjqQLOQPgaaLiwH)**
 
-# Week 8
+## Week 8
 
 **Generative buffer geometry**
 
