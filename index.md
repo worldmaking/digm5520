@@ -205,9 +205,205 @@ Groups:
 
 # Week 8
 
-- Refactoring
-- Instancing and Agents
-- Generative buffer geometry
+## Generative buffer geometry
+
+In Three.js, a Mesh is a combination of a Geometry and a Material. 
+- The Geometry defines the positions of vertices of a shape, as well as its texture coordinates, normals, etc. It is stored on the CPU, and gets uploaded to the GPU when wrapped in a Mesh. 
+- The Material defines how the Mesh is rendered to the screen, including handling lighting, shadows, texturing, etc.
+
+There are many kinds of Geometry (search "Geom" in the Three.js docs), such as BoxGeometry, OctahedronGeometry, ConeGeometry, etc. They are all subclasses of the more generic [BufferGeometrry](https://threejs.org/docs/?q=geom#api/en/core/BufferGeometry). That means, anything you can do with a BufferGeometry, you can do with a BoxGeometry, etc., and they share the same underlying structure of data. 
+
+It also means, you can create your own geometries directly by manipulating a BufferGeometry.
+
+Here's a minimal example:
+
+```javascript
+// create an empty geometry
+const geometry = new THREE.BufferGeometry();
+
+// create an array to hold our point data:
+const pts = []
+// fill it with random values:
+for (let i = 0; i < NUM_POINTS; i++) {
+  let x = Math.random() - 0.5;
+  let y = Math.random() - 0.5;
+  let z = Math.random() - 0.5;
+  pts.push(x, y, z); // add to end of the array
+}
+// create a raw memory block of floating point numbers for the vertices 
+// (because that's what BufferGeometry wants)
+// fill it with the data from our javascript array:
+const vertices = new Float32Array(pts);
+// add an "attribute" to the geometry, in this case for the vertex "position"
+// itemSize = 3 because there are 3 values (components) per vertex
+geometry.setAttribute("position", new THREE.BufferAttribute(vertices, 3));
+
+// for simplicity, we'll render with points:
+const material = new THREE.PointsMaterial({
+  color: 0x888888,
+  size: 0.02
+});
+const points = new THREE.Points(geometry, material);
+scene.add(points);
+```   
+
+Now you can create any geometric shape if you know the mathematics/algorithm to specify the vertex positions!  (For example, how about trying one of the parametric geometries on Paul Bourke's [amazing website](http://paulbourke.net/geometry)).
+
+
+Alternatively, rather than building a geometry from scratch, you can take any existing geometry constructor (such as `CylinderGeometry`) and then modify the attributes it already has. Use `console.log()` to inspect the geometry and its attributes to understand them first. 
+
+For example, you can access the raw positions array under `geometry.attributes.position.array`. After modifying it, you need to tell Three.js to update the GPU using `geometry.attributes.position.needsUpdate = true;`
+
+## Parametric GUI
+
+For a parameteric geometry, you'll likely want to be able to tweak the parameters to see how they change the shape. 
+
+For prototyping, you can use the excellent `dat.GUI` library:
+
+```javascript
+import dat from "https://cdn.skypack.dev/dat.gui";
+const gui = new dat.GUI()
+```
+
+Any object members can be added to the gui, along with min/max ranges, step sizes, and a callback when the parameter changes. 
+
+```javascript
+const params = {
+  a: 0, b: 1
+}
+// add params.a to the GUI:
+// minimum=0, maximum=10, step=1
+// call function "rebuild" when this changes: 
+gui.add(params, "a", 0, 10).step(1).onChange(rebuild)
+```
+
+Here of course, function `rebuild` must be defined, and would reconstruct geometry by modifying its attributes. For example:
+
+```javascript
+function rebuild() {
+  let positions = mesh.geometry.attributes.position.array;
+
+  // modify the values of `positions` 
+  // using the values of `params` parametrically
+  // ... insert your algorithm here ...
+
+  // let Three.js know it needs to upload these to the GPU:
+  mesh.geometry.attributes.position.needsUpdate = true;
+}
+```
+
+For example: 
+
+https://codepen.io/grrrwaaa/pen/zYdjPNm?editors=0010
+
+## Surfaces
+
+To draw surfaces rather than points, it gets a little more complex. Surfaces are made of triangle faces. 
+
+The simplest way to do this is to insert positions in triplets, for each point of each triangle face. Example: https://threejs.org/examples/#webgl_buffergeometry
+
+This is quite wasteful, since for most surfaces, points are shared between faces. So, another way to do it is to fill the positions array with the points needed, then fill another array (called the Index) with triplets of integer indices for each triangle face. Example: https://threejs.org/examples/#webgl_buffergeometry_indexed
+
+Additionally, for any surface lighting to work, you will need to add normals for each vertex.  This works similar to creating the `position` attribute, but with a new buffer attribute called `normal`: `geometry.setAttribute( 'normal', new THREE.Float32BufferAttribute( normals, 3 ) );`  This means you need to know the algorithm that can compute the correct normal direction for your parametric geometry!
+Fortunately, Three.js has a fallback to automatically compute these normals: you can just call `geometry.computeVertexNormals()`
+
+Example: 
+
+https://codepen.io/grrrwaaa/pen/gOxzzPx?editors=0010 
+
+## Instanced mesh
+
+Drawing lots of different meshes in a scene can quite quickly become expensive on the GPU, but there's a fantastic method to speed this up when most of the objects have the same basic geometry, such as a field of trees, asteroid field, etc, using what's called "GPU instancing". Here, the GPU uses the same basic geometry and material for each "instance", but with a few small variations such as the world matrix transform (position, rotation, scale) or base material color.
+
+In this case we can use [InstancedMesh](https://threejs.org/docs/?q=instan#api/en/objects/InstancedMesh).
+
+For example: 
+
+https://codepen.io/grrrwaaa/pen/Vwzxxgr?editors=0010
+## Agents
+
+Instancing can be particularly useful for a multi-agent system, where several "agents" are moving around the space according to internal rules, and often look very simliar to one another (e.g. NPCs). 
+
+In general, I recommend separating out the simulation/control logic entirely from the rendering code. This is helpful when scaling a system up, e.g. for distributed applications. This means, having one data structure representing the state of the population, and a completely different data structure (such as our InstancedMesh) representing how to draw them.  Similarly, one function that handles the simulation updates, that makes no direct contact with the GPU, which we can call `update()` or `simulate()` for example.
+
+Example: 
+
+https://codepen.io/grrrwaaa/pen/xxLjzqX?editors=0010
+
+
+## Refactoring
+
+Refactoring mostly means shuffling things around without changing the actual behavior, but making it much easier to adapt and further develop the code. It's a bit like driving away from the destination in order to get on a highway that will get you there faster. Refactoring can also make it easier to read code (but not always). Basically, humans have a limited cognitive range, can only hold a few things in mind at once, and once a script gets over a few hundred lines of code, it can quickly seem impenetrable and impossible to modify. Refactoring can reduce this size and complexity be abstracting (hiding) internal steps. 
+
+Caveat: refactoring can be a lot of work, with no actual gain, until you use the freedom it provides. It's not always a good idea to refactor.
+
+- Rule #1: Don't type code twice.  ("Abstraction", and DRY -> Don’t Repeat Yourself)
+  - If you use the same number in two places, you probably want to turn that into a variable (or `const` variable if it never changes). 
+    - Maybe it is global, and should sit near the start of the script. Maybe it's an object parameter for a `dat.GUI` interface. 
+  - If you use the same segment of code in two places, maybe it should be turned into a function. (If you use it in four places, it should definitely be a function). 
+    - "Helper" functions should be very small & generic. They shouldn't rely on global variables, other than constants, but they probably use other functions.  Pass in only the state the function needs to do the job. For example: 
+      `function pick(list) { return list[Math.floor(Math.random()*list.length)]; }`
+    - Another common "helper" type of function is a "Factory": it wraps up a bunch of steps that result in the construction of some object, which it returns. Often you pass in a configuration object as an argument to the factory function.   
+    - Helpers and factories can often become the basis of a library or module of re-usable utilities, such that you can call upon the behaviour without needing to look at the internals. 
+  - If the same variables tend to get used together, you might want to wrap them in an Object, so that you can pass them around under one name. A good example here is in representing an agent in a simulation. Each agent is an object that keeps track of its position, orientation, and other internal state. 
+    - Many such objects could be stored in a list (like a population of agents). 
+    - If there are helper functions that apply only to these objects, you could put the functions inside the objects themselves (as "methods"), in which case they can use the special variable `this`
+    - At a certain point, it *might* make more sense to turn these into classes. (Classes are basically objects with methods, but have a couple of syntax short-cuts that make them a bit cleaner.)
+
+- Rule #2: Limit dependencies
+  - Dependencies are what prevent you from lifting code from one script and dropping it into another -- anything that's missing to prevent the code from working is a dependency, and limits portability, and makes exploratory coding more difficult. 
+  - Among this is avoiding lots of global variables. A really nicely designed app will have very few global variables, with data organized structurally, and good separation between general library code and application-specific data. 
+  - If you have things that really need to be global, 
+    - are they parameters? Can you stick them in a shared Parameter structure?
+    - are they behaviours? Can you put them in a library of helpers, or as methods of an object/class?
+  - As much as possible, functions should read or write data outside of their scope. (For object methods, this means outside of the object). Anything else needed should be passed in as an argument. 
+
+- Rule #3: Declarative > Functional > Procedural
+  - The easiest code to write is procedural: do this, then this, exactly how I say. This is also the hardest to modify, as it is super-specific and brittle.
+  - Refactoring into more generic functions makes it easier to move the building blocks of an algorithm around, or stringing together processes in different ways. Ultimately this can lead to functions of functions of functions, which can start to get a bit difficult to read. 
+  - Even better is refactoring into *data structures*. The more you can define what you want to do in a plain-old-data format (like JSON), the more freedom you have to modify the structure and the result, and the easier to make something distributed, serializable, and all other things that data-oriented processing makes possible. This is why factory functions, iterators and parsers are so useful. 
+  - Node graph interfaces are essentially declarative structures that determine how functions are wired up. 
+
+- Other rules: 
+  - Use meaningful variable & function names. Longer names are better than confusing names. 
+  - Use comments to remind a future self what this actually does (and what it expects, what will break it, etc.)!
+  - Single Responsibility Principle: each function should do one task
+  - Avoid impure functions when possible (impure means the function modifies some data that wasn't passed to the function as an argument)
+  - Test often: Make sure when you refactored, it still works! Try not to make too many changes at once. 
+
+
+### Classes
+
+I don't recomend going too deep into this, but there are some times where this is a good interface:
+
+```javascript
+// notice that a class definition isn't like an object
+// no commas, no colons, etc.
+class Agent {
+
+  // define properties first:
+  pos = new THREE.Vector3();
+
+  // "constructor" is a special property:
+  // what happens when you say `new Agent(x, y, z)`
+  constructor(x, y, z) {
+    this.pos.set(x, y, z);
+  }
+
+  // most other properties are methods:
+  moveX(dx) {
+    this.pos.x += dx;
+  }
+};
+
+let a = new Agent(1, 2, 3);
+console.log(a.name) // -> "Agent"
+a.moveX(1);
+```
+
+There's a lot more syntax sugar available (getters, setters, generators, static methods, private fields, subclassing, ...), see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
+
+
 
 <!--
 
