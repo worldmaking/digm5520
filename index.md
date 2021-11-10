@@ -35,7 +35,7 @@ Instructor: [Graham Wakefield](https://ampd.yorku.ca/profile/graham-wakefield/) 
 | Nov 23: [Week 10](#week-10)   | Development sprint | Project updates |
 | Nov 30: [Week 11](#week-11)   | Dev Milestone: Online Gallery | Milestone |
 | Dec 07: [Week 12](#week-12)   | Exhibition Opening | Launch |
-| Dec 14:  | | Final Paper |
+| Dec 14: | | Final Paper |
 
 -----
 
@@ -404,6 +404,13 @@ a.moveX(1);
 ```
 
 There's a lot more syntax sugar available (getters, setters, generators, static methods, private fields, subclassing, ...), see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
+
+**[Zoom recording](https://yorku.zoom.us/rec/share/qazKLIu5E1A4CkZISmPsNVW8oh-gDk5uWPHEhVdajFu7RCpzI432qqiqvSoi-HR4.WECkxvZhB7d42rTq)**
+
+## Week 9
+
+- Integration
+- Workers
 
 
 
