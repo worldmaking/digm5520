@@ -409,8 +409,19 @@ There's a lot more syntax sugar available (getters, setters, generators, static 
 
 ## Week 9
 
-- Integration
-- Workers
+- Integration between the teams:
+  - Navigation/Avatar integration
+    - Douglas, Martin, Nick, Jonathan
+  - Signals-to-mesh
+  Eyal, Grace, Kavi, Kwame
+  - UI-in-three
+    - Faadhi, Filiz, Jamie, Jorge
+  - Generative geometry & agents
+    - Andrew, Hrysovalante, Kimberly
+
+## Week 10
+
+- Web workers / Node workers
 
 
 
