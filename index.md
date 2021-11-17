@@ -419,6 +419,7 @@ There's a lot more syntax sugar available (getters, setters, generators, static 
   - Generative geometry & agents
     - Andrew, Hrysovalante, Kimberly
 
+**[Zoom recording](https://yorku.zoom.us/rec/share/PN8vjhSNkmntonRgoWuCQhfXH692xeXhz0HBD4a4Ffq_tsryuV6LCcXmPX-Wbkv-.o-6tOCazQ_FZLFfK)**
 ## Week 10
 
 - Web workers / Node workers
