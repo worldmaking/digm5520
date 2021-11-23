@@ -423,6 +423,7 @@ There's a lot more syntax sugar available (getters, setters, generators, static 
 ## Week 10
 
 - Web workers / Node workers
+- OCAD U demo
 
 
 
