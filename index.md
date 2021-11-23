@@ -31,9 +31,9 @@ Instructor: [Graham Wakefield](https://ampd.yorku.ca/profile/graham-wakefield/) 
 | Oct 26: [Week 6](#week-6)   | Development sprint | Project updates |
 | Nov 02: [Week 7](#week-7)   | Dev Milestone: Improvising worlds | Milestone |
 | Nov 09: [Week 8](#week-8)   | Parametric geometry, Instancing, Refactoring | Project updates |
-| Nov 16: [Week 9](#week-9)   | Generative Art, Artificial Nature | Project updates |
-| Nov 23: [Week 10](#week-10)   | Development sprint | Project updates |
-| Nov 30: [Week 11](#week-11)   | Dev Milestone: Online Gallery | Milestone |
+| Nov 16: [Week 9](#week-9)   | Dev Sprint | Project updates |
+| Nov 23: [Week 10](#week-10)   | Worker Threads, Dev Sprint, OCADU Demo | Project updates |
+| Nov 30: [Week 11](#week-11)   | Milestone: Online Gallery | Milestone |
 | Dec 07: [Week 12](#week-12)   | Exhibition Opening | Launch |
 | Dec 14: | | Final Paper |
 
@@ -424,6 +424,171 @@ There's a lot more syntax sugar available (getters, setters, generators, static 
 
 - Web workers / Node workers
 - OCAD U demo
+
+### Worker Threads
+
+What's the problem?
+
+Like many programming languages, Javascript is by default **single-threaded**, and **serial**. This means, only one thing can be happening at once, step by step, and that's generally a good thing, because it's really hard to predict or control the behaviour of things where lots of stuff is happening at the same time. Unpredictable events are generally handled in Javascript using **callbacks**: functions we register to say "call me back" when something happens (like, a mouse click, key press, screen refresh, etc.) But even then, *only one thing is happening at once*, which is good, because then you can work with data and variables without them magically changing between one instruction and the next.
+
+Except... sometimes, only doing one thing at once can be a problem. For example, if one particular computation is taking a very long time to complete, nothing else can happen until it is done. This is a huge problem for systems that need to be highly responsive, like audio synthesis, VR rendering, high-speed trading, etc.  
+
+CPUs have for a long time been able to run multiple **threads** of execution, meaning that many things can be happening at the same time, in **parallel** (that's why your desktop still works even when some application is crashing). Different programming languages and environments provide different ways of working with these threads. But it's tricky stuff, mostly because when things are happening in parallel, any data that both threads can see can unpredictably be changed between one step and the next. 
+
+In JavaScript, they are called **Workers**. The programming interface and capabilities are mostly the same in Node.js and the browser, but there are some small differences. In both cases, creating a web worker launches another Javascript file, that runs in parallel so it can do heavy computations without interrupting the main thread.
+
+- In the browser, they are called [**Web Workers**](https://developer.mozilla.org/en-US/docs/Web/API/Worker)
+  - Note that a web worker can't do everything that the main thread can do: it can't access the DOM, or any user input events, but it can do XMLHttpRequest for example
+- In Node.js, they are called [**Worker Threads**](https://nodejs.org/api/worker_threads.html)
+  - Bring them in with: `const { Worker } = require('worker_threads')`
+
+In both cases, we usually write a separate Javascript file for the worker itself, and create by passing the path to the script.
+
+#### Web Workers
+
+```javascript
+const myworker = new Worker("myworker.js")
+```
+
+Now myworker.js is probably already doing things!  But this is probably only useful if the main thread and the worker can talk to each other. You send a message to the worker using `postMessage()`, and get messages back using `onmessage()`:
+
+```javascript
+// in main script:
+
+myworker.postMessage(messagedata);
+
+myworker.onmessage = function(e) {
+  let messagedata = e.data;
+  //...
+}
+```
+
+```javascript
+// in the worker.js script:
+
+onmessage = function(e) {
+  let messagedata = e.data;
+  //...
+
+  postMessage(messagedata)
+}
+```
+
+Note, `postMessage()` only takes one argument! (Use an array or object to pass more complex data)
+
+Here `messagedata` can be any Javascript values except functions, DOM objects, inherited classes/prototypes, and [weirder stuff](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm). However, and very importantly, **this data is not shared, it is copied**. So, if you post an object to the worker, then you modify that object, the worker will not see your changes.  Also, copying can be expensive.
+
+One workaround is to **transfer** ownership of an ArrayBuffer ([or a few other special types](https://developer.mozilla.org/en-US/docs/Glossary/Transferable_objects#supported_objects)). This means, the object will be given to the worker, and can no longer be used by the current thread. In this case, no copying is done.  Transferring ownership is done by identifying the item to copy in a second argument to `postMessage()`:
+
+```javascript
+let ab = new ArrayBuffer(10)
+myworker.postMessage(ab, [ab]);
+
+// to transfer a TypedArray, identify the underlying .buffer:
+let floats = new Float32Array(10)
+myworker.postMessage(floats, [floats.buffer]);
+
+```
+
+> One other, crippled exception: A [**SharedArrayBuffer**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) can be sent to (or from) a worker, and will always refer to the same underlying data. This would be the best way to share large arrays of regular numeric data, like particle system states for example. However, due to a security concern found in the Spectre attack, this capability is currently very limited and pretty much broken in many browsers.
+
+More quick tips:
+
+```javascript
+// To know if Worker is supported in you browser:
+if (window.Worker) {
+  //..
+}
+
+// to handle errors from a worker:
+myworker.onerror = function(e) {
+  console.log("worker error", e.message, e.filename, e.lineno)
+}
+
+// to terminate a worker:
+myworker.terminate()
+```
+
+```javascript
+// in worker script:
+// import additional scripts globally using:
+importScripts("foo.js", '//example.com/hello.js')
+```
+
+- Workers can spawn sub-workers. 
+- Worker scripts must be in the same URL domain.
+
+```javascript
+// convert a string to a worker:
+let script = `
+onmessage = function(e) {
+  postMessage("worker working: " + e.data);
+}
+`;
+let url = URL.createObjectURL(
+  new Blob([script], { type: "application/javascript" })
+);
+
+let myworker = new Worker(url);
+myworker.onmessage = function (e) {
+  console.log(e.data);
+};
+myworker.postMessage("hello");
+```
+
+#### Node.js Worker Threads
+
+The interface is somewhat similar, but somewhat different: 
+
+```javascript
+const { Worker } = require('worker_threads')
+
+const myworker = new Worker("myworker.js", { workerData: messagedata })
+
+// note: `on("message", f)`, not `onmessage = f`
+worker.on("message", function(messagedata) {
+  console.log(messagedata)
+})
+
+worker.on("error", function(err) {
+  console.error(err)
+})
+
+worker.on("exit", function(exitcode) {
+  // code == 0 for a normal exit
+})
+```
+
+```javascript
+// worker.js:
+const { Worker, workerData, isMainThread, parentPort } = require('worker_threads')
+
+// workerData is whatever was passed as the 2nd argument to `new Worker()`
+
+// get data from parent thread:
+parentPort.on("message", function(messagedata) {
+  console.log(messagedata)
+})
+
+// send data back to parent thread:
+parentPort.postMessage(messagedata)
+
+// isMainThread == true if you ran `node worker.js` by itself
+// isMainThread == false if somebody launched this via `new Worker()`
+
+```
+
+Roughly the same rules apply with what data can be passed as `messagedata` (and `workerData`). Data can be transferred using the second argument of `postMessage()`, with [these restrictions](https://nodejs.org/api/worker_threads.html#portpostmessagevalue-transferlist).  
+
+Additionally, Node.js can use `SharedArrayBuffer` to share binary data between worker threads, in which both worker threads can read & write the same data, without the security limitations of the browser. This is probably the most ideal way to share large amounts of simulation data.  
+
+> (Also, in Node.js there are other ways of doing things in parallel. The most obvious one is to run additional programs as [child processes](https://nodejs.org/api/child_process.html), in a Unix kind of way, which has the advantage that if the child process crashes, your main Node script doesn't... but, sharing data between them is a bit trickier.)
+
+
+
+
+
+
 
 
 

@@ -134,17 +134,17 @@ footer {
 </tr>
 <tr>
 <td align="left">Nov 16: <a href="#week-9">Week 9</a></td>
-<td align="left">Generative Art, Artificial Nature</td>
+<td align="left">Dev Sprint</td>
 <td align="left">Project updates</td>
 </tr>
 <tr>
 <td align="left">Nov 23: <a href="#week-10">Week 10</a></td>
-<td align="left">Development sprint</td>
+<td align="left">Worker Threads, Dev Sprint, OCADU Demo</td>
 <td align="left">Project updates</td>
 </tr>
 <tr>
 <td align="left">Nov 30: <a href="#week-11">Week 11</a></td>
-<td align="left">Dev Milestone: Online Gallery</td>
+<td align="left">Milestone: Online Gallery</td>
 <td align="left">Milestone</td>
 </tr>
 <tr>
@@ -569,6 +569,136 @@ Eyal, Grace, Kavi, Kwame</li>
 <li>Web workers / Node workers</li>
 <li>OCAD U demo</li>
 </ul>
+<h3 id="worker-threads">Worker Threads</h3>
+<p>What&#39;s the problem?</p>
+<p>Like many programming languages, Javascript is by default <strong>single-threaded</strong>, and <strong>serial</strong>. This means, only one thing can be happening at once, step by step, and that&#39;s generally a good thing, because it&#39;s really hard to predict or control the behaviour of things where lots of stuff is happening at the same time. Unpredictable events are generally handled in Javascript using <strong>callbacks</strong>: functions we register to say &quot;call me back&quot; when something happens (like, a mouse click, key press, screen refresh, etc.) But even then, <em>only one thing is happening at once</em>, which is good, because then you can work with data and variables without them magically changing between one instruction and the next.</p>
+<p>Except... sometimes, only doing one thing at once can be a problem. For example, if one particular computation is taking a very long time to complete, nothing else can happen until it is done. This is a huge problem for systems that need to be highly responsive, like audio synthesis, VR rendering, high-speed trading, etc.  </p>
+<p>CPUs have for a long time been able to run multiple <strong>threads</strong> of execution, meaning that many things can be happening at the same time, in <strong>parallel</strong> (that&#39;s why your desktop still works even when some application is crashing). Different programming languages and environments provide different ways of working with these threads. But it&#39;s tricky stuff, mostly because when things are happening in parallel, any data that both threads can see can unpredictably be changed between one step and the next. </p>
+<p>In JavaScript, they are called <strong>Workers</strong>. The programming interface and capabilities are mostly the same in Node.js and the browser, but there are some small differences. In both cases, creating a web worker launches another Javascript file, that runs in parallel so it can do heavy computations without interrupting the main thread.</p>
+<ul>
+<li>In the browser, they are called <a href="https://developer.mozilla.org/en-US/docs/Web/API/Worker"><strong>Web Workers</strong></a><ul>
+<li>Note that a web worker can&#39;t do everything that the main thread can do: it can&#39;t access the DOM, or any user input events, but it can do XMLHttpRequest for example</li>
+</ul>
+</li>
+<li>In Node.js, they are called <a href="https://nodejs.org/api/worker_threads.html"><strong>Worker Threads</strong></a><ul>
+<li>Bring them in with: <code>const { Worker } = require(&#39;worker_threads&#39;)</code></li>
+</ul>
+</li>
+</ul>
+<p>In both cases, we usually write a separate Javascript file for the worker itself, and create by passing the path to the script.</p>
+<h4 id="web-workers">Web Workers</h4>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> myworker = <span class="hljs-keyword">new</span> Worker(<span class="hljs-string">&quot;myworker.js&quot;</span>)
+</code></pre>
+<p>Now myworker.js is probably already doing things!  But this is probably only useful if the main thread and the worker can talk to each other. You send a message to the worker using <code>postMessage()</code>, and get messages back using <code>onmessage()</code>:</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// in main script:</span>
+
+myworker.postMessage(messagedata);
+
+myworker.onmessage = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+  <span class="hljs-keyword">let</span> messagedata = e.data;
+  <span class="hljs-comment">//...</span>
+}
+</code></pre>
+<pre><code class="language-javascript"><span class="hljs-comment">// in the worker.js script:</span>
+
+onmessage = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+  <span class="hljs-keyword">let</span> messagedata = e.data;
+  <span class="hljs-comment">//...</span>
+
+  postMessage(messagedata)
+}
+</code></pre>
+<p>Note, <code>postMessage()</code> only takes one argument! (Use an array or object to pass more complex data)</p>
+<p>Here <code>messagedata</code> can be any Javascript values except functions, DOM objects, inherited classes/prototypes, and <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm">weirder stuff</a>. However, and very importantly, <strong>this data is not shared, it is copied</strong>. So, if you post an object to the worker, then you modify that object, the worker will not see your changes.  Also, copying can be expensive.</p>
+<p>One workaround is to <strong>transfer</strong> ownership of an ArrayBuffer (<a href="https://developer.mozilla.org/en-US/docs/Glossary/Transferable_objects#supported_objects">or a few other special types</a>). This means, the object will be given to the worker, and can no longer be used by the current thread. In this case, no copying is done.  Transferring ownership is done by identifying the item to copy in a second argument to <code>postMessage()</code>:</p>
+<pre><code class="language-javascript"><span class="hljs-keyword">let</span> ab = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ArrayBuffer</span>(<span class="hljs-number">10</span>)
+myworker.postMessage(ab, [ab]);
+
+<span class="hljs-comment">// to transfer a TypedArray, identify the underlying .buffer:</span>
+<span class="hljs-keyword">let</span> floats = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Float32Array</span>(<span class="hljs-number">10</span>)
+myworker.postMessage(floats, [floats.buffer]);
+</code></pre>
+<blockquote>
+<p>One other, crippled exception: A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer"><strong>SharedArrayBuffer</strong></a> can be sent to (or from) a worker, and will always refer to the same underlying data. This would be the best way to share large arrays of regular numeric data, like particle system states for example. However, due to a security concern found in the Spectre attack, this capability is currently very limited and pretty much broken in many browsers.</p>
+</blockquote>
+<p>More quick tips:</p>
+<pre><code class="language-javascript"><span class="hljs-comment">// To know if Worker is supported in you browser:</span>
+<span class="hljs-keyword">if</span> (<span class="hljs-built_in">window</span>.Worker) {
+  <span class="hljs-comment">//..</span>
+}
+
+<span class="hljs-comment">// to handle errors from a worker:</span>
+myworker.onerror = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;worker error&quot;</span>, e.message, e.filename, e.lineno)
+}
+
+<span class="hljs-comment">// to terminate a worker:</span>
+myworker.terminate()
+</code></pre>
+<pre><code class="language-javascript"><span class="hljs-comment">// in worker script:</span>
+<span class="hljs-comment">// import additional scripts globally using:</span>
+importScripts(<span class="hljs-string">&quot;foo.js&quot;</span>, <span class="hljs-string">&#x27;//example.com/hello.js&#x27;</span>)
+</code></pre>
+<ul>
+<li>Workers can spawn sub-workers. </li>
+<li>Worker scripts must be in the same URL domain.</li>
+</ul>
+<pre><code class="language-javascript"><span class="hljs-comment">// convert a string to a worker:</span>
+<span class="hljs-keyword">let</span> script = <span class="hljs-string">`
+onmessage = function(e) {
+  postMessage(&quot;worker working: &quot; + e.data);
+}
+`</span>;
+<span class="hljs-keyword">let</span> url = URL.createObjectURL(
+  <span class="hljs-keyword">new</span> Blob([script], { <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;application/javascript&quot;</span> })
+);
+
+<span class="hljs-keyword">let</span> myworker = <span class="hljs-keyword">new</span> Worker(url);
+myworker.onmessage = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(e.data);
+};
+myworker.postMessage(<span class="hljs-string">&quot;hello&quot;</span>);
+</code></pre>
+<h4 id="nodejs-worker-threads">Node.js Worker Threads</h4>
+<p>The interface is somewhat similar, but somewhat different: </p>
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { Worker } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;worker_threads&#x27;</span>)
+
+<span class="hljs-keyword">const</span> myworker = <span class="hljs-keyword">new</span> Worker(<span class="hljs-string">&quot;myworker.js&quot;</span>, { <span class="hljs-attr">workerData</span>: messagedata })
+
+<span class="hljs-comment">// note: `on(&quot;message&quot;, f)`, not `onmessage = f`</span>
+worker.on(<span class="hljs-string">&quot;message&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">messagedata</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(messagedata)
+})
+
+worker.on(<span class="hljs-string">&quot;error&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>) </span>{
+  <span class="hljs-built_in">console</span>.error(err)
+})
+
+worker.on(<span class="hljs-string">&quot;exit&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">exitcode</span>) </span>{
+  <span class="hljs-comment">// code == 0 for a normal exit</span>
+})
+</code></pre>
+<pre><code class="language-javascript"><span class="hljs-comment">// worker.js:</span>
+<span class="hljs-keyword">const</span> { Worker, workerData, isMainThread, parentPort } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;worker_threads&#x27;</span>)
+
+<span class="hljs-comment">// workerData is whatever was passed as the 2nd argument to `new Worker()`</span>
+
+<span class="hljs-comment">// get data from parent thread:</span>
+parentPort.on(<span class="hljs-string">&quot;message&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">messagedata</span>) </span>{
+  <span class="hljs-built_in">console</span>.log(messagedata)
+})
+
+<span class="hljs-comment">// send data back to parent thread:</span>
+parentPort.postMessage(messagedata)
+
+<span class="hljs-comment">// isMainThread == true if you ran `node worker.js` by itself</span>
+<span class="hljs-comment">// isMainThread == false if somebody launched this via `new Worker()`</span>
+</code></pre>
+<p>Roughly the same rules apply with what data can be passed as <code>messagedata</code> (and <code>workerData</code>). Data can be transferred using the second argument of <code>postMessage()</code>, with <a href="https://nodejs.org/api/worker_threads.html#portpostmessagevalue-transferlist">these restrictions</a>.  </p>
+<p>Additionally, Node.js can use <code>SharedArrayBuffer</code> to share binary data between worker threads, in which both worker threads can read &amp; write the same data, without the security limitations of the browser. This is probably the most ideal way to share large amounts of simulation data.  </p>
+<blockquote>
+<p>(Also, in Node.js there are other ways of doing things in parallel. The most obvious one is to run additional programs as <a href="https://nodejs.org/api/child_process.html">child processes</a>, in a Unix kind of way, which has the advantage that if the child process crashes, your main Node script doesn&#39;t... but, sharing data between them is a bit trickier.)</p>
+</blockquote>
 <!--
 
 Github team: https://github.com/orgs/worldmaking/teams/webxr-nodelab
