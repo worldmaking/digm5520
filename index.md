@@ -586,6 +586,12 @@ Additionally, Node.js can use `SharedArrayBuffer` to share binary data between w
 
 **[Zoom recording](https://yorku.zoom.us/rec/share/_6oO4QJL_CBwm5E4UE32otuCSOy1Tt8JmMxCJL8sWOhJoFIGZODSdPexuYDNIQkw.tvMjV9RvtRSoiiBK)**
 
+Codepens:
+- [Minimal web worker thread from string](https://codepen.io/grrrwaaa/pen/RwZmYEL)
+- Surface Nets isosurface example:
+
+https://codepen.io/grrrwaaa/pen/dyzEwNG
+
 ## Week 11
 
 Development sprint & trouble-shooting, toward the final project (presentation next week!)
