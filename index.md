@@ -588,7 +588,11 @@ Additionally, Node.js can use `SharedArrayBuffer` to share binary data between w
 
 ## Week 11
 
-Development sprint toward the final project
+Development sprint & trouble-shooting, toward the final project (presentation next week!)
+
+## Week 12 
+
+Presentation, discussion, & launch!
 
 <!--
 
