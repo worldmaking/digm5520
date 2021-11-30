@@ -584,11 +584,22 @@ Additionally, Node.js can use `SharedArrayBuffer` to share binary data between w
 
 > (Also, in Node.js there are other ways of doing things in parallel. The most obvious one is to run additional programs as [child processes](https://nodejs.org/api/child_process.html), in a Unix kind of way, which has the advantage that if the child process crashes, your main Node script doesn't... but, sharing data between them is a bit trickier.)
 
+**[Zoom recording](https://yorku.zoom.us/rec/share/_6oO4QJL_CBwm5E4UE32otuCSOy1Tt8JmMxCJL8sWOhJoFIGZODSdPexuYDNIQkw.tvMjV9RvtRSoiiBK)**
+
 ## Week 11
 
 Development sprint toward the final project
 
+<!--
 
+https://0fps.net/2012/07/10/smooth-voxel-terrain-part-1/
+https://0fps.net/2012/07/12/smooth-voxel-terrain-part-2/
+https://bonsairobo.medium.com/smooth-voxel-mapping-a-technical-deep-dive-on-real-time-surface-nets-and-texturing-ef06d0f8ca14
+https://github.com/mikolalysenko/isosurface
+https://github.com/hofk/THREEi.js
+http://www.basis64.nl/volumetricterrain/
+
+-->
 
 
 
