@@ -33,9 +33,9 @@ Instructor: [Graham Wakefield](https://ampd.yorku.ca/profile/graham-wakefield/) 
 | Nov 09: [Week 8](#week-8)   | Parametric geometry, Instancing, Refactoring | Project updates |
 | Nov 16: [Week 9](#week-9)   | Dev Sprint | Project updates |
 | Nov 23: [Week 10](#week-10)   | Worker Threads, Dev Sprint, OCADU Demo | Project updates |
-| Nov 30: [Week 11](#week-11)   | Milestone: Online Gallery | Milestone |
-| Dec 07: [Week 12](#week-12)   | Exhibition Opening | Launch |
-| Dec 14: | | Final Paper |
+| Nov 30: [Week 11](#week-11)   | Development Milestone Sprint |  |
+| Dec 07: [Week 12](#week-12)   | Presentation / Exhibition Opening | Launch |
+| Dec 14: | | Final Paper / Report |
 
 -----
 
@@ -584,7 +584,9 @@ Additionally, Node.js can use `SharedArrayBuffer` to share binary data between w
 
 > (Also, in Node.js there are other ways of doing things in parallel. The most obvious one is to run additional programs as [child processes](https://nodejs.org/api/child_process.html), in a Unix kind of way, which has the advantage that if the child process crashes, your main Node script doesn't... but, sharing data between them is a bit trickier.)
 
+## Week 11
 
+Development sprint toward the final project
 
 
 
