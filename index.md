@@ -596,6 +596,8 @@ https://codepen.io/grrrwaaa/pen/dyzEwNG
 
 Development sprint & trouble-shooting, toward the final project (presentation next week!)
 
+**[Zoom recording](https://yorku.zoom.us/rec/share/lA44Ila0IjNP__n_2zpa8R4JwwtCFGYhneBaQK6kKPdWH0K9RUWq1HUh0no7C5M-.Zg1Qny5g0vVRlwBN)**
+
 ## Week 12 
 
 Presentation, discussion, & launch!
