@@ -602,7 +602,9 @@ Development sprint & trouble-shooting, toward the final project (presentation ne
 
 Presentation, discussion, & launch!
 
-TODO: Merging project branches & welcome page to link to each one.
+Merging project branches & welcome page to link to each one.
+
+**[Zoom recording](https://yorku.zoom.us/rec/share/sPoHmMNNNR873eCGaezJgbs7fg3_QVQ8dXbV1xseHPtvyJh0cvg0fwn4kBDM2dJ0.utaz3gKsKZxlg0qe)**
 
 ### Final Report
 
