@@ -69,12 +69,22 @@ Graduate students are expected to achieve a higher calibre of work and depth of 
 3. Technical completeness: Functionality, accuracy, efficiency, creativity, and clear structure in the development and in the results.
 4. Novel contribution: Ingenuity in response to unanticipated challenges, comprehension and creativity beyond what is demonstrated in labs, and vision in further extension. 
 
-**Reporting & discussion.** Students will present in person or in reports to directly account the development of practical work and tutorial progress. Students are examined for their awareness/understanding and creative extrapolation of issues and the ability to relate the project to the broader concerns of the course, the medium of XR, and broader field(s).
+### Reporting & discussion
+
+Students will present in person or in reports to directly account the development of practical work and tutorial progress. Students are examined for their awareness/understanding and creative extrapolation of issues and the ability to relate the project to the broader concerns of the course, the medium of XR, and broader field(s).
 	
-**Participation** (Undergraduate students only). Incorporates presence, contributions to seminar discussions, engagement with the material, and effort and advancement in practical work. 
+### Participation
 
-**Final project.** Realized through individual and team-based work, final projects demonstrate the effective application of understanding through the course in artistic explorations of 3D reality as a generative and responsive medium of expression; novel expressions of adaptive media and art, by producing artworks, and producing systems for creating art. Projects are evaluated in the same terms as the assignments outlined above. 
+(Undergraduate students only). Incorporates presence, contributions to seminar discussions, engagement with the material, and effort and advancement in practical work. 
 
-**Final Presentations** will be given to the class at the end of the semester and will be in the form of an open exhibit and talk, with critical discussion that reflects on the results of the experience gained over duration of the course.
+### Final project
 
-**Final Paper.** (Graduate students only) will provide a final report that provides a documentation of the development of the project, overview of the concepts and motivation of the work, assessment of related works, and a description of future work to be done on this project.
+Realized through individual and team-based work, final projects demonstrate the effective application of understanding through the course in artistic explorations of 3D reality as a generative and responsive medium of expression; novel expressions of adaptive media and art, by producing artworks, and producing systems for creating art. Projects are evaluated in the same terms as the assignments outlined above. 
+
+### Final Presentations
+
+Will be given to the class at the end of the semester and will be in the form of an open exhibit and talk, with critical discussion that reflects on the results of the experience gained over duration of the course.
+
+### Final Paper 
+
+(Graduate students only) will provide a final report that provides a documentation of the development of the project, overview of the concepts and motivation of the work, assessment of related works, and a description of future work to be done on this project.

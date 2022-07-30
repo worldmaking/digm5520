@@ -35,7 +35,7 @@ Instructor: [Graham Wakefield](https://ampd.yorku.ca/profile/graham-wakefield/) 
 | Nov 23: [Week 10](#week-10)   | Worker Threads, Dev Sprint, OCADU Demo | Project updates |
 | Nov 30: [Week 11](#week-11)   | Development Milestone Sprint |  |
 | Dec 07: [Week 12](#week-12)   | Presentation / Exhibition Opening | Launch |
-| Dec 14: | | Final Paper / Report |
+| Dec 14: | | [Finial report](#final-report) / [Final Paper](#final-paper) |
 
 -----
 
@@ -596,9 +596,50 @@ https://codepen.io/grrrwaaa/pen/dyzEwNG
 
 Development sprint & trouble-shooting, toward the final project (presentation next week!)
 
+**[Zoom recording](https://yorku.zoom.us/rec/share/lA44Ila0IjNP__n_2zpa8R4JwwtCFGYhneBaQK6kKPdWH0K9RUWq1HUh0no7C5M-.Zg1Qny5g0vVRlwBN)**
+
 ## Week 12 
 
 Presentation, discussion, & launch!
+
+Merging project branches & welcome page to link to each one.
+
+**[Zoom recording](https://yorku.zoom.us/rec/share/sPoHmMNNNR873eCGaezJgbs7fg3_QVQ8dXbV1xseHPtvyJh0cvg0fwn4kBDM2dJ0.utaz3gKsKZxlg0qe)**
+
+### Final Report
+
+Each student (undergraduate, graduate, and visitor) should complete [the final report form here](https://forms.gle/gDyZMWhn2DVf6gEn7)
+
+### Final Paper
+
+**(Graduate students only)** 
+
+A "white paper" style academic report on the project and its development. This paper should be formatted as a web page. You can use the `gh-pages` branch of the nodelab repository to store this paper:
+
+- [In github](https://github.com/worldmaking/nodelab/blob/gh-pages/paper.html)
+- [Live version](https://alicelab.world/nodelab/paper.html)
+
+The paper should provide:
+
+- Title, date
+- Names of all authors
+
+For the world-engine in general:
+- Documentation of the development of the project as a whole
+- Assessment of related works
+
+For each technical component of the engine (e.g. Replication, UI/HUD, voice-over-RTC, etc.)
+- Detail of the technology stack & implementation (use diagrams if it is easier)
+- Description of the primary challenges and solutions found to overcome them
+- A description of future work to be done on this project
+
+For each of the worlds/artworks:
+- Title
+- A video capture of the world, around 2 minutes, including narration. Recording via Zoom screen capture is fine. 
+- An overview of the concepts and motivation of the work 
+- Description of the primary challenges and solutions found to overcome them
+- A description of future work to be done on this project
+
 
 <!--
 
