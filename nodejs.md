@@ -146,6 +146,7 @@ You can pretty much copy from your code on Stackblitz and paste into a static fi
 And unlike Stackblitz, now you can load local assets like GLTF, images, etc. from the same folder. 
 
 However, for running WebXR, you will run into trouble because the WebXR spec is only permitted on secure HTTPS, while the standard express localhost site is unsecure HTTP. See notes below.
+
 ## WS
 
 Serving HTML pages is fine enough for passive experiences, but what if you want something more dynamic -- where the browser and the Node 'server' are talking to each other continuously? Here, [WebSockets](https://en.wikipedia.org/wiki/WebSocket) can help. They are a bi-directional message-passing network protocol (not the only such thing, but a very commonly-supproted one) which can sit upon the HTTP protocol. It works on most browsers already.  To use them in Node.js, we need another library. [Try this one](https://github.com/websockets/ws):
